@@ -1,0 +1,64 @@
+PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - AliyunOSSiOS (2.10.8)
+  - FDFoundationObjC (1.0.4):
+    - MJExtension
+  - FDNetworkObjC (1.2.2):
+    - AFNetworking (~> 4.0.1)
+    - AliyunOSSiOS
+    - FDFoundationObjC
+    - Qiniu
+    - SDWebImage
+  - HappyDNS (0.3.17)
+  - MJExtension (3.2.4)
+  - Qiniu (8.1.2):
+    - HappyDNS (~> 0.3.17)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
+
+DEPENDENCIES:
+  - FDNetworkObjC (from `../`)
+
+SPEC REPOS:
+  http://git.bogokj.com/fandong/BogoSpec.git:
+    - FDFoundationObjC
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - AliyunOSSiOS
+    - HappyDNS
+    - MJExtension
+    - Qiniu
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  FDNetworkObjC:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  AliyunOSSiOS: 8db92936545593b9e5c66d680ef2ac0738946651
+  FDFoundationObjC: 03a3762835ee3678eb42dd752433f11606843ea6
+  FDNetworkObjC: ebdcdf725059ef0665d304b55a55459946ea4a09
+  HappyDNS: 848ef73e24f2b0e2752064223ce2dc0dd88900ea
+  MJExtension: 88e0900751b6cac8de1cf724ca9838a0b28d5acb
+  Qiniu: 227df98daf83303c3684bce92b8dbcf7689c59fe
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+
+PODFILE CHECKSUM: 67f7c9f6ff1ffba93b7ff36e7e70b1c7332854c8
+
+COCOAPODS: 1.10.1

@@ -1,0 +1,97 @@
+//
+//  BuguLive.pch
+//  BuguLive
+//
+//  Created by xfg on 16/2/15.
+//  Copyright © 2016年 xfg. All rights reserved.
+//
+
+#define BuguLive_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+//@import TXLiteAVSDK_Professional;
+//#import "TXLiteAVSDK_Professional/TXLiteAVSDK.h"
+
+#define KBogoTimeReloadList @"KBogoTimeReloadList"
+
+#import "AppchangeHeader.h"
+
+// 系统
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "FDFoundationObjC.h"
+
+// 直播SDK
+#import <ImSDK/ImSDK.h>
+#import <TLSSDK/TLSHelper.h>
+#import <QALSDK/QalSDKProxy.h>
+#import "TIMAdapter.h"
+// 第三方
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
+#import "MJExtension.h"
+//#import <UMSocialCore/UMSocialCore.h>
+
+//#import <qmuikit>
+#import "QMUIMarqueeLabel.h"
+
+#import "Masonry.h"
+#import "IQKeyboardManager.h"
+#import "XXNibConvention.h" // xib桥接 第三方
+#import "SVProgressHUD.h"
+#import "TWMessageBarManager.h"
+#import <FLAnimatedImage/FLAnimatedImage.h>
+#import "BlocksKit.h"
+#import "BlocksKit+UIKit.h"
+#import "FTAnimation.h"
+#import "SDWebImageHeaders.h"
+#import "KVOController.h"
+#import "HMSegmentedControl.h"
+#import "WXApi.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "WXApiObject.h"
+#import "MMSheetView.h"
+#import <YYKit.h>
+
+#import "UIView+RTL.h"
+#import "LocalizedView.h"
+
+// 自定义
+#import "BGGeneralHeader.h"
+#import "BGBaseHeader.h"
+#import "CommonLibrary.h"
+#import "AppModelHeader.h"
+#import "AppDelegate.h"
+#import "BGIMMsgHandler.h"
+#import "BGIMPrivateMsgHandler.h"
+#import "dataModel.h"
+#import "LiveHeader.h"
+#import "MainHeader.h"
+#import "MusicTotalHeader.h"
+#import "BGMainWebViewController.h"
+#import "BGNavigationController.h"
+#import "BGTabBarController.h"
+
+//BMK
+#import "STBMapKitHeader.h"
+#import "PopMenuHeader.h"
+
+#import "HKPTimeLine.pch"
+
+
+//基类model
+#import "MGBaseModel.h"
+
+//扩展
+#import "BGExtensions.h"
+
+#import "UIImage+CY.h"
+
+#import "BogoNetworkKit.h"
+#import "BogoNetworkResponseModel.h"
+
+#endif

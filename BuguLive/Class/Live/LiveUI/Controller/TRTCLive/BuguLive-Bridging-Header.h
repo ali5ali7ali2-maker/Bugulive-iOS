@@ -1,0 +1,22 @@
+//
+//  BuguLive.pch
+//  BuguLive
+//
+//  Created by xfg on 16/2/15.
+//  Copyright © 2016年 xfg. All rights reserved.
+//
+
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <UIKit/UIKit.h>
+#import "GlobalVariables.h"
+#import "IMALoginParam.h"
+#import "MBProgressHUD+MJ.h"
+#import "NSObject+CommonBlock.h"
+#import "BGIMLoginManager.h"
+#import "TRTCBridging.h"
+#import "MLEmojiLabel.h"
+
+
+

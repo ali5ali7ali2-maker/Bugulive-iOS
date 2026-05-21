@@ -1,0 +1,19 @@
+#import <UIKit/UIKit.h>
+#import "music_obj.h"
+@interface RecordMusicInfo : NSObject
+@property (nonatomic, copy) NSString* filePath;
+@property (nonatomic, copy) NSString* soneName;
+@property (nonatomic, copy) NSString* singerName;
+@property (nonatomic, assign) CGFloat duration;
+@end
+
+/**
+ *  短视频录制VC
+ */
+@interface TCVideoRecordViewController : UIViewController
+@property (nonatomic,strong) NSString *videoPath;
+@property (nonatomic,copy) NSString *musicPatch;
+@property (nonatomic,strong) music_obj *model;
+@property (nonatomic,assign) BOOL savePath;
+@property (nonatomic,assign) BOOL preloadingVideos;
+@end

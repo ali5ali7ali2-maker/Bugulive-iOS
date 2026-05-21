@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MineGuildViewController">
+            <connections>
+                <outlet property="contentView" destination="ueH-th-85Q" id="JE7-QE-2IE"/>
+                <outlet property="createBtn" destination="UfN-VR-NeW" id="Eet-XL-mVY"/>
+                <outlet property="joinBtn" destination="eyc-HB-eL3" id="f0b-yH-04L"/>
+                <outlet property="noView" destination="IE5-gC-xMa" id="N5F-9h-n2W"/>
+                <outlet property="scrollView" destination="l8p-F9-5Gz" id="0hv-93-9DV"/>
+                <outlet property="titleLabel" destination="IEx-Fs-PFM" id="x4C-X8-MDU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l8p-F9-5Gz">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ueH-th-85Q">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            <subviews>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IE5-gC-xMa">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEx-Fs-PFM" userLabel="您还未加入公会哦 您可以创建一个自己的公会也可以选择加入一个公会">
+                                            <rect key="frame" x="20" y="15.000000000000002" width="335" height="28.666666666666671"/>
+                                            <string key="text">您还未加入公会哦
+您可以创建一个自己的公会也可以选择加入一个公会</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfN-VR-NeW" customClass="QMUIButton">
+                                            <rect key="frame" x="10" y="63.666666666666657" width="355" height="90"/>
+                                            <color key="backgroundColor" red="0.92941176470588238" green="0.95294117647058818" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="90" id="ayG-6c-cgz"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="guild_创建家族" title="创建公会">
+                                                <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                <color key="baseForegroundColor" red="0.36078431372549019" green="0.54509803921568623" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                            </buttonConfiguration>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="createBtnAction:" destination="-1" eventType="touchUpInside" id="MVp-9v-TWx"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyc-HB-eL3" customClass="QMUIButton">
+                                            <rect key="frame" x="10" y="168.66666666666666" width="355" height="89.999999999999972"/>
+                                            <color key="backgroundColor" red="0.94901960784313721" green="0.92941176470588238" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="90" id="9GC-Oo-lCC"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="guild_加入家族" title="加入公会">
+                                                <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                <color key="baseForegroundColor" red="0.56862745098039214" green="0.32156862745098036" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                            </buttonConfiguration>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="joinBtnAction:" destination="-1" eventType="touchUpInside" id="KMT-78-F1Z"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="eyc-HB-eL3" secondAttribute="trailing" constant="10" id="020-NN-spA"/>
+                                        <constraint firstAttribute="trailing" secondItem="UfN-VR-NeW" secondAttribute="trailing" constant="10" id="7PQ-hZ-9zm"/>
+                                        <constraint firstItem="eyc-HB-eL3" firstAttribute="top" secondItem="UfN-VR-NeW" secondAttribute="bottom" constant="15" id="A3n-NX-KIN"/>
+                                        <constraint firstAttribute="trailing" secondItem="IEx-Fs-PFM" secondAttribute="trailing" constant="20" id="SMQ-UR-G1h"/>
+                                        <constraint firstItem="eyc-HB-eL3" firstAttribute="leading" secondItem="IE5-gC-xMa" secondAttribute="leading" constant="10" id="WtM-M2-npZ"/>
+                                        <constraint firstItem="IEx-Fs-PFM" firstAttribute="top" secondItem="IE5-gC-xMa" secondAttribute="top" constant="15" id="a3d-en-iOi"/>
+                                        <constraint firstItem="UfN-VR-NeW" firstAttribute="leading" secondItem="IE5-gC-xMa" secondAttribute="leading" constant="10" id="a52-1N-JiX"/>
+                                        <constraint firstItem="UfN-VR-NeW" firstAttribute="top" secondItem="IEx-Fs-PFM" secondAttribute="bottom" constant="20" id="fJ4-6g-7zh"/>
+                                        <constraint firstItem="IEx-Fs-PFM" firstAttribute="leading" secondItem="IE5-gC-xMa" secondAttribute="leading" constant="20" id="mU3-Wq-Z1Z"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="IE5-gC-xMa" firstAttribute="top" secondItem="ueH-th-85Q" secondAttribute="top" id="1iL-wX-huW"/>
+                                <constraint firstAttribute="trailing" secondItem="IE5-gC-xMa" secondAttribute="trailing" id="K9Q-OK-vQa"/>
+                                <constraint firstAttribute="bottom" secondItem="IE5-gC-xMa" secondAttribute="bottom" id="Opm-1C-vZF"/>
+                                <constraint firstItem="IE5-gC-xMa" firstAttribute="leading" secondItem="ueH-th-85Q" secondAttribute="leading" id="WFP-lE-S3t"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="ueH-th-85Q" firstAttribute="leading" secondItem="l8p-F9-5Gz" secondAttribute="leading" id="BmW-DK-EPe"/>
+                        <constraint firstItem="ueH-th-85Q" firstAttribute="centerY" secondItem="l8p-F9-5Gz" secondAttribute="centerY" id="ZZ1-Vy-HQr"/>
+                        <constraint firstAttribute="bottom" secondItem="ueH-th-85Q" secondAttribute="bottom" id="iKa-na-jkY"/>
+                        <constraint firstAttribute="trailing" secondItem="ueH-th-85Q" secondAttribute="trailing" id="qyc-FA-WMB"/>
+                        <constraint firstItem="ueH-th-85Q" firstAttribute="top" secondItem="l8p-F9-5Gz" secondAttribute="top" id="tUw-ma-qzq"/>
+                        <constraint firstItem="ueH-th-85Q" firstAttribute="centerX" secondItem="l8p-F9-5Gz" secondAttribute="centerX" id="uvA-vV-SeJ"/>
+                        <constraint firstItem="ueH-th-85Q" firstAttribute="width" secondItem="l8p-F9-5Gz" secondAttribute="width" id="xHt-wX-BcX"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="l8p-F9-5Gz" secondAttribute="trailing" id="DQp-kc-vfq"/>
+                <constraint firstAttribute="bottom" secondItem="l8p-F9-5Gz" secondAttribute="bottom" id="UcC-qD-m45"/>
+                <constraint firstItem="l8p-F9-5Gz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Wxj-2k-3Rd"/>
+                <constraint firstItem="l8p-F9-5Gz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yj1-TF-rjt"/>
+            </constraints>
+            <point key="canvasLocation" x="166.66666666666669" y="64.955357142857139"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="guild_创建家族" width="38" height="32"/>
+        <image name="guild_加入家族" width="38" height="32"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BogoCategoryViewController">
+            <connections>
+                <outlet property="collectionView" destination="eIR-ma-bXH" id="KIN-Yg-jMe"/>
+                <outlet property="tableView" destination="r8y-ry-tDf" id="4g8-K8-7Bw"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r8y-ry-tDf">
+                    <rect key="frame" x="0.0" y="88" width="110.5" height="808"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="evk-rc-92H"/>
+                        <outlet property="delegate" destination="-1" id="1bQ-rO-6mZ"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8Q-AR-ykx">
+                    <rect key="frame" x="0.0" y="44" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="mre-cd-BSE"/>
+                        <constraint firstAttribute="height" constant="44" id="pqU-fQ-Wjg"/>
+                    </constraints>
+                    <state key="normal" image="shop_back_w.png"/>
+                    <connections>
+                        <action selector="backBtnAction:" destination="-1" eventType="touchUpInside" id="jK8-yf-0ar"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wxJ-UJ-1va">
+                    <rect key="frame" x="44" y="51" width="355" height="30"/>
+                    <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="MbC-Kz-whv"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="输入关键词搜索" image="shop_搜索.png">
+                        <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="searchBtnAction:" destination="-1" eventType="touchUpInside" id="fFf-Ee-bSk"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eIR-ma-bXH">
+                    <rect key="frame" x="110.5" y="88" width="303.5" height="808"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H2T-fQ-1ed">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="LtF-lc-p7c"/>
+                        <outlet property="delegate" destination="-1" id="eET-L3-keb"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="wxJ-UJ-1va" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="7" id="4xg-ld-zY3"/>
+                <constraint firstItem="r8y-ry-tDf" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="100/375" id="Aez-ce-SPJ"/>
+                <constraint firstItem="eIR-ma-bXH" firstAttribute="leading" secondItem="r8y-ry-tDf" secondAttribute="trailing" id="IkR-LC-DjZ"/>
+                <constraint firstItem="r8y-ry-tDf" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="KIu-tS-BZH"/>
+                <constraint firstItem="o8Q-AR-ykx" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Qgm-ab-Mfg"/>
+                <constraint firstAttribute="bottom" secondItem="eIR-ma-bXH" secondAttribute="bottom" id="Qn2-CD-Oyw"/>
+                <constraint firstItem="wxJ-UJ-1va" firstAttribute="leading" secondItem="o8Q-AR-ykx" secondAttribute="trailing" id="YAS-SF-1gE"/>
+                <constraint firstItem="r8y-ry-tDf" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="44" id="eJu-oP-G3O"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="wxJ-UJ-1va" secondAttribute="trailing" constant="15" id="hpd-YU-gqt"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="eIR-ma-bXH" secondAttribute="trailing" id="iml-tN-8ld"/>
+                <constraint firstItem="o8Q-AR-ykx" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="oaz-wv-iHp"/>
+                <constraint firstAttribute="bottom" secondItem="r8y-ry-tDf" secondAttribute="bottom" id="sDv-8Q-SaB"/>
+                <constraint firstItem="eIR-ma-bXH" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="44" id="uhu-SI-w0E"/>
+            </constraints>
+            <point key="canvasLocation" x="131.8840579710145" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="shop_back_w.png" width="10.5" height="20"/>
+        <image name="shop_搜索.png" width="16" height="16"/>
+    </resources>
+</document>

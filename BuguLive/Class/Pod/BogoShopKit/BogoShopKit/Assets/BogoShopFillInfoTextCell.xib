@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="39" id="KGk-i7-Jjw" customClass="BogoShopFillInfoTextCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RBl-6q-KEp" customClass="QMUITextField">
+                        <rect key="frame" x="10" y="0.0" width="310" height="39"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                <color key="value" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="textFieldDidChange:" destination="KGk-i7-Jjw" eventType="editingChanged" id="6DB-yP-GlF"/>
+                        </connections>
+                    </textField>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详细地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8j-qc-UOw">
+                        <rect key="frame" x="10" y="15" width="53.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zv5-44-9fe" customClass="QMUITextField">
+                        <rect key="frame" x="73.5" y="0.0" width="236.5" height="39"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                <color key="value" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="textFieldDidChange:" destination="KGk-i7-Jjw" eventType="editingChanged" id="jf0-Q3-VBG"/>
+                        </connections>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lC-we-P3z">
+                        <rect key="frame" x="0.0" y="38" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ewD-za-ZOM"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="U8j-qc-UOw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="0Lu-51-o7N"/>
+                    <constraint firstAttribute="trailing" secondItem="9lC-we-P3z" secondAttribute="trailing" id="1Z9-nN-r3b"/>
+                    <constraint firstItem="Zv5-44-9fe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2Ol-li-Pr4"/>
+                    <constraint firstItem="U8j-qc-UOw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="53i-g8-EgV"/>
+                    <constraint firstItem="Zv5-44-9fe" firstAttribute="leading" secondItem="U8j-qc-UOw" secondAttribute="trailing" constant="10" id="9ip-Ll-7ZN"/>
+                    <constraint firstItem="RBl-6q-KEp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Aj0-Rr-6Rl"/>
+                    <constraint firstAttribute="bottom" secondItem="Zv5-44-9fe" secondAttribute="bottom" id="Prq-vE-co8"/>
+                    <constraint firstItem="RBl-6q-KEp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UGw-Oa-Tka"/>
+                    <constraint firstAttribute="trailing" secondItem="RBl-6q-KEp" secondAttribute="trailing" id="Vfi-tW-tvD"/>
+                    <constraint firstAttribute="bottom" secondItem="9lC-we-P3z" secondAttribute="bottom" id="lc5-mO-UB6"/>
+                    <constraint firstAttribute="trailing" secondItem="Zv5-44-9fe" secondAttribute="trailing" constant="10" id="mUg-O3-PDK"/>
+                    <constraint firstItem="9lC-we-P3z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="o2J-1X-FSs"/>
+                    <constraint firstAttribute="bottom" secondItem="RBl-6q-KEp" secondAttribute="bottom" id="z7u-2j-IJc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="leftTitleLabel" destination="U8j-qc-UOw" id="oyP-po-DQa"/>
+                <outlet property="rightTextField" destination="Zv5-44-9fe" id="W6c-rI-TXi"/>
+                <outlet property="textField" destination="RBl-6q-KEp" id="x5B-Nd-5aV"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="151.00446428571428"/>
+        </tableViewCell>
+    </objects>
+</document>

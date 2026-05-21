@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BogoLiveCartPopView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="528"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZLg-aH-Rjg">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="528"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全部商品(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nr9-xY-qhb">
+                            <rect key="frame" x="10" y="10" width="88" height="20"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXc-UQ-kQR" customClass="QMUIButton">
+                            <rect key="frame" x="316" y="0.0" width="88" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="L52-VC-a3g"/>
+                                <constraint firstAttribute="width" constant="88" id="NIJ-RJ-HNt"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="添加商品" image="shop_添加.png">
+                                <color key="titleColor" red="0.97647058823529409" green="0.50196078431372548" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="addBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="iAf-oN-4il"/>
+                            </connections>
+                        </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jb6-Cu-dtB">
+                            <rect key="frame" x="0.0" y="45" width="414" height="483"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="nr9-xY-qhb" firstAttribute="leading" secondItem="ZLg-aH-Rjg" secondAttribute="leading" constant="10" id="Avp-WS-q13"/>
+                        <constraint firstAttribute="bottom" secondItem="jb6-Cu-dtB" secondAttribute="bottom" id="EvA-Oy-RWF"/>
+                        <constraint firstItem="jb6-Cu-dtB" firstAttribute="leading" secondItem="ZLg-aH-Rjg" secondAttribute="leading" id="M72-Su-0yb"/>
+                        <constraint firstItem="nr9-xY-qhb" firstAttribute="top" secondItem="ZLg-aH-Rjg" secondAttribute="top" constant="10" id="Pn1-nw-AaE"/>
+                        <constraint firstItem="jb6-Cu-dtB" firstAttribute="top" secondItem="nr9-xY-qhb" secondAttribute="bottom" constant="15" id="RkA-mu-CEh"/>
+                        <constraint firstAttribute="trailing" secondItem="XXc-UQ-kQR" secondAttribute="trailing" constant="10" id="U3A-3t-DMe"/>
+                        <constraint firstAttribute="trailing" secondItem="jb6-Cu-dtB" secondAttribute="trailing" id="XeR-v1-PrB"/>
+                        <constraint firstItem="XXc-UQ-kQR" firstAttribute="top" secondItem="ZLg-aH-Rjg" secondAttribute="top" id="mGs-aT-gwC"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="ZLg-aH-Rjg" secondAttribute="bottom" id="IeR-oO-oUI"/>
+                <constraint firstItem="ZLg-aH-Rjg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WG7-Cb-cFX"/>
+                <constraint firstItem="ZLg-aH-Rjg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dOp-1f-TDs"/>
+                <constraint firstAttribute="trailing" secondItem="ZLg-aH-Rjg" secondAttribute="trailing" id="hWB-Cv-piH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addBtn" destination="XXc-UQ-kQR" id="HBF-la-Lpb"/>
+                <outlet property="countLabel" destination="nr9-xY-qhb" id="mVt-4W-47v"/>
+                <outlet property="tableView" destination="jb6-Cu-dtB" id="2Dc-UG-aXd"/>
+            </connections>
+            <point key="canvasLocation" x="90" y="281"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="shop_添加.png" width="18" height="18"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

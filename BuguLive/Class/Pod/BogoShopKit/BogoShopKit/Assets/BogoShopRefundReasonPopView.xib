@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BogoShopRefundReasonPopView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="498"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退款原因" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwM-KR-AZu">
+                    <rect key="frame" x="174" y="15" width="66" height="20"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEz-2D-Nj5">
+                    <rect key="frame" x="50" y="443" width="314" height="40"/>
+                    <color key="backgroundColor" red="0.95686274509803915" green="0.14117647058823529" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="I7B-ke-zyQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="关闭"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="closeBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="QjW-en-31O"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VUB-d4-SfN">
+                    <rect key="frame" x="0.0" y="50" width="414" height="373"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeS-qJ-QPO">
+                    <rect key="frame" x="374" y="0.0" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Gf3-F3-0Cb"/>
+                        <constraint firstAttribute="width" constant="40" id="Q5Z-1U-fL9"/>
+                    </constraints>
+                    <state key="normal" image="shop_退款_原因.png"/>
+                    <connections>
+                        <action selector="closeBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="MiM-vK-iah"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="hEz-2D-Nj5" secondAttribute="trailing" constant="50" id="2CM-sp-joT"/>
+                <constraint firstAttribute="bottom" secondItem="hEz-2D-Nj5" secondAttribute="bottom" constant="15" id="3mF-Ym-Zij"/>
+                <constraint firstItem="VwM-KR-AZu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="77J-UB-bvi"/>
+                <constraint firstItem="VUB-d4-SfN" firstAttribute="top" secondItem="VwM-KR-AZu" secondAttribute="bottom" constant="15" id="9yR-Zp-5Ls"/>
+                <constraint firstItem="hEz-2D-Nj5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="BVp-Cc-XEM"/>
+                <constraint firstItem="hEz-2D-Nj5" firstAttribute="top" secondItem="VUB-d4-SfN" secondAttribute="bottom" constant="20" id="HQQ-KS-erg"/>
+                <constraint firstItem="CeS-qJ-QPO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gyb-SH-0VP"/>
+                <constraint firstItem="VwM-KR-AZu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="lVI-DL-rYa"/>
+                <constraint firstItem="VUB-d4-SfN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lj8-aM-5Kb"/>
+                <constraint firstAttribute="trailing" secondItem="VUB-d4-SfN" secondAttribute="trailing" id="pPD-3b-eTA"/>
+                <constraint firstAttribute="trailing" secondItem="CeS-qJ-QPO" secondAttribute="trailing" id="zvr-zY-lWI"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="tableView" destination="VUB-d4-SfN" id="zGX-PA-wh3"/>
+            </connections>
+            <point key="canvasLocation" x="-216" y="208"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="shop_退款_原因.png" width="12" height="13"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

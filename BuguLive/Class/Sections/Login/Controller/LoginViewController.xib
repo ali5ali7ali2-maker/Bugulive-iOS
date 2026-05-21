@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
+            <connections>
+                <outlet property="phoneBtn" destination="Rbt-vH-rh6" id="NJM-Rx-Raa"/>
+                <outlet property="qqBtn" destination="ops-ab-UBh" id="kXA-91-KdH"/>
+                <outlet property="view" destination="aLf-6Z-KJc" id="Od5-Xa-gEy"/>
+                <outlet property="vistorLoginBtn" destination="spN-g9-sbB" id="xEk-Pk-0aW"/>
+                <outlet property="wechatBtn" destination="DiQ-Fi-fYb" id="vXa-ET-ckO"/>
+                <outlet property="weiboBtn" destination="K2t-xr-DfG" id="gZ0-Gd-WC8"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="aLf-6Z-KJc">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lg_bg" translatesAutoresizingMaskIntoConstraints="NO" id="DeW-4j-itx">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录即代表你同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xz-va-zbu">
+                    <rect key="frame" x="106" y="632" width="99" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="426-rT-8H1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbt-vH-rh6">
+                    <rect key="frame" x="40" y="379" width="295" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="手机登录" image="lg_btn_phone" backgroundImage="lg_btn_back"/>
+                    <connections>
+                        <action selector="phoneLoginBtnAction:" destination="-1" eventType="touchUpInside" id="sYd-fY-xBe"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ops-ab-UBh">
+                    <rect key="frame" x="196" y="508" width="18" height="22"/>
+                    <state key="normal" image="lg_btn_qq"/>
+                    <connections>
+                        <action selector="qqLoginBtnAction:" destination="-1" eventType="touchUpInside" id="KBJ-Qo-JAc"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGa-so-0Og">
+                    <rect key="frame" x="203" y="626" width="99" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="《用户隐私政策》">
+                        <color key="titleColor" red="0.9940226674079895" green="0.76274317502975464" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spN-g9-sbB">
+                    <rect key="frame" x="160.5" y="574" width="54" height="28"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="游客登录">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="visitorLoginBtnAction:" destination="-1" eventType="touchUpInside" id="uEW-Mh-4uw"/>
+                        <action selector="vistorLoginBtnAction:" destination="-1" eventType="touchUpInside" id="kna-Ed-z7y"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其他方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wz1-ll-Ueo">
+                    <rect key="frame" x="126" y="511" width="54" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DiQ-Fi-fYb">
+                    <rect key="frame" x="40" y="440" width="295" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="微信登录" image="lg_btn_wechat" backgroundImage="lg_btn_white_back">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="wechatLoginBtnAction:" destination="-1" eventType="touchUpInside" id="d9g-hv-tYu"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cby-vb-7HU">
+                    <rect key="frame" x="203" y="626" width="99" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="《用户隐私政策》">
+                        <color key="titleColor" red="0.9940226674079895" green="0.76274317502975464" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="agreementBtnAction:" destination="-1" eventType="touchUpInside" id="TGn-CF-5Yd"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2t-xr-DfG">
+                    <rect key="frame" x="236" y="508" width="21" height="22"/>
+                    <state key="normal" image="lg_btn_weibo"/>
+                    <connections>
+                        <action selector="weiboLoginBtnAction:" destination="-1" eventType="touchUpInside" id="BEA-u7-l1S"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="K2t-xr-DfG" firstAttribute="centerY" secondItem="ops-ab-UBh" secondAttribute="centerY" id="7US-Sf-qcF"/>
+                <constraint firstItem="cby-vb-7HU" firstAttribute="bottom" secondItem="vGa-so-0Og" secondAttribute="bottom" id="9WX-Xn-dlb"/>
+                <constraint firstItem="ops-ab-UBh" firstAttribute="leading" secondItem="Wz1-ll-Ueo" secondAttribute="trailing" constant="16" id="9t1-cV-9L6"/>
+                <constraint firstItem="cby-vb-7HU" firstAttribute="centerY" secondItem="2xz-va-zbu" secondAttribute="centerY" id="CSK-Xk-wOj"/>
+                <constraint firstItem="Wz1-ll-Ueo" firstAttribute="top" secondItem="DiQ-Fi-fYb" secondAttribute="bottom" constant="30" id="DXN-rA-R40"/>
+                <constraint firstAttribute="trailing" secondItem="Rbt-vH-rh6" secondAttribute="trailing" constant="40" id="GW2-VE-2Mt"/>
+                <constraint firstItem="2xz-va-zbu" firstAttribute="baseline" secondItem="cby-vb-7HU" secondAttribute="baseline" id="LtN-j7-mlj"/>
+                <constraint firstItem="cby-vb-7HU" firstAttribute="top" secondItem="vGa-so-0Og" secondAttribute="top" id="M3x-BC-weP"/>
+                <constraint firstItem="2xz-va-zbu" firstAttribute="baseline" secondItem="cby-vb-7HU" secondAttribute="firstBaseline" id="MZe-mu-6bL"/>
+                <constraint firstItem="DeW-4j-itx" firstAttribute="top" secondItem="aLf-6Z-KJc" secondAttribute="top" id="Nqe-6M-WxA"/>
+                <constraint firstAttribute="trailing" secondItem="DeW-4j-itx" secondAttribute="trailing" id="PSx-jO-zL4"/>
+                <constraint firstItem="cby-vb-7HU" firstAttribute="baseline" secondItem="vGa-so-0Og" secondAttribute="firstBaseline" id="Pfg-FR-gTW"/>
+                <constraint firstItem="cby-vb-7HU" firstAttribute="leading" secondItem="2xz-va-zbu" secondAttribute="trailing" constant="-2" id="Qbn-bl-w6v"/>
+                <constraint firstItem="2xz-va-zbu" firstAttribute="leading" secondItem="aLf-6Z-KJc" secondAttribute="leadingMargin" constant="90" id="W7W-i0-v02"/>
+                <constraint firstItem="Rbt-vH-rh6" firstAttribute="leading" secondItem="aLf-6Z-KJc" secondAttribute="leading" constant="40" id="YuA-Gk-EIl"/>
+                <constraint firstItem="Rbt-vH-rh6" firstAttribute="centerX" secondItem="aLf-6Z-KJc" secondAttribute="centerX" id="ZPA-aO-dYl"/>
+                <constraint firstItem="DeW-4j-itx" firstAttribute="leading" secondItem="Wz1-ll-Ueo" secondAttribute="trailing" constant="-180" id="Zcr-tg-S39"/>
+                <constraint firstItem="DiQ-Fi-fYb" firstAttribute="leading" secondItem="aLf-6Z-KJc" secondAttribute="leading" constant="40" id="aAa-KE-ecI"/>
+                <constraint firstAttribute="bottom" secondItem="DeW-4j-itx" secondAttribute="bottom" id="dtr-w0-Bb7"/>
+                <constraint firstItem="K2t-xr-DfG" firstAttribute="leading" secondItem="ops-ab-UBh" secondAttribute="trailing" constant="22" id="eDG-40-ELp"/>
+                <constraint firstItem="cby-vb-7HU" firstAttribute="leading" secondItem="vGa-so-0Og" secondAttribute="leading" id="f0E-2O-Lk4"/>
+                <constraint firstAttribute="trailing" secondItem="DiQ-Fi-fYb" secondAttribute="trailing" constant="40" id="hoZ-dq-Tj2"/>
+                <constraint firstItem="ops-ab-UBh" firstAttribute="centerY" secondItem="Wz1-ll-Ueo" secondAttribute="centerY" id="kgI-g4-Yky"/>
+                <constraint firstItem="spN-g9-sbB" firstAttribute="centerX" secondItem="aLf-6Z-KJc" secondAttribute="centerX" id="lMH-HP-8wd"/>
+                <constraint firstItem="cby-vb-7HU" firstAttribute="baseline" secondItem="vGa-so-0Og" secondAttribute="baseline" id="p8T-2h-W2i"/>
+                <constraint firstItem="DeW-4j-itx" firstAttribute="leading" secondItem="aLf-6Z-KJc" secondAttribute="leading" id="qEO-fZ-k2a"/>
+                <constraint firstItem="spN-g9-sbB" firstAttribute="top" secondItem="ops-ab-UBh" secondAttribute="bottom" constant="44" id="qKG-lv-N7Z"/>
+                <constraint firstItem="DiQ-Fi-fYb" firstAttribute="top" secondItem="Rbt-vH-rh6" secondAttribute="bottom" constant="20" id="sxC-GM-2B5"/>
+                <constraint firstItem="2xz-va-zbu" firstAttribute="bottom" secondItem="DeW-4j-itx" secondAttribute="bottom" constant="-20" id="tUg-HW-HH3"/>
+                <constraint firstItem="2xz-va-zbu" firstAttribute="top" secondItem="spN-g9-sbB" secondAttribute="bottom" constant="30" id="usM-47-6YR"/>
+            </constraints>
+            <point key="canvasLocation" x="-166" y="97"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="lg_bg" width="375" height="667"/>
+        <image name="lg_btn_back" width="320" height="41"/>
+        <image name="lg_btn_phone" width="14" height="22"/>
+        <image name="lg_btn_qq" width="18" height="20"/>
+        <image name="lg_btn_wechat" width="21" height="18"/>
+        <image name="lg_btn_weibo" width="21.5" height="18.5"/>
+        <image name="lg_btn_white_back" width="320" height="41"/>
+    </resources>
+</document>

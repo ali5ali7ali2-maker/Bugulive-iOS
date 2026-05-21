@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="BogoDTHeadCell">
+            <rect key="frame" x="0.0" y="0.0" width="116" height="116"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="116" height="116"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RWc-f8-F2p">
+                        <rect key="frame" x="0.0" y="0.0" width="116" height="116"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIq-NM-xaJ">
+                        <rect key="frame" x="5" y="86" width="101" height="20"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="q2P-J3-2a0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="nIq-NM-xaJ" secondAttribute="bottom" constant="10" id="ArX-aY-H7C"/>
+                <constraint firstAttribute="bottom" secondItem="RWc-f8-F2p" secondAttribute="bottom" id="Brl-tJ-jl8"/>
+                <constraint firstItem="RWc-f8-F2p" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="IFW-0r-H4l"/>
+                <constraint firstAttribute="trailing" secondItem="nIq-NM-xaJ" secondAttribute="trailing" constant="10" id="bAV-Pa-j54"/>
+                <constraint firstAttribute="trailing" secondItem="RWc-f8-F2p" secondAttribute="trailing" id="fBo-Ng-DHY"/>
+                <constraint firstItem="RWc-f8-F2p" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="nwg-79-iD2"/>
+                <constraint firstItem="nIq-NM-xaJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="xus-X5-4kn"/>
+            </constraints>
+            <size key="customSize" width="208" height="171"/>
+            <connections>
+                <outlet property="imgView" destination="RWc-f8-F2p" id="CDi-xq-Vdy"/>
+                <outlet property="topicTitleBtn" destination="nIq-NM-xaJ" id="Rcn-Wo-mfX"/>
+            </connections>
+            <point key="canvasLocation" x="84" y="129"/>
+        </collectionViewCell>
+    </objects>
+</document>

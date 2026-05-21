@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GamelistCollectionViewCell" id="gTV-IL-0wX" customClass="GamelistCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="147" height="147"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="147" height="147"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="63e-6n-Kgc">
+                        <rect key="frame" x="10" y="0.0" width="127" height="127"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="63e-6n-Kgc" secondAttribute="height" multiplier="1:1" id="GW4-FJ-lE1"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏名" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWX-54-8xZ">
+                        <rect key="frame" x="0.0" y="127" width="147" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏中" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vs5-HX-Ouh">
+                        <rect key="frame" x="15" y="97" width="117" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="G76-WZ-fDw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="vs5-HX-Ouh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="2Qs-vW-R47"/>
+                <constraint firstAttribute="trailing" secondItem="pWX-54-8xZ" secondAttribute="trailing" id="2WN-jJ-Kma"/>
+                <constraint firstItem="pWX-54-8xZ" firstAttribute="top" secondItem="63e-6n-Kgc" secondAttribute="bottom" id="4fs-bk-GbH"/>
+                <constraint firstAttribute="bottom" secondItem="pWX-54-8xZ" secondAttribute="bottom" id="MlT-do-3uG"/>
+                <constraint firstAttribute="trailing" secondItem="vs5-HX-Ouh" secondAttribute="trailing" constant="15" id="SDc-73-V3E"/>
+                <constraint firstItem="pWX-54-8xZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="VnN-mX-bcF"/>
+                <constraint firstAttribute="trailing" secondItem="63e-6n-Kgc" secondAttribute="trailing" constant="10" id="YLl-c2-NA6"/>
+                <constraint firstItem="pWX-54-8xZ" firstAttribute="top" secondItem="vs5-HX-Ouh" secondAttribute="bottom" constant="10" id="Ybu-B7-hbK"/>
+                <constraint firstItem="63e-6n-Kgc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Z9J-YG-cKw"/>
+                <constraint firstItem="63e-6n-Kgc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="uFU-Dx-FWG"/>
+            </constraints>
+            <size key="customSize" width="147" height="147"/>
+            <connections>
+                <outlet property="gameImg" destination="63e-6n-Kgc" id="j58-4K-DUl"/>
+                <outlet property="gameName" destination="pWX-54-8xZ" id="zrr-0z-C7U"/>
+                <outlet property="gamePlaying_L" destination="vs5-HX-Ouh" id="miT-XP-tun"/>
+            </connections>
+            <point key="canvasLocation" x="-15.199999999999999" y="30.134932533733135"/>
+        </collectionViewCell>
+    </objects>
+</document>

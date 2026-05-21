@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HMCenterPopView">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="170"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KO2-SP-kS4" customClass="QMUIButton">
+                    <rect key="frame" x="5.5" y="25" width="116" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="HAL-nC-nF8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="视频直播" image="mg_center_live">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="startLiveBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="5tq-ll-q3L"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwl-BQ-Gwi" customClass="QMUIButton">
+                    <rect key="frame" x="223.5" y="25" width="105" height="70"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="动态" image="mg_center_dynamic">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="voiceRoom:" destination="iN0-l3-epB" eventType="touchUpInside" id="fAl-oX-xPs"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1s-GC-9O5" customClass="QMUIButton">
+                    <rect key="frame" x="152.5" y="116" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Ukp-IU-AD5"/>
+                        <constraint firstAttribute="width" constant="40" id="Z9h-Fa-UJh"/>
+                    </constraints>
+                    <state key="normal" image="com_close_1">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="closeBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="KCU-R1-8Tt"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9xo-XN-weO" customClass="QMUIButton">
+                    <rect key="frame" x="121.5" y="25" width="102" height="70"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="视频" image="mg_center_video">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="startDynamicBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="rDG-JA-hcZ"/>
+                        <action selector="startVideoBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="EGb-eh-OHz"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="gwl-BQ-Gwi" firstAttribute="height" secondItem="KO2-SP-kS4" secondAttribute="height" id="5NA-ZW-wVA"/>
+                <constraint firstItem="gwl-BQ-Gwi" firstAttribute="width" secondItem="KO2-SP-kS4" secondAttribute="width" multiplier="0.903614" id="DDz-5Q-Smf"/>
+                <constraint firstItem="KO2-SP-kS4" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="1/3" constant="1" id="Iqm-PS-iRQ"/>
+                <constraint firstItem="s1s-GC-9O5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Mpm-bW-SCE"/>
+                <constraint firstItem="KO2-SP-kS4" firstAttribute="centerY" secondItem="9xo-XN-weO" secondAttribute="centerY" id="P6f-8B-Hmx"/>
+                <constraint firstItem="9xo-XN-weO" firstAttribute="width" secondItem="KO2-SP-kS4" secondAttribute="width" multiplier="0.879518" id="XCC-AF-OgL"/>
+                <constraint firstAttribute="bottom" secondItem="s1s-GC-9O5" secondAttribute="bottom" constant="14" id="Xun-uM-VGw"/>
+                <constraint firstItem="gwl-BQ-Gwi" firstAttribute="leading" secondItem="9xo-XN-weO" secondAttribute="trailing" id="bQk-Ae-n4d"/>
+                <constraint firstItem="gwl-BQ-Gwi" firstAttribute="centerY" secondItem="9xo-XN-weO" secondAttribute="centerY" id="dPn-lq-tvm"/>
+                <constraint firstItem="9xo-XN-weO" firstAttribute="leading" secondItem="KO2-SP-kS4" secondAttribute="trailing" id="gxU-jX-28K"/>
+                <constraint firstItem="9xo-XN-weO" firstAttribute="height" secondItem="KO2-SP-kS4" secondAttribute="height" id="v2e-ad-uzE"/>
+                <constraint firstItem="9xo-XN-weO" firstAttribute="centerX" secondItem="s1s-GC-9O5" secondAttribute="centerX" id="yg1-lm-QpV"/>
+                <constraint firstItem="9xo-XN-weO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="zsA-rO-iuG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="liveBtn" destination="KO2-SP-kS4" id="Zcl-qw-nuQ"/>
+                <outlet property="videoBtn" destination="9xo-XN-weO" id="Pic-cp-fqy"/>
+                <outlet property="voice" destination="gwl-BQ-Gwi" id="Gxg-hh-WTe"/>
+            </connections>
+            <point key="canvasLocation" x="-68" y="211.39430284857573"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="com_close_1" width="12" height="12"/>
+        <image name="mg_center_dynamic" width="62" height="48"/>
+        <image name="mg_center_live" width="62" height="48"/>
+        <image name="mg_center_video" width="62" height="48"/>
+    </resources>
+</document>

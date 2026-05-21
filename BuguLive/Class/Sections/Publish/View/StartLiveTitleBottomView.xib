@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="StartLiveTitleBottomView">
+            <rect key="frame" x="0.0" y="0.0" width="399" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="habibi_juxing" translatesAutoresizingMaskIntoConstraints="NO" id="XFU-2Q-chV">
+                    <rect key="frame" x="0.0" y="0.0" width="399" height="60"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="of0-L2-ljE">
+                    <rect key="frame" x="11" y="14" width="377" height="45"/>
+                    <string key="text">Please upload an avatar so that it can appear in the
+Discovery column on the homepage.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="of0-L2-ljE" secondAttribute="bottom" constant="1" id="2fV-pQ-4oG"/>
+                <constraint firstItem="XFU-2Q-chV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3rf-HK-J8t"/>
+                <constraint firstItem="of0-L2-ljE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="82G-ZW-NDt"/>
+                <constraint firstItem="of0-L2-ljE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="11" id="Ejy-b7-kAi"/>
+                <constraint firstAttribute="bottom" secondItem="XFU-2Q-chV" secondAttribute="bottom" id="rFx-XC-x1s"/>
+                <constraint firstAttribute="trailing" secondItem="XFU-2Q-chV" secondAttribute="trailing" id="sKp-p8-RqI"/>
+                <constraint firstItem="XFU-2Q-chV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="stz-ox-UW6"/>
+                <constraint firstAttribute="trailing" secondItem="of0-L2-ljE" secondAttribute="trailing" constant="11" id="uqW-1y-8fO"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="156" y="-119.64017991004499"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="habibi_juxing" width="355" height="75"/>
+    </resources>
+</document>

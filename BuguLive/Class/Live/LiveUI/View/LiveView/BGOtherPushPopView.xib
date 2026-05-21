@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pxn-LO-tdm" customClass="BGOtherPushPopView">
+            <rect key="frame" x="0.0" y="0.0" width="329" height="254"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rtmp地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="db5-Mf-sVI">
+                    <rect key="frame" x="10" y="49.5" width="74" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbt-Qn-shP">
+                    <rect key="frame" x="10" y="76.5" width="255" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bu-66-FBk">
+                    <rect key="frame" x="275" y="66.5" width="54" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="0Xi-qK-MRM"/>
+                        <constraint firstAttribute="width" constant="54" id="Kne-B5-6vC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="复制">
+                        <color key="titleColor" red="0.62352941179999999" green="0.3921568627" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="copyRtmpBtnAction:" destination="Pxn-LO-tdm" eventType="touchUpInside" id="mMr-7M-GCK"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RpV-98-ebC">
+                    <rect key="frame" x="10" y="86.5" width="309" height="1"/>
+                    <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Ngk-Qe-DgE"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="直播码：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYg-mg-wzL">
+                    <rect key="frame" x="10" y="97.5" width="57.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4o2-lQ-3s1">
+                    <rect key="frame" x="10" y="124.5" width="255" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfE-tR-JU8">
+                    <rect key="frame" x="275" y="114.5" width="54" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="pxi-bu-7OZ"/>
+                        <constraint firstAttribute="width" constant="54" id="upC-B5-33Y"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="复制">
+                        <color key="titleColor" red="0.62352941179999999" green="0.3921568627" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="copyContentBtnAction:" destination="Pxn-LO-tdm" eventType="touchUpInside" id="gGd-3F-JON"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推流地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fs1-tS-Ben">
+                    <rect key="frame" x="132" y="15" width="65.5" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNE-wk-gtX">
+                    <rect key="frame" x="289" y="0.0" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Sa2-ud-3I6"/>
+                        <constraint firstAttribute="height" constant="40" id="rzq-ki-dtb"/>
+                    </constraints>
+                    <state key="normal" image="外设直播_关  闭 (3)"/>
+                    <connections>
+                        <action selector="closeBtnAction:" destination="Pxn-LO-tdm" eventType="touchUpInside" id="JRo-dZ-IYH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="wNE-wk-gtX" firstAttribute="top" secondItem="Pxn-LO-tdm" secondAttribute="top" id="4KF-0u-IUJ"/>
+                <constraint firstAttribute="trailing" secondItem="RpV-98-ebC" secondAttribute="trailing" constant="10" id="8To-9z-3LX"/>
+                <constraint firstItem="NfE-tR-JU8" firstAttribute="leading" secondItem="4o2-lQ-3s1" secondAttribute="trailing" constant="10" id="HAl-ZG-GQo"/>
+                <constraint firstItem="fs1-tS-Ben" firstAttribute="top" secondItem="Pxn-LO-tdm" secondAttribute="top" constant="15" id="JPx-zQ-ipA"/>
+                <constraint firstAttribute="trailing" secondItem="NfE-tR-JU8" secondAttribute="trailing" id="MQR-yq-bnW"/>
+                <constraint firstItem="fs1-tS-Ben" firstAttribute="centerX" secondItem="Pxn-LO-tdm" secondAttribute="centerX" id="Obr-rm-hzP"/>
+                <constraint firstItem="4o2-lQ-3s1" firstAttribute="top" secondItem="jYg-mg-wzL" secondAttribute="bottom" constant="10" id="Oxz-lZ-b3X"/>
+                <constraint firstItem="Wbt-Qn-shP" firstAttribute="top" secondItem="db5-Mf-sVI" secondAttribute="bottom" constant="10" id="V4N-8z-LL0"/>
+                <constraint firstItem="RpV-98-ebC" firstAttribute="leading" secondItem="Pxn-LO-tdm" secondAttribute="leading" constant="10" id="ZYg-BP-Cff"/>
+                <constraint firstItem="NfE-tR-JU8" firstAttribute="top" secondItem="jYg-mg-wzL" secondAttribute="bottom" id="cFJ-4v-gkr"/>
+                <constraint firstItem="Wbt-Qn-shP" firstAttribute="leading" secondItem="Pxn-LO-tdm" secondAttribute="leading" constant="10" id="dfF-4w-jH9"/>
+                <constraint firstItem="9bu-66-FBk" firstAttribute="leading" secondItem="Wbt-Qn-shP" secondAttribute="trailing" constant="10" id="eCe-ru-3SF"/>
+                <constraint firstAttribute="trailing" secondItem="wNE-wk-gtX" secondAttribute="trailing" id="fCf-Di-j7R"/>
+                <constraint firstItem="jYg-mg-wzL" firstAttribute="leading" secondItem="Pxn-LO-tdm" secondAttribute="leading" constant="10" id="fUG-j2-sG2"/>
+                <constraint firstAttribute="trailing" secondItem="9bu-66-FBk" secondAttribute="trailing" id="jyb-KT-YJe"/>
+                <constraint firstItem="4o2-lQ-3s1" firstAttribute="leading" secondItem="Pxn-LO-tdm" secondAttribute="leading" constant="10" id="rfL-Aq-zfe"/>
+                <constraint firstItem="db5-Mf-sVI" firstAttribute="top" secondItem="fs1-tS-Ben" secondAttribute="bottom" constant="15" id="riL-8n-H0h"/>
+                <constraint firstItem="9bu-66-FBk" firstAttribute="top" secondItem="db5-Mf-sVI" secondAttribute="bottom" id="vUA-wi-a4g"/>
+                <constraint firstItem="db5-Mf-sVI" firstAttribute="leading" secondItem="Pxn-LO-tdm" secondAttribute="leading" constant="10" id="w91-dk-esI"/>
+                <constraint firstItem="jYg-mg-wzL" firstAttribute="top" secondItem="RpV-98-ebC" secondAttribute="bottom" constant="10" id="wiJ-IC-0WF"/>
+                <constraint firstItem="RpV-98-ebC" firstAttribute="top" secondItem="Wbt-Qn-shP" secondAttribute="bottom" constant="10" id="wqA-io-LIa"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="5"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="contentLabel" destination="4o2-lQ-3s1" id="Qkb-1X-7NI"/>
+                <outlet property="rtmpLabel" destination="Wbt-Qn-shP" id="Ddn-bM-Rt6"/>
+            </connections>
+            <point key="canvasLocation" x="-116.66666666666667" y="244.41964285714283"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="外设直播_关  闭 (3)" width="12" height="12"/>
+    </resources>
+</document>

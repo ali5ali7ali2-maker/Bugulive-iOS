@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="BogoNobleAlertView">
+            <rect key="frame" x="0.0" y="0.0" width="460" height="338"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bogo_noble_AlertBgImg" translatesAutoresizingMaskIntoConstraints="NO" id="uvD-de-ftg">
+                    <rect key="frame" x="0.0" y="0.0" width="460" height="338"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="67k-tv-IX9">
+                    <rect key="frame" x="105" y="122" width="250" height="95"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="95" id="jpB-bl-Gyu"/>
+                        <constraint firstAttribute="width" secondItem="67k-tv-IX9" secondAttribute="height" multiplier="250:95" id="mZa-da-lSV"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开通广播" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6c-Xu-d5b">
+                    <rect key="frame" x="193" y="60" width="74" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="0.92156862745098034" green="0.79607843137254897" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开通/续费成功，全站飘屏广播" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7h-W0-TLq">
+                    <rect key="frame" x="10" y="242" width="440" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhF-VO-4n5">
+                    <rect key="frame" x="165" y="283" width="130" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="130" id="Av5-mc-amk"/>
+                        <constraint firstAttribute="height" constant="40" id="TYf-Ya-2J0"/>
+                    </constraints>
+                    <state key="normal" title="知道了" backgroundImage="bogo_noble_Alert_ConfirmBtn"/>
+                    <connections>
+                        <action selector="clickConfirmBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="m7p-te-pNB"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="uvD-de-ftg" secondAttribute="trailing" id="0ld-Qf-2sg"/>
+                <constraint firstItem="uvD-de-ftg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="8tO-Ws-MbZ"/>
+                <constraint firstItem="g7h-W0-TLq" firstAttribute="centerX" secondItem="uvD-de-ftg" secondAttribute="centerX" id="HQ5-cf-ZUc"/>
+                <constraint firstItem="67k-tv-IX9" firstAttribute="centerX" secondItem="uvD-de-ftg" secondAttribute="centerX" id="I49-pt-osc"/>
+                <constraint firstAttribute="bottom" secondItem="uvD-de-ftg" secondAttribute="bottom" id="KoA-uh-RFR"/>
+                <constraint firstAttribute="bottom" secondItem="yhF-VO-4n5" secondAttribute="bottom" constant="15" id="Mub-kQ-e2G"/>
+                <constraint firstItem="yhF-VO-4n5" firstAttribute="top" secondItem="g7h-W0-TLq" secondAttribute="bottom" constant="24" id="Obb-0O-PCq"/>
+                <constraint firstItem="67k-tv-IX9" firstAttribute="top" secondItem="h6c-Xu-d5b" secondAttribute="bottom" constant="40" id="Pxp-jL-lSD"/>
+                <constraint firstItem="uvD-de-ftg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Skf-HM-gVc"/>
+                <constraint firstItem="g7h-W0-TLq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="W50-fD-ju7"/>
+                <constraint firstAttribute="trailing" secondItem="g7h-W0-TLq" secondAttribute="trailing" constant="10" id="kK8-w0-GuI"/>
+                <constraint firstItem="yhF-VO-4n5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="pBl-cv-7a2"/>
+                <constraint firstItem="h6c-Xu-d5b" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="60" id="tDf-xm-XIx"/>
+                <constraint firstItem="uvD-de-ftg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vli-EN-Z8s"/>
+                <constraint firstItem="h6c-Xu-d5b" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wkr-on-Ttv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bgImgView" destination="uvD-de-ftg" id="YRT-q6-rHi"/>
+                <outlet property="confirmBtn" destination="yhF-VO-4n5" id="sDD-2S-lAO"/>
+                <outlet property="contentL" destination="g7h-W0-TLq" id="1s6-oC-Nmk"/>
+                <outlet property="iconimgView" destination="67k-tv-IX9" id="o0O-36-xT1"/>
+                <outlet property="labelConstraint" destination="Obb-0O-PCq" id="oIB-pz-EsY"/>
+                <outlet property="titieL" destination="h6c-Xu-d5b" id="yTH-go-raZ"/>
+            </connections>
+            <point key="canvasLocation" x="-83" y="62"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bogo_noble_AlertBgImg" width="290" height="341"/>
+        <image name="bogo_noble_Alert_ConfirmBtn" width="130" height="40"/>
+    </resources>
+</document>

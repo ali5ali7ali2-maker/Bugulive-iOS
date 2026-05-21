@@ -1,0 +1,4 @@
+BuguLive/Others/LiveVendors/TXRTMPSDK/TXLiteAVSDK_Smart.framework/TXLiteAVSDK_Smart filter=lfs diff=lfs merge=lfs -text
+BuguLive/Others/SDK/TXLiteAVSDK_UGC.framework/TXLiteAVSDK_UGC filter=lfs diff=lfs merge=lfs -text
+BuguLive/Others/LiveVendors/IMSDK/QALSDK.framework/QALSDK filter=lfs diff=lfs merge=lfs -text
+BuguLive/TiLiveSDK_Standard2040120512/opencv2.framework/Versions/A/opencv2 filter=lfs diff=lfs merge=lfs -text

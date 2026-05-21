@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="BogoDeductionCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xinzhi" translatesAutoresizingMaskIntoConstraints="NO" id="YOx-t9-hj1">
+                        <rect key="frame" x="15" y="13" width="18" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="eXx-1n-vyM"/>
+                            <constraint firstAttribute="width" constant="18" id="kPS-PR-Wme"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可用0鑫值抵用0.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuU-hF-0bl">
+                        <rect key="frame" x="38" y="14.5" width="119" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RiA-QJ-zor">
+                        <rect key="frame" x="276" y="0.0" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="RiA-QJ-zor" secondAttribute="height" id="yXZ-Ut-7Sl"/>
+                        </constraints>
+                        <state key="normal" image="未选-1"/>
+                        <state key="selected" image="选中"/>
+                        <connections>
+                            <action selector="selectBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5Hg-Tv-zV6"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="RiA-QJ-zor" secondAttribute="trailing" id="1tr-xO-NYl"/>
+                    <constraint firstItem="YuU-hF-0bl" firstAttribute="leading" secondItem="YOx-t9-hj1" secondAttribute="trailing" constant="5" id="BxU-2d-osd"/>
+                    <constraint firstAttribute="bottom" secondItem="RiA-QJ-zor" secondAttribute="bottom" id="Ukx-uc-eYe"/>
+                    <constraint firstItem="YOx-t9-hj1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Y4t-Fs-pq4"/>
+                    <constraint firstItem="YOx-t9-hj1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ffi-hC-4ke"/>
+                    <constraint firstItem="RiA-QJ-zor" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="maM-iu-Tak"/>
+                    <constraint firstItem="YuU-hF-0bl" firstAttribute="centerY" secondItem="YOx-t9-hj1" secondAttribute="centerY" id="tkv-6d-EEG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="selectBtn" destination="RiA-QJ-zor" id="1hM-kN-k43"/>
+                <outlet property="titleLabel" destination="YuU-hF-0bl" id="IBz-eO-AKk"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="xinzhi" width="18" height="18"/>
+        <image name="未选-1" width="20" height="20"/>
+        <image name="选中" width="18" height="18"/>
+    </resources>
+</document>

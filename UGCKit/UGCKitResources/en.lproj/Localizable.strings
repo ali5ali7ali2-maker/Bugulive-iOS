@@ -1,0 +1,3053 @@
+/*
+  Infoplist.strings
+  BuguLive
+
+  Created by Top live on 2022/06/31.
+  Copyright © 2022 Top live. All rights reserved.
+*/
+
+
+
+"语言" = "language";
+
+"转子动画销毁了" = "Animation Destroyed";
+
+
+"加载失败,点击重试" = "Failed to load, click to retry";
+"没有实现代理或者没有设置代理人" = "No proxy implemented";
+
+
+"加载失败" = "Failed to load";
+"播放器被销毁了" = "Player is destroyed";
+
+
+"和" = "and";
+
+
+"keyValues参数不是一个字典" = "key Values parameter is not a dictionary";
+"filename参数为nil" = "The filename parameter is null";
+"file参数为nil" = "File parameter is null";
+"keyValuesArray参数不是一个数组" = "key Values Array parameter is not an array";
+"不是自定义的模型类" = "not a custom model class";
+"objectArray参数不是一个数组" = "object Array parameter is not an array";
+
+
+"やり直す" = "Start over";
+"やり直す - 入力" = "Redo-Enter";
+"取り消す" = "Cancel";
+"取り消す - 入力" = "Cancel Enter";
+"取消" = "Cancel";
+"重做" = "Red";
+"重做键入" = "Redo typing";
+"撤销" = "Revoke";
+"撤销键入" = "Cancel Typing";
+"重做輸入" = "Redo input";
+"還原" = "Reduction";
+"還原輸入" = "Restore input";
+
+
+"请检查 mj_label's `font` 是否设置正确" = "Please check if mj_label's `font` is set correctly";
+"%@ 没有初始实现，%@\n%@" = "%@ has no initial implementation, %@\n%@";
+
+
+"QMUI CGPostError, %@:%d %s, 非法的size：%@\n%@" = "QMUI CGPostError, %@:%d %s, illegal size：%@\n%@";
+"QMUI CGPostError, %@:%d %s, 非法的context：%@\n%@" = "QMUI CGPostError, %@:%d %s, illegal context：%@\n%@";
+
+
+"%@, 上一次界面切换的动画尚未结束就试图进行新的 push 操作，为了避免产生 bug，拦截了这次 push。\n%s, isViewControllerTransiting = %@, viewController = %@, self.viewControllers = %@" = "%@, I tried to perform a new push operation before the animation of the last interface switching was over. In order to avoid bugs, this time was intercepted.push。\n%s, isViewControllerTransiting = %@, viewController = %@, self.viewControllers = %@";
+"push 的时候 navigationController 存在一个盖在上面的 presentedViewController，可能导致一些 UINavigationControllerDelegate 不会被调用" = "When pushing, there is a presentedViewController overlaid on the navigation controller, which may cause some UI Navigation ControllerDelegate not to be called";
+"手势返回放弃了" = "Gesture back to give up";
+"执行手势返回" = "Perform gesture return";
+
+
+"%@ 里的标题、输入框、分隔线数量不匹配" = "The number of titles, input boxes, and dividers in %@ does not match";
+
+
+"%@.cellClass 必须为 QMUITableViewCell 的子类" = "%@.cellClass must be a subclass of QMUITableViewCell";
+
+
+"尝试为 %@ 添加方法 %@ 失败，可能该类里已经实现了这个方法" = "Attempt to add method %@ to %@ failed, probably already implemented in this class";
+
+
+"暂无 QMUILog 产生" = "No QMUI Log is generated yet";
+"开启全部" = "Open All";
+"禁用全部" = "Disable All";
+"清空全部" = "Clear All";
+"无结果" = "No Result";
+
+
+"请使用initWithToastView:初始化" = "Please use init With Toast View: initialize";
+"toastView不能为空" = "text View cannot be empty";
+
+
+"请使用initWithView:初始化" = "Please use init With View: to initialize";
+"view不能为空" = "View Cannot be empty";
+
+
+"%@ 需要实现 %@ 方法才能自动缓存 cell 高度" = "%@ needs to implement %@ method to automatically cache cell height";
+"必须为 estimatedRowHeight 赋一个不为0的值，或者实现 tableView:estimatedHeightForRowAtIndexPath: 方法，否则无法开启 self-sizing cells 功能" = "You must assign a value other than 0 to estimated Row Height, or implement the table View estimated Height For Row At Index Path: method, otherwise the self-sizing cells function cannot be enabled";
+
+
+"复制" = "Copy";
+
+
+"请使用initWithDelegate:初始化" = "Please use initWithDelegate: to initialize";
+
+
+"QMUICellSizeKeyCache 只支持 UICollectionViewFlowLayout" = "QMUICellSizeKeyCache 只支持 UICollectionViewFlowLayout";
+
+
+"dataSource 里的图片数量和当前显示出来的图片数量不匹配, collectionView.numberOfItems = %@, collectionViewDataSource.numberOfItems = %@, currentImageIndex = %@" = "dataSource 里的图片数量和当前显示出来的图片数量不匹配, collectionView.numberOfItems = %@, collectionViewDataSource.numberOfItems = %@, currentImageIndex = %@";
+"尝试通过 %s 获取 QMUIZoomImageView 所在的 index，但找不到 QMUIZoomImageView 所在的 cell，index 获取失败。%@" = "尝试通过 %s 获取 QMUIZoomImageView 所在的 index，但找不到 QMUIZoomImageView 所在的 cell，index 获取失败。%@";
+"%@ 需要响应 %@ 的方法 -%@" = "%@ 需要响应 %@ 的方法 -%@";
+
+
+"QMUIDisplayLinkAnimation 使用错误，当前没有 CADisplayLink 对象，请查看头文件再试试。" = "QMUIDisplayLinkAnimation 使用错误，当前没有 CADisplayLink 对象，请查看头文件再试试。";
+"没有动画Block" = "没有动画Block";
+
+
+"TableViewCellDetailButtonImage 和 TableViewCellDisclosureIndicatorImage 必须同时使用，但目前后者为 nil" = "TableViewCellDetailButtonImage 和 TableViewCellDisclosureIndicatorImage 必须同时使用，但目前后者为 nil";
+"TableViewCellDetailButtonImage 和 TableViewCellDisclosureIndicatorImage 必须同时使用，但目前前者为 nil" = "TableViewCellDetailButtonImage 和 TableViewCellDisclosureIndicatorImage 必须同时使用，但目前前者为 nil";
+
+
+"%@ 还需要实现以下方法：%@" = "%@ The following methods also need to be implemented：%@";
+
+
+"%@ 需要显示 extendLayer，但却被父级 clip 掉了，可能看不到" = "%@ need to show extendLayer，but by the parent clip dropped, may not be visible";
+
+
+
+"UIView 本身的 Layer 无须开启该属性" = "UIView self Layer No need to enable this property";
+
+
+"UIBarItem (QMUIBadge) addSubview:, 把自己作为 subview 添加到自己身上，self = %@, visibleViewController = %@, visibleState = %@, viewControllers = %@\n%@" = "UIBarItem (QMUIBadge) addSubview:, 把自己作为 subview 添加到自己身上，self = %@, visibleViewController = %@, visibleState = %@, viewControllers = %@\n%@";
+
+
+"返回" = "return";
+"关闭" = "closure";
+"拦截了一次可能产生顶部按钮混乱的操作" = "Intercepted an action that might have caused top button confusion";
+
+
+"%@个结果" = "%@个结果";
+
+
+"点击的是当前页里的第 %@ 个表情，%@" = "Click on the current page %@ emoji，%@";
+"发送" = "发送";
+
+
+"被屏蔽的 %@, contentOffset.y = %.2f" = "masked %@, contentOffset.y = %.2f";
+
+
+"预览" = "preview";
+"你最多只能选择%@张图片" = "You can only select at most %@ pictures";
+"我知道了" = "I see";
+
+
+"照片" = "photo";
+"请在设备的" = "Please in the device";
+"空照片" = "empty photo";
+"self.%@ 必须实现 %@ 并返回一个 %@ 对象" = "self.%@ Must implement %@ and return a %@ object";
+
+
+"QMUIAlertController使用错误" = "QMUIAlertControlleruse error";
+"同一个alertController不可以同时添加两个cancel按钮" = "The same alertController cannot add two cancel buttons at the same time";
+"UITextField和CustomView不能共存" = "UITextField和CustomViewcannot coexist";
+"Sheet类型不运行添加UITextField" = "SheetType does not run addUITextField";
+"UITextField 和 customView 不能共存" = "UITextField 和 customView 不能共存";
+
+
+"无法自动找到 UINavigationBar，请通过 %@.%@ 手动设置一个" = "cannot be found automatically UINavigationBar，please pass %@.%@ set one manually";
+
+
+"%@, 因为上下都不够空间，所以最大高度被强制改为%@, 位于目标的%@" = "%@, Because there is not enough space up and down, the maximum height is forced to change to%@, at the target%@";
+"上方" = "above";
+"下方" = "below";
+"%@, 因为左右都不够空间，所以最大宽度被强制改为%@, 位于目标的%@" = "%@, Because there is not enough space on the left and right, the maximum width is forced to change to%@, at the target%@";
+"左边" = "left";
+"右边" = "right";
+
+
+"QMUISearchController无法为emptyView找到合适的superview" = "QMUISearchControllerUnable to find suitable for emptyView superview";
+"搜索" = "搜索";
+
+
+"frame 发生变化, 旧的是 %@, 新的是 %@" = "frame change, old is %@, new is %@";
+"QMUITestWindow, framechange, old is %@, new is %@" = "QMUITestWindow, frame change, old is %@, new is %@";
+
+
+"UIImage (QMUI) resizableImageWithCapInsets 传进来的 capInsets 的水平/垂直方向的和应该小于图片本身的大小，否则会导致 render 时出现 invalid context 0x0 的错误。" = "UIImage (QMUI) resizableImageWithCapInsets 传进来的 capInsets The horizontal/vertical sum should be smaller than the size of the image itself，Otherwise it will cause render appears when invalid context 0x0 mistake.";
+
+
+"%@ - target indexPath : %@ ，不合法的indexPath。\n%@" = "%@ - target indexPath : %@ ，illegal indexPath。\n%@";
+"出现不合法的indexPath" = "invalid indexPath";
+"UITableView 的 estimatedRow(SectionHeader / SectionFooter)Height 属性会影响 contentSize、sizeThatFits:、rectForXxx 等方法的计算，导致计算结果不准确，建议重新考虑是否要使用 estimated。可添加 '%@' 的 Symbolic Breakpoint 以捕捉此类信息\n%@" = "UITableView 的 estimatedRow(SectionHeader / SectionFooter)Height properties affect contentSize、sizeThatFits:、rectForXxx Calculation of other methods，It leads to inaccurate calculation results, it is recommended to reconsider whether to use estimated。can be added '%@' 的 Symbolic Breakpoint to capture such information\n%@";
+
+
+"窗口 : %@ 设置了 overrideUserInterfaceStyle 属性，可能会影响 QMUIUserInterfaceStyleWillChangeNotification 的时机" = "窗口 : %@ already setup overrideUserInterfaceStyle properties that may affect QMUIUserInterfaceStyleWillChangeNotification timing";
+
+
+"测" = "Measurement";
+
+
+"qmui_visibleViewControllerIfExist:，找不到可见的viewController。self = %@, self.view = %@, self.view.window = %@" = "qmui_visibleViewControllerIfExist:，Can't find visible viewController。self = %@, self.view = %@, self.view.window = %@";
+"必现在 navigationController 栈内才能正确判断" = "must now navigationController Only in the stack can you make a correct judgment";
+
+
+"UIView (QMUI) addSubview:, 把自己作为 subview 添加到自己身上，self = %@, visibleViewController = %@, visibleState = %@, viewControllers = %@\n%@" = "UIView (QMUI) addSubview:, 把自己作为 subview 添加到自己身上，self = %@, visibleViewController = %@, visibleState = %@, viewControllers = %@\n%@";
+"尝试让一个处于非 keyWindow 上的 %@ becomeFirstResponder，可能导致界面显示异常，请添加 '%@' 的 Symbolic Breakpoint 以捕捉此类信息\n%@" = "try to get a keyWindow 上的 %@ becomeFirstResponder，It may cause the interface to display abnormally, please add '%@' 的 Symbolic Breakpoint to capture such information\n%@";
+"进行坐标系转换运算的 %@ 和 %@ 不存在共同的父 view，可能导致运算结果不准确（特别是在横竖屏旋转时，如果两个 view 处于不同的 window，由于 window 旋转有先后顺序，可能转换时两个 window 的方向不一致，坐标就会错乱）" = "for coordinate system transformation %@ 和 %@ no common parent view，It may lead to inaccurate calculation results (especially when the screen is rotated horizontally and vertically, if two view in a different window，由于 window There is a sequence of rotations, and two possible conversions window If the directions are inconsistent, the coordinates will be confused.）";
+"%@ setFrame:%@，参数包含 NaN，已被拦截并处理为 0。%@" = "%@ setFrame:%@，parameter contains NaN，has been intercepted and processed as 0。%@";
+"UIView setFrame: 出现 NaN" = "UIView setFrame: Appear NaN";
+
+
+"搜索框放大镜图片（SearchBarSearchIconImage）的大小最好为 (14, 14)，否则会失真，目前的大小为 %@" = "search box magnifying glass image（SearchBarSearchIconImage）The best size is (14, 14)，Otherwise it will be distorted, the current size is %@";
+
+
+"使用 KVC 访问了 UIKit 的私有属性，会触发系统的 NSException，建议尽量避免此类操作，仍需访问可使用 BeginIgnoreUIKVCAccessProhibited 和 EndIgnoreUIKVCAccessProhibited 把相关代码包裹起来，或者直接使用 qmui_valueForKey: 、qmui_setValue:forKey:" = "use KVC visited UIKit The private property of , will trigger the system's NSException，It is recommended to avoid such operations as much as possible, and you still need to access the BeginIgnoreUIKVCAccessProhibited 和 EndIgnoreUIKVCAccessProhibited Wrap the relevant code, or use it directly qmui_valueForKey: 、qmui_setValue:forKey:";
+
+
+"%@ setBounds:%@，参数包含 NaN，已被拦截并处理为 0。%@" = "%@ setBounds:%@, the parameter contains NaN，has been intercepted and processed as 0。%@";
+"CALayer setBounds: 出现 NaN" = "CALayer setBounds: Appear NaN";
+"%@ setPosition:%@，参数包含 NaN，已被拦截并处理为 0。%@" = "%@ setPosition:%@，parameter contains NaN，has been intercepted and processed as 0。%@";
+"CALayer setPosition: 出现 NaN" = "CALayer setPosition: Appear NaN";
+
+
+"要转换的数必须是16进制里的个位数，也即小于16，但你传给我是%@" = "The number to be converted must be a single digit in hexadecimal, that is, less than 16, but you passed it to me %@";
+
+
+"提示" = "hint";
+"您正处于移动网络环境下，是否要使用流量播放" = "You are in a mobile network environment, do you want to use data to play";
+"确定" = "确定";
+
+
+"============加载webview总耗时:%f" = "============Total time to load webview:%f";
+
+
+"跳过" = "jump over";
+
+
+"获取LaunchImage失败!请检查是否添加启动图,或者规格是否有误." = "Failed to get LaunchImage! Please check if the launch image is added, or if the specification is wrong.";
+"从 LaunchScreen 中获取启动图失败!" = "从 LaunchScreen Failed to get startup map in!";
+
+
+"GIF不循环,播放完成" = "GIF Do not loop, playback is complete";
+"未设置广告图片" = "No ad image set";
+"video不循环,播放完成" = "videoDo not loop, playback is complete";
+"Error:广告视频未找到,请检查名称是否有误!" = "Error:Ad video not found, please check if the name is wrong!";
+"未设置广告视频" = "No ad video set";
+
+
+"默认文字" = "default text";
+
+
+"FDAlertView:点击了%@" = "FDAlertView:clicked%@";
+
+
+"FDActionSheet:点击了%@" = "FDActionSheet:clicked%@";
+
+
+"请在添加的某一项后面设置间距" = "Please set the spacing after one of the added items";
+"按钮" = "按钮";
+
+
+"创建BGM目录失败" = "Failed to create BGM directory";
+"暂停：%@" = "pause：%@";
+"恢复：%@" = "recover：%@";
+
+
+"BGM List 加载成功" = "BGM List Loaded successfully";
+"青花瓷" = "blue and white porcelain";
+
+
+"启动录制成功" = "Start recording successfully";
+"启动录制失败" = "Failed to start recording";
+"视频录制成功" = "Video recording was successful";
+"视频录制失败" = "Video recording failed";
+
+
+"json解析失败：%@" = "json Parsing failed：%@";
+
+
+"霓虹鼠" = "Neon Rat";
+"疯狂打call" = "crazy fightcall";
+"Q星座" = "Q constellation";
+"彩色丝带" = "colorful ribbon";
+"刘海发带" = "bangs hair band";
+"紫色小猫" = "purple kitten";
+"花仙子" = "Flower Fairy";
+"小公举" = "Small Gongju";
+"眼镜狗" = "glasses dog";
+"彩虹云" = "rainbow cloud";
+"皮卡丘" = "Pikachu";
+"原宿复古" = "Harajuku retro";
+"AI抠背" = "AI back picking";
+
+
+"清除" = "clear";
+"无动效" = "no animation";
+"美颜(光滑)" = "Beauty (smooth)";
+"美颜(自然)" = "Beauty (Natural)";
+"美颜(P图)" = "Beauty (P-picture)";
+"美白" = "whitening";
+"红润" = "rosy";
+"大眼" = "big eyes";
+"瘦脸" = "thin face";
+"V脸" = "V face";
+"下巴" = "jaw";
+"短脸" = "short face";
+"瘦鼻" = "thin nose";
+"亮眼" = "dazzling";
+"白牙" = "White Fang";
+"祛皱" = "wrinkle removal";
+"祛眼袋" = "remove eye bags";
+"祛法令纹" = "remove nasolabial lines";
+"发际线" = "hairline";
+"眼距" = "eye distance";
+"眼角" = "corner of eye";
+"嘴型" = "Mouth type";
+"鼻翼" = "Nose";
+"鼻子位置" = "nose position";
+"嘴唇厚度" = "lip thickness";
+"脸型" = "face shape";
+"美颜" = "beauty";
+"滤镜" = "filter";
+"动效" = "animation";
+"抠背" = "pull back";
+"绿幕" = "green screen";
+"手势" = "gesture";
+"美妆" = "makeups";
+"原图" = "original image";
+"标准" = "standard";
+"樱红" = "cherry red";
+"云裳" = "Yunshang";
+"纯真" = "innocence";
+"白兰" = "Bai Lan";
+"元气" = "vitality";
+"超脱" = "detachment";
+"香氛" = "fragrance";
+"浪漫" = "romantic";
+"清新" = "fresh";
+"唯美" = "beautiful";
+"粉嫩" = "pink";
+"怀旧" = "nostalgic";
+"蓝调" = "blues";
+"清凉" = "cool";
+"日系" = "Japanese";
+
+
+"VIP秀场" = "VIP Show";
+"账号" = "account";
+"印票" = "stamp";
+"钻石" = "diamond";
+
+
+"%@:关" = "%@:close";
+"%@:开" = "%@:open";
+
+
+"沙盒中存在 %@" = "exists in the sandbox %@";
+"沙盒中不存在 %@" = "does not exist in sandbox %@";
+
+
+"JSON解码失败" = "JSON Decoding failed";
+"JSON文件%@ 写入失败 error-- %@" = "JSON document%@ write failed error-- %@";
+"JSON文件%@ 解码失败 error-- %@" = "JSON document%@ Decoding failed error-- %@";
+"从本地获取图片 %@" = "Get pictures from local %@";
+"文件夹创建失败 err %@" = "Folder creation failed error %@";
+"文件夹创建成功" = "Folder created successfully";
+"图片写入本地地址 %@" = "Write image to local address %@";
+"图片地址URL-》%@ \n下载失败" = "The map's address URL-》%@ \ndownload failed";
+
+
+"大学" = "the University";
+"中学" = "middle school";
+
+
+"图片下载失败" = "Image download failed";
+
+
+"保存失败" = "Failed to save";
+"成功保存到相册" = "successfully saved to album";
+
+
+"收到广播消息了" = "Received a broadcast message";
+"存储失败" = "Failed to store";
+
+
+"emojiDictForKey:参数不得为空" = "emojiDictForKey:Argument must not be empty";
+"表情字典%@找不到" = "Expression dictionary %@ not found";
+"regularExpressionForKey:参数不得为空" = "regularExpressionForKey:Argument must not be empty";
+"正则%@有误" = "Regular %@ is wrong";
+"归档expression.plist成功" = "archive expression.plist success";
+"归档到expressionImage.plist成功" = "archive expressionImage.plist success";
+"[微笑][撇嘴][色][发呆][得意][流泪][害羞][闭嘴][睡][大哭][尴尬][发怒][调皮][呲牙][惊讶][难过][酷][冷汗][抓狂][吐][偷笑][愉快][白眼][傲慢][饥饿][困][惊恐][流汗][憨笑][悠闲][奋斗][咒骂][疑问][嘘][晕][疯了][衰][骷髅][敲打][再见][擦汗][抠鼻][鼓掌][糗大了][坏笑][左哼哼][右哼哼][哈欠][鄙视][委屈][快哭了][阴险][亲亲][吓][可怜][菜刀][西瓜][啤酒][篮球][乒乓][咖啡][饭][猪头][玫瑰][凋谢][嘴唇][爱心][心碎][蛋糕][闪电][炸弹][刀][足球][瓢虫][便便][月亮][太阳][礼物][拥抱][强][弱][握手][胜利][抱拳][勾引][拳头][差劲][爱你][NO][OK][爱情][飞吻][跳跳][发抖][怄火][转圈][磕头][回头][跳绳][投降]" = "[Smile][pouting][colour][daze][good at][weeping][shy][To shut up][sleep][cry][Awkward][get angry][Naughty][baring teeth][surprise][sad][cool][cold sweat][crazy][spit][laughing][happy][white eyes][arrogance][hunger][sleepy][horrified][sweat][smiling][leisure][struggle][expletive][question][shush][halo] [Crazy][Bad][Skull][Knock][Goodbye][Wipe sweat][Pick nose][Applause][I'm embarrassed][Smile][Left hum][Right hum][Yawn][ Despise][grievance][crying][insidious][kiss][scare][poor][chopping knife][watermelon][beer][basketball][ping pong][coffee][rice][pig's head][rose] [wither][lips][love heart][heartbreak][cake][lightning][bomb][knife][football][ladybug][poo][moon][sun][gift][hug][strong] [weak][handshake][victory][clasped fist][seduce][fist][poor][love you][NO][OK][love][blow kiss][jump][shiver][beat fire][circle ][kowtow][turn back][skip rope][surrender]";
+
+
+"======>>>>> [%@] %@ 释放成功 <<<<======" = "======>>>>> [%@] %@ release successfully <<<<======";
+"拍照" = "Photograph";
+"相册" = "photo album";
+
+
+"下拉即可刷新" = "Pull down to refresh";
+"松开即可更新" = "Release to update";
+"上拉即可刷新" = "Pull up to refresh";
+
+
+"id %@  上传成功，信息 %@" = "id %@  Uploaded successfully, info %@";
+"id %@  上传失败，信息 %@" = "id %@  Upload failed, info %@";
+"任务均完成，刷新界面" = "Tasks are completed, refresh the interface";
+
+
+"商品介绍" = "Product desciption";
+"付款价格" = "payment price";
+"剩%02d分%02d秒  自动关闭" = "leftover %02d points %02d seconds  auto close";
+"付款" = "Payment";
+"充值" = "recharge";
+
+
+"虚拟竞拍" = "virtual auction";
+"实物竞拍" = "Physical auction";
+
+
+"最终价" = "final price";
+"立即付款" = "Immediate payment";
+"%@付款成功" = "%@ successful payment";
+"恭喜你付款成功" = "Congratulations on your successful payment";
+"无人参拍" = "Unattended shoot";
+"中拍者超时未付款" = "The winning bidder has not paid the time limit";
+"您参与的竞拍超时未付款" = "The auction you participated in has expired without payment";
+
+
+"选择位置" = "Choose a location";
+"我的位置" = "my position";
+"请输入要查询的地址名称" = "Please enter the name of the address you want to query";
+"定位失败" = "定位失败";
+"您关闭了该应用的定位权限.请在设置->隐私->定位服务->本App下选择使用期间" = "You have disabled the location permission of the app. Please select the period of use under Settings->Privacy->Location Services->This App";
+"用户关闭了该应用的定位权限." = "The user has turned off location access for the app.";
+
+
+"商品" = "Product";
+"请描述商品" = "Please describe the product";
+"发布" = "release";
+"虚拟商品拍卖设置" = "Virtual Goods Auction Settings";
+"修改商品信息" = "Modify product information";
+"编辑购物商品" = "Edit shopping items";
+"编辑" = "edit";
+"星店商品拍卖设置" = "Star shop product auction settings";
+"实物商品拍卖设置" = "Physical Goods Auction Settings";
+"商品设置" = "Product settings";
+"产品设置" = "Product settings";
+"商品ID不能为空" = "Product ID cannot be empty";
+"请上传图片" = "Please upload a picture";
+"至少上传一张图片(最多5张)" = "Upload at least one image (up to 5)";
+"商品名称不能为空" = "Product name cannot be empty";
+"商品价格不能为空" = "Product price cannot be empty";
+"请保证输入的商品价格小数点最多两位" = "Please make sure to enter the product price with up to two decimal places";
+"请输入网址" = "Please enter URL";
+"快递费不能为空" = "Courier fee cannot be empty";
+"正在发布请等待" = "is  Please wait for release";
+"商品描述不能为空" = "Product description cannot be empty";
+"请输入地址" = "Please enter address";
+"请输入商品名称" = "Please enter product name";
+"请输入联系人姓名" = "Please enter a contact name";
+"手机号限制11位数!" = "Mobile number is limited to 11 digits!";
+"请输入电话号码" = "Please enter your phone number";
+"竞拍起拍价格不能为空或0" = "Auction starting price cannot be empty or 0";
+"竞拍保证金不能为空或0" = "Auction deposit cannot be empty or 0";
+"加价幅度不能为空或0" = "Markup cannot be empty or 0";
+"请输入有效的竞拍时间" = "Please enter a valid auction time";
+"请输入延时值" = "Please enter a delay value";
+"请输入最大延时" = "Please enter a maximum delay";
+"描述不能为空" = "description cannot be empty";
+"直播间已关闭" = "The live room is closed";
+"请输入竞拍保证金" = "Please enter the auction deposit";
+"请输入加价幅度" = "Please enter a price increase";
+"请输入竞拍时间" = "Please enter the auction time";
+"请输入延时时间" = "Please enter the delay time";
+"相机" = "camera";
+"从手机相册选择" = "Select from phone gallery";
+"上传头像失败" = "Failed to upload avatar";
+"确定放弃修改商品信息？" = "Are you sure you want to give up modifying the product information?";
+"确定放弃新增商品？" = "Are you sure you want to give up the new product?";
+"确定放弃新增竞拍商品？" = "Are you sure you want to give up the new auction product?";
+"竞拍时间" = "Auction time";
+"延时值" = "Delay value";
+"最大延时" = "maximum delay";
+"小时" = "Hour";
+"分钟" = "minute";
+"次" = "Second-rate";
+"拍品名称" = "lot name";
+"请输入拍品名称" = "Please enter lot name";
+"约会时间" = "date time";
+"2016年7月18日 18 : 00" = "July 18, 2016 18 : 00";
+"点击选择约会时间" = "Click to select an appointment time";
+"约会地点" = "dating place";
+"联系人" = "contact";
+"联系电话" = "contact number";
+"点击设置约会地点" = "Click to set appointment location";
+"预置主播昵称" = "Preset anchor nickname";
+"预置主播手机号" = "Preset host phone number";
+"定位中。。。" = "Positioning。。。";
+"请在设置->隐私->定位服务->本App下选择使用期间" = "Please select the period of use under Settings->Privacy->Location Services->This App";
+"请输入起拍价" = "Please enter a starting price";
+"请输入保证金额度" = "Please enter the margin amount";
+"起拍价" = "Starting price";
+"保证金" = "Margin";
+"加价幅度" = "markup";
+"商品名称" = "product name";
+"商品价钱" = "commodity price";
+"商品链接" = "Product link";
+"快递费" = "courier fee";
+"请输入商品价钱(最多两位小数)" = "Please enter the product price (up to two decimal places)";
+"请输入商品链接" = "Please enter product link";
+"请输入快递费" = "Please enter the courier fee";
+"商品描述" = "product description";
+"请输入小于30个字符的名称" = "Please enter a name less than 30 characters";
+"请输入最大延时时间" = "Please enter the maximum delay time";
+"最大延时不超过9次合法字符" = "The maximum delay does not exceed 9 legal characters";
+"请输入商品价格" = "Please enter product price";
+"请输入小于24的合法字符" = "Please enter legal characters less than 24";
+"请输入小于60的合法字符" = "Please enter legal characters less than 60";
+"你输入的金额超过当前限制" = "The amount you entered exceeds the current limit";
+"商品描述不能超过25字" = "Product description cannot exceed 25 characters";
+
+
+"新增地址" = "Add address";
+"保存" = "keep";
+"修改地址" = "Change address";
+"修改" = "Revise";
+"请输入收货人姓名" = "Please enter consignee name";
+"请输入收货手机号" = "Please enter the receiving phone number";
+"请输入行政地区信息" = "Please enter administrative area information";
+"请输入详细地址" = "Please enter detailed address";
+"收货地址保存成功" = "Shipping address saved successfully";
+"收货地址保存不成功" = "Failed to save shipping address";
+"请输入11位电话号码" = "Please enter an 11-digit phone number";
+"请输入正确的电话号码" = "Please enter the correct phone number";
+
+
+"参拍交保证金" = "参拍交保证金";
+"为保证竞拍成功后能顺利联系到您,请填写联系方式" = "In order to ensure that you can be contacted smoothly after the auction is successful, please fill in the contact information";
+"我的竞拍" = "my auction";
+"账户余额不够，请您先充值" = "The account balance is not enough, please recharge first";
+"请输入联系人的姓名" = "Please enter the contact's name";
+"请填写收货信息" = "Please fill in the delivery information";
+"请填写联系人" = "Please fill in the contact";
+"请填写联系电话号码" = "Please fill in the contact phone number";
+"请填写详细地址" = "Please fill in the detailed address";
+
+
+"竞拍详情" = "Auction Details";
+"%.2f万" = "%.2f Ten thousand";
+"竞拍记录" = "Auction record";
+
+
+"设为拍卖" = "set as auction";
+
+
+"竞拍结束" = "Auction ends";
+"竞拍成功" = "Auction success";
+"结算中" = "settlement";
+"流拍" = "Streaming";
+"竞拍失败" = "Auction failed";
+"主播关闭竞拍" = "The anchor closes the auction";
+
+
+"延时周期: %@分钟/次" = "delay period: %@minute/Second";
+"最大延时次数: %@次" = "Maximum delay times: %@Second-rate";
+
+
+"竞拍记录 (%d)" = "Auction record (%d)";
+
+
+"竞拍需同意 XXX 竞拍协议" = "Auction requires consent XXX Auction Agreement";
+"查看协议" = "View Agreement";
+
+
+"竞拍名称:%@" = "Auction name:%@";
+
+
+"拍品详情" = "Lot Details";
+"[收起]" = "[put away]";
+"[展开]" = "[expand]";
+
+
+"系统将在您的账户中扣取%@%@作为拍卖保证金暂时托管。" = "The system will deduct %@%@ from your account as the auction deposit for temporary custody. ";
+
+
+"%.3f万" = "%.3f Ten thousand";
+"领先" = "lead";
+"出局" = "out";
+
+
+"约会地点: 福建省 厦门市 万达广场" = "Dating location: Wanda Plaza, Xiamen City, Fujian Province";
+"约会地点: %@" = "dating place: %@";
+"约会时间: 2016年06月06日 18:00" = "Date: June 6, 2016 18:00";
+"约会时间: %@" = "date time: %@";
+
+
+"拍品详情:%@" = "Lot Details:%@";
+
+
+"1<=价格<=100" = "1<=price<=100";
+"按时付费定价" = "Pay-As-You-Go Pricing";
+"请输入价格(%@/分钟)" = "Please enter a price(%@/minute)";
+"%ld<=价格<=%ld" = "%ld<=price<=%ld";
+"请输入正确的价格" = "Please enter the correct price";
+"按时付费提档" = "Pay on time";
+"确定要提档?" = "Make sure to file?";
+"按场付费定价" = "Make sure to file";
+"请输入该场价格(%@/场)" = "Please enter the price(%@/field)";
+"该直播%d%@/场" = "this live%d%@/field";
+"直播间付费人数:%d" = "The number of people who pay for the live broadcast room:%d";
+"%d秒后付费开始" = "%Payment starts after d seconds";
+"%d%@/分钟" = "%d%@/minute";
+"已观看:%d分钟" = "watched:%d minutes";
+"温馨提示" = "Kind tips";
+"账户余额:%d%@" = "Account Balance:%d%@";
+"主播开启了付费直播，%d%@/场，是否进入?" = "The anchor has started paid live broadcast, %d%@/game, whether to enter?";
+"主播开启了付费直播，%d%@/分钟，是否进入?" = "The anchor has started a paid live broadcast,%d%@/minutes, whether to enter?";
+"付费直播" = "Paid live";
+
+
+"上庄成功" = "Shangzhuang was successful";
+"输入金额不得大于账户余额" = "The amount entered cannot be greater than the account balance";
+"输入金额不得小于底金" = "The input amount must not be less than the deposit";
+"请输入有效金额" = "Please enter a valid amount";
+
+
+"用户%@不足" = "user%@insufficient";
+"还没选择礼物哦" = "No gift yet";
+
+
+"请选择玩家" = "Please select a player";
+"暂时没有玩家上庄" = "There are currently no players on the bank";
+"%@游戏币" = "%@Game currency";
+
+
+"大" = "Big";
+"小" = "Small";
+"历史记录" = "history record";
+
+
+"关闭游戏失败" = "Failed to close the game";
+"金额不足，请充值" = "Insufficient amount, please recharge";
+"是否确定结束游戏？" = "Are you sure you want to end the game?";
+"关闭游戏中，请稍后！" = "Close the game, please wait!";
+"%.1f万" = "%.1f million";
+"%@倍" = "%@times";
+
+
+"余额不足" = "Insufficient balance";
+
+
+"歌曲：%@ 演唱:%@" = "song:%@ sing:%@";
+
+
+"点歌" = "song";
+"删除" = "delete";
+"正在删除..." = "deleting...";
+
+
+"原声" = "original sound";
+"悠扬" = "melodious";
+"流行" = "Popularity";
+
+
+"热门" = "popular";
+"最新" = "up to date";
+"附近" = "nearby";
+
+
+"  VIP会员  " = "  VIP Member  ";
+"  座驾商城  " = "  Car Mall  ";
+"   靓号   " = "   Liang   ";
+"VIP会员" = "VIP Member";
+"座驾" = "car";
+"靓号" = "Liang";
+
+
+"关注" = "focus on";
+"请输入房间密码" = "Please enter the room code";
+"请输入密码" = "Please enter password";
+"密码不正确" = "The password is incorrect";
+
+
+"关注成功" = "Subscribed";
+
+
+"魅力榜" = "Charm List";
+"  日榜   " = "  Daily list   ";
+"  月榜  " = "  Monthly list  ";
+"   总榜   " = "   Overall list   ";
+"榜单介绍" = "Introduction to the list";
+"日榜" = "Daily list";
+"月榜" = "Monthly list";
+"总榜" = "Overall list";
+
+
+"贡献榜" = "Contribution list";
+
+
+"============调起首页刷新机制时间点：%@" = "============Time to activate the home page refresh mechanism:%@";
+
+
+"富豪榜" = "Rich List";
+"主播榜" = "anchor list";
+"不能查看神秘人信息" = "Unable to view mysterious person information";
+
+
+"推荐主播" = "Recommended anchor";
+"全部主播" = "All anchors";
+"亲~暂无任何内容" = "Dear ~ No content yet";
+
+
+"小视频" = "small video";
+
+
+"关注" = "focus on";
+"消费" = "Consumption";
+"获得" = "get";
+"已关注" = "Followed";
+"消费%@%@" = "Consumption%@%@";
+"用户不存在" = "User does not exist";
+
+
+"%@ 在看" = "%@ look in";
+"%@%@/场" = "%@%@/field";
+"%@%@/分钟" = "%@%@/minute";
+
+
+"想撩TA，先评论" = "Want to flirt with TA, comment first";
+
+
+"全部评论" = "All comments";
+"发表评论" = "Comment";
+"回复" = "Reply";
+"回复:%@" = "Reply:%@";
+"复制成功" = "Copy successfully";
+"评论举报" = "Report a comment";
+"说点什么···" = "say something···";
+"请输入评论的内容" = "Please enter the content of the comment";
+"回复%@" = "Reply%@";
+
+
+"选择标签" = "select label";
+
+
+"首次弹窗背景" = "first popup background";
+"每日首次登录奖励" = "Daily first login bonus";
+"知道了按钮" = "Got it button";
+"+%@经验" = "+%@experience";
+
+
+"直播" = "live streaming";
+"回播" = "Playback";
+"火星" = "Mars";
+
+
+"看全部" = "see all";
+"只看女" = "only women";
+"只看男" = "only look at men";
+"性别" = "gender";
+"地区" = "area";
+"完成" = "Finish";
+
+
+"换一换" = "change";
+"已关注主播" = "Followed the anchor";
+
+
+"关注背景" = "关注背景";
+"加关注按钮" = "add follow button";
+"小草莓" = "small strawberry";
+
+
+"%@之前" = "%@Before";
+
+
+"分享到" = "share to";
+"朋友圈" = "Circle of friends";
+"微信" = "WeChat";
+"微博" = "Weibo";
+"QQ空间" = "QQ space";
+"取消分享" = "unshare";
+"举报" = "report";
+
+
+"尽显王者荣耀" = "Show the glory of the king";
+"魅力释放中" = "The charm is being released";
+
+
+"选择" = "choose";
+"删除动态" = "delete activity";
+"是否删除此条视频" = "Whether to delete this video";
+"结束PK请求失败error:%@" = "End PK request failed error:%@";
+"当前余额不足，充值才能继续送礼，是否去充值？" = "If the current balance is insufficient, you can continue to give gifts after recharging. Do you want to recharge?";
+"%@ 已发送" = "%@ Has been sent";
+"新浪微博未安装" = "Sina Weibo is not installed";
+"微信未安装" = "WeChat is not installed";
+"QQ未安装" = "QQ is not installed";
+"分享成功" = "share success";
+"分享失败: %@" = "share failed: %@";
+
+
+"下载数据失败" = "Failed to download data";
+
+
+"按住 说话" = "hold to speak";
+"松开 结束" = "release end";
+"无私信权限，请联系客服" = "No private message permission, please contact customer service";
+"[删除]" = "[delete]";
+
+
+"手指上滑，取消发送" = "Swipe up to cancel sending";
+"松开手指，取消发送" = "Release your finger to cancel sending";
+
+
+"操作中..." = "in operation...";
+
+
+"交易" = "trade";
+"好友" = "friend";
+"未关注" = "Not following";
+"忽略未读" = "ignore unread";
+
+
+"拍摄" = "shoot";
+"礼物" = "Gift";
+"赠送游戏币" = "Gift game currency";
+"赠送%@" = "give away%@";
+"播放该消息失败" = "Failed to play this message";
+"图片无效!请重新选择" = "Invalid image!Please choose again";
+"请先输入发送内容" = "Please enter the content to send first";
+"获取麦克风权限失败" = "Failed to get microphone permission";
+"录音失败" = "Recording failed";
+
+
+"说话时间太短，取消发送！" = "Talking time is too short, cancel sending!";
+"游戏币" = "Game currency";
+"正在发送礼物..." = "sending gift...";
+"请输入金额" = "Please enter an amount";
+"游戏币余额:%@" = "Game currency balance:%@";
+"钻石余额:%@" = "Diamond balance:%@";
+"正在赠送游戏币..." = "Giving game currency...";
+
+
+"=========js调起的方法：%@" = "=========jsHow to call up：%@";
+"当前版本不支持该支付方式" = "The current version does not support this payment method";
+"appid为空" = "appid Is empty";
+"partnerid为空" = "partnerid Is empty";
+"prepayid为空" = "prepayid Is empty";
+"noncestr为空" = "noncestr Is empty";
+"timestamp为空" = "timestamp Is empty";
+"packagevalue为空" = "packagevalue Is empty";
+"sign为空" = "sign Is empty";
+"直播退出异常" = "Abnormal exit from live broadcast";
+"退出成功" = "exit successfully";
+"URL Schemes 为空" = "URL Schemes Is empty";
+"已复制到粘贴板" = "copied to pasteboard";
+"分享失败" = "share failed";
+"正在加载..." = "loading...";
+"加载异常" = "Loading exception";
+
+
+"微信好友" = "WeChat friends";
+"微信朋友圈" = "WeChat Moments";
+"QQ好友" = "QQ friends";
+"复制链接" = "copy Link";
+"生成海报" = "Generate poster";
+"保存到相册" = "save into the album";
+"正在保存中" = "saving";
+"成功保存，请到相册中查看" = "Saved successfully, please go to the album to view";
+"好友邀请您一起看直播！" = "Friends invite you to watch the live broadcast together!";
+"新鲜、有趣、好玩、精彩......你想要的都在这里！" = "fresh, interesting, fun, exciting......Everything you want is here!";
+
+
+"保存照片到相册\n打开布谷交友\n立即看到" = "Save photo to album\n Open Cuckoo Friends\n See it immediately";
+
+
+"保存图片\n到相册" = "Save image\n to album";
+"打开番趣\n立即看到" = "Open Fanqu\n See it now";
+
+
+"第%d行" = "the first %d Row";
+
+
+"立即体验" = "Try it now";
+
+
+"资料" = "material";
+"我的动态" = "my activity";
+"直播中" = "live";
+"回播中" = "Playing back";
+"当前有视频正在播放" = "A video is currently playing";
+
+
+"我的回播" = "my replay";
+"最热" = "hottest";
+"%d个精彩回放" = "%d highlights";
+"删除回播视频成功" = "Delete playback video successfully";
+"删除回播视频失败，请重新操作" = "Failed to delete playback video, please try again";
+
+
+"保存头像成功!" = "Save the avatar successfully!";
+
+
+"管理员列表" = "admin list";
+"当前管理员(%d/%d)" = "current admin(%d/%d)";
+"取消管理员成功" = "Cancel admin success";
+"管理员设置失败，请重新操作" = "admin setting failed, please try again";
+
+
+"oss上传头像失败" = "ops Failed to upload avatar";
+"头像更换成功" = "Avatar changed successfully";
+
+
+"%@贡献榜" = "%@Contribution list";
+"当天排行" = "Ranking of the day";
+"累计排行" = "Cumulative ranking";
+
+
+"关注" = "focus on";
+"粉丝" = "fan";
+"黑名单" = "blacklist";
+
+
+"保存成功" = "Successfully saved";
+
+
+"请选择要踢出的观众" = "Please select a viewer to kick";
+"请选择要邀请的好友" = "Please select friends to invite";
+"踢出观众" = "kick out the audience";
+"邀请好友" = "invite friends";
+
+
+"请输入用户名或用户ID" = "Please enter username or user ID";
+"请搜索用户名或用户ID" = "Please search for username or user ID";
+
+
+"直播 %.1f万" = "live streaming %.1f万";
+"直播 %@" = "live streaming %@";
+"关注 %.1f万" = "focus on %.1f Ten thousand";
+"关注 %@" = "focus on %@";
+"粉丝 %.1f万" = "fan %.1fTen thousand";
+"粉丝 %@" = "fan %@";
+"%@级" = "%@ class";
+"%.2f万钻石" = "%.2f million diamonds";
+"%@钻石" = "%@ diamond";
+"已开通" = "already opened";
+"%.3f万%@" = "%.3f Ten thousand %@";
+"%@ 个订单" = "%@ orders";
+"%@ 个竞拍" = "%@ auctions";
+"%@ 个商品" = "%@ items";
+"未认证" = "not certified";
+"等待审核" = "Moderated";
+"已认证" = "verified";
+"审核不通过" = "Audit not passed";
+"我的等级" = "my level";
+"订单管理" = "Order management";
+"竞拍管理" = "Auction management";
+"我的订单" = "My Order";
+"商品管理" = "commodity management";
+"我的购物车" = "my shopping cart";
+"0游戏币" = "0 game currency";
+"加入公会" = "join a guild";
+"创建公会" = "Create a guild";
+"加入公会" = "join a guild";
+"创建公会" = "Create a guild";
+
+
+"方维" = "Fang Wei";
+"贡献 %@ %@" = "contribute %@ %@";
+
+
+"解除拉黑" = "unblock";
+"拉黑" = "pull black";
+
+
+"暂时还未命名" = "not named yet";
+
+
+"TA好像忘记签名了" = "TA seems to have forgotten to sign";
+
+
+"释放充值" = "release recharge";
+"兑换" = "exchange";
+"余额：%zd" = "Balance: %zd";
+"请先勾选是否同意用户充值免责协议" = "Please tick whether to agree to the user recharge disclaimer agreement";
+"正在提交中" = "submitting";
+"支付请求中,请稍后" = "payment request,please wait";
+"正在提交iTunes Store,请等待..." = "Submitting to iTunes Store,Please wait...";
+"您已禁止应用内付费购买商品" = "You have disabled in-app purchases";
+"错误" = "mistake";
+"请求失败" = "Request failed";
+"支付成功" = "payment successful";
+"支付失败" = "Payment failed";
+"支付出现异常" = "Payment is abnormal";
+"支付异常" = "abnormal payment";
+"请求开始请等待..." = "Please wait for the request to start...";
+"无法获取产品信息，购买失败。" = "Unable to get product information, purchase failed。";
+"产品付费数量:%lu" = "Product Paid Quantity:%lu";
+"交易失败" = "transaction failed";
+"已经购买过该产品" = "already purchased this product";
+"商品添加进列表" = "product added to list";
+"---------进入了这里" = "---------entered here";
+"购买失败" = "Failed purchase";
+"用户取消交易" = "User cancels transaction";
+"您已经取消交易" = "You have cancelled the transaction";
+"同意" = "agree";
+" 用户充值免责协议" = " User Recharge Disclaimer Agreement";
+
+
+"支付宝" = "Alipay";
+"苹果内购" = "Apple in-app purchases";
+"微信支付" = "WeChat Pay";
+
+
+"售价:0.01" = "selling price:0.01";
+"赠送10000游戏币" = "Give away 10000 game coins";
+"输入其它金额" = "Enter another amount";
+"售价:%@" = "selling price:%@";
+
+
+"%@余额:1239398" = "%@ balance:1239398";
+"兑换比例:20" = "Exchange ratio:20";
+"单次兑换超过上限" = "A single exchange exceeds the limit";
+"%zd游戏币" = "%zd game currency";
+"当前%@不足" = "current %@ insufficient";
+"%@余额:%zd" = "%@ balance :%zd";
+"兑换比例: %@" = "Exchange ratio: %@";
+
+
+"存储数据失败" = "Failed to store data";
+"存储数据成功" = "Stored data successfully";
+"获取数据成功" = "Get data successfully";
+"删除数据失败" = "Failed to delete data";
+"删除表成功" = "Delete table successfully";
+"删除表失败" = "drop table failed";
+"无效的数据" = "invalid data";
+"操作成功" = "Successful operation";
+"操作失败" = "operation failed";
+"网络请求失败" = "network request failed";
+"服务器返回不支持的支付方式" = "The server returned an unsupported payment method";
+"正在请求Itunes Store请等待" = "Requesting Itunes Store please wait";
+"无法获取产品信息，购买失败" = "Unable to get product information, purchase failed";
+"您已取消交易" = "You have cancelled the transaction";
+"下载中" = "downloading";
+"下载地址错误" = "Download URL is wrong";
+"~~~~~~~~~~~~~~音乐下载地址:%@" = "~~~~~~~~~~~~~~Music download address:%@";
+"下载文件歌曲失败" = "Download file song failed";
+"下载完成" = "Download completed";
+"保存歌曲失败" = "Failed to save song";
+"什么歌曲" = "what song";
+"什么作者" = "what author";
+"什么歌曲2" = "what song 2";
+"什么作者2" = "what author 2";
+"加载成功" = "Loaded successfully";
+"获取歌曲地址失败" = "Failed to get song address";
+"获取歌曲成功" = "get song success";
+
+
+"售价:￥%.2f元" = "selling price:￥%.2f Yuan";
+
+
+"兑换比例:%@" = "Exchange ratio:%@";
+"请输入有效的兑换金额" = "Please enter a valid exchange amount";
+
+
+"附近的人" = "People nearby";
+"全部话题" = "All topics";
+
+
+"短视频" = "short video";
+"美女live" = "beauty live";
+"话题" = "topic";
+"%@人参与了该话题" = "%@ people engaged in the topic";
+"#大约在冬季#" = "#around winter#";
+"今日更新" = "Update today";
+
+
+"支付宝认证" = "Alipay authentication";
+"昵称" = "Nick name";
+"讨论" = "discuss";
+"时间" = "time";
+"距离" = "distance";
+"%@ 人讨论" = "%@ people discuss";
+
+
+"发帖" = "post";
+
+
+"刚刚" = "just";
+"%ld分前" = "%ld before the score";
+"%ld小前" = "%ld small front";
+"%ld天前" = "%ld Days ago";
+"%ld月前" = "%ld month ago";
+
+
+"凌晨" = "early morning";
+"上午" = "morning";
+"下午" = "afternoon";
+"晚上" = "night";
+"昨天%@" = "yesterday%@";
+
+
+"昨天 HH:mm" = "yesterday HH:mm";
+"前天 HH:mm" = "the day before yesterday HH:mm";
+"M月d日" = "M month d day";
+"yyyy年MM月dd日" = "yyyy Year MM month dd day";
+
+
+"系统消息" = "system information";
+
+
+"创建中..." = "under creation...";
+"录音机创建失败..." = "Recorder creation failed...";
+"录音器创建失败" = "Recorder creation failed";
+"创建完成..." = "Created...";
+"麦克风未开启权限" = "Microphone is not enabled";
+"初始化..." = "initialization...";
+"初始化录音机失败" = "Failed to initialize recorder";
+"录音器初始化失败" = "Recorder initialization failed";
+"无法录音" = "Can't record";
+"确认" = "confirm";
+
+
+"准备播放...%@" = "ready to play...%@";
+"播放..." = "play...";
+
+
+"试听..." = "audition...";
+"取消发送..." = "Cancel sending...";
+"发送语音" = "send voice";
+"开始录音" = "start recording";
+"发送录音111111" = "Send recording 111111";
+"录音时间太短" = "Recording time is too short";
+"准备中......" = "preparing......";
+"失败：%@" = "fail: %@";
+
+
+"按住说话" = "hold to speak";
+"点击录音" = "Click to record";
+"按住变声" = "hold down the voice changer";
+"松手试听" = "Let go and listen";
+"松手取消发送" = "Let go to cancel sending";
+"准备中" = "preparing";
+"endRecord---------结束录音" = "endRecord---------end recording";
+
+
+"变声" = "Voice Changer";
+"对讲" = "intercom";
+"录音" = "recording";
+
+
+"发送...path: %@" = "send...path: %@";
+"取消发送并删除录音" = "Cancel send and delete recording";
+
+
+"跳转到变声界面" = "Jump to voice changing interface";
+
+
+"萝莉" = "loli";
+"大叔" = "uncle";
+"惊悚" = "thriller";
+"空灵" = "ethereal";
+"搞怪" = "funny";
+"取消发送并删除录音/删除变声文件" = "Cancel send and delete recording / delete voice changer file";
+
+
+"您未指定cell排列中最后的视图对象，无法计算cell的高度" = "You did not specify the last view object in the cell arrangement, the height of the cell cannot be calculated";
+
+
+" 保存成功 " = " Successfully saved ";
+" 保存失败 " = " Failed to save ";
+
+
+"保存图片" = "save Picture";
+
+
+"图片加载失败" = "Image failed to load";
+
+
+"发布成功" = "Published successfully";
+
+
+"置顶" = "top";
+"动态内容已复制" = "Dynamic content copied";
+"匿名头像" = "anonymous avatar";
+"匿名用户" = "Anonymous User";
+"查看全部" = "view all";
+"收起" = "收起";
+"确定删除该动态？" = "Are you sure you want to delete this activity?";
+"-时间戳---%lld_----" = "-timestamp---%lld_----";
+"昨天" = "yesterday";
+"星期日" = "Sunday";
+"星期一" = "Monday";
+"星期二" = "Tuesday";
+"星期三" = "Wednesday";
+"星期四" = "Thursday";
+"星期五" = "Friday";
+"星期六" = "Saturday";
+
+
+"转发" = "Forward";
+
+
+"暂无数据" = "No data";
+"加载中..." = "Loading...";
+"网络未连接" = "network not connected";
+"请检查网络后重新加载页面" = "Please reload the page after checking the network";
+"重新加载" = "Reload";
+
+
+"动态" = "Moment";
+
+
+"请设置图片容器的宽度" = "Please set the width of the image container";
+
+
+"分享" = "share";
+
+
+"素材1" = "material 1";
+
+
+"提醒谁看" = "remind who to watch";
+"王%d明" = "Wang %d Ming";
+
+
+"添加图片/视频" = "Add picture/video";
+"添加图片" = "add pictures";
+"视频播放完成" = "Video playback is complete";
+"播放失败" = "Failed to play";
+"正在播放...视频中长度为：%f" = "Playing... The length of the video is：%f";
+"共缓冲：%.2f，总时长为:%f" = "co-buffering：%.2f，Total time is:%f";
+"缓冲区为空" = "buffer is empty";
+"缓冲区不为空======" = "buffer is not empty======";
+"最后一张观看的图片的index是:%zd" = "of the last image viewed index Yes:%zd";
+
+
+"%@人讨论" = "%@people discuss";
+
+
+"删除音频" = "delete audio";
+"添加图片不超过9张，文字备注不超过300字" = "Add no more than 9 pictures and no more than 9 text notes 300字";
+"添加图片不超过9张，文字备注不超过%d字" = "Add no more than 9 pictures, and no more than %d words for text remarks";
+"录制音频" = "record audio";
+"当前输入框文字个数:%ld" = "The current number of text in the input box:%ld";
+"文本框没字" = "no text box";
+"请输入文字" = "please enter text";
+"文本框字数超过300" = "Text box with more than 300 words";
+"超出文字限制" = "Text limit exceeded";
+"正在上传" = "uploading";
+"正在上传数据中..." = "uploading data...";
+"上传中" = "uploading";
+"发布成功!" = "Published successfully!";
+"内存警告..." = "memory warning...";
+"放弃上传" = "Abandon upload";
+"偏移量 scrollView.contentOffset.y:%f" = "Offset scrollView.contentOffset.y:%f";
+
+
+"选择照片" = "choose a photo";
+"选择视频" = "select video";
+"拍摄视频" = "Shoot video";
+"选择视频不能再选择图片" = "Select video can no longer select picture";
+"选择图片不能再选择视频" = "Can't select video anymore";
+
+
+"dynamic（动态 前缀：dn）" = "dynamic（dynamic prefix：dn）";
+
+
+"想和大家分享些什么呢?(正文不能多于%ld字)" = "What do you want to share with you? (The text cannot be more than %ld words)";
+"退出" = "quit";
+" 定位" = " position";
+"匿名" = "anonymous";
+"济南市" = "Jinan City";
+"删除话题" = "delete thread";
+"参与话题,让更多人看到" = "Participate in the topic, let more people see";
+"进入" = "Enter";
+"打开" = "Open";
+"视频" = "video";
+"按钮===========%ld" = "button===========%ld";
+"定位中..." = "Positioning...";
+"定位" = "position";
+"只有内容部分才能发表情" = "Emoticons can only be posted in the content part";
+"经度=%f 纬度=%f 高度=%f" = "longitude=%f latitude=%f altitude=%f";
+"访问被拒绝" = "access denied";
+"无法获取位置信息" = "Unable to get location information";
+"有修改，是否放弃上传" = "There are modifications, whether to abandon the upload";
+"不能少于20字哦" = "No less than 20 characters";
+"内容不能为空！" = "the content can not be blank!";
+"视频时长%d" = "Video length %d";
+"选取视频时长太小" = "The selected video is too short";
+"选取视频时长太大" = "The selected video is too long";
+"正在上传图片..." = "uploading image...";
+"上传失败" = "upload failed";
+"正在上传视频..." = "uploading video...";
+"正文不能多于%ld字" = "Body cannot be more than %ld words";
+"标题(选填)" = "Title (optional)";
+
+
+"搜索框" = "search bar";
+"话题%d" = "topic%d";
+"话题搜索" = "topic search";
+
+
+"评论" = "Comment";
+"返回按钮被点击" = "Back button is clicked";
+"播放完成" = "Play finished";
+"删除动态成功" = "delete dynamic success";
+"确定删除该动态?" = "OK to delete this activity?";
+"转发成功" = "Forwarded successfully";
+"立即\n参与" = "immediately\n participate";
+"立即参与按钮" = "Participate now button";
+
+
+"推荐" = "Recommend";
+"我的" = "mine";
+
+
+"请输入内容" = "Please enter content";
+"请输入评论内容" = "Please enter a comment";
+"评论成功" = "Comment successful";
+"是否删除评论" = "Whether to delete comments";
+
+
+"动态详情" = "Dynamic details";
+"删除成功" = "successfully deleted";
+"去看看" = "go see";
+
+
+"主播协议" = "Anchor Agreement";
+"已阅读并同意" = "read and agree";
+
+
+"选择分类" = "Choose category";
+"直播分类：%@" = "Live Category: %@";
+"取消 " = "Cancel ";
+"第一次用户拒绝" = "1st User Denied";
+"请前往设置'隐私-麦克风'开启应用权限" = "Please go to settings 'Privacy - Microphone' to enable app permissions";
+"已经开启授权，可继续" = "Authorization has been enabled, you can continue";
+"请前往设置'隐私-麦克风'打开应用权限" = "Please go to settings 'Privacy - Microphone' to open app permissions";
+"点击确认" = "Click to confirm";
+"请设置房间密码" = "Please set room password";
+"请设置一个数字密码" = "Please set a numeric password";
+"请选择分类" = "please select a type";
+"请选择封面" = "Please select a cover";
+"#添加标题上热门更轻松" = "#Adding Titles on Top is Easier";
+"请填写直播标题" = "Please fill in the title of the live broadcast";
+"房间密码应为四位数！" = "The room code should be four digits!";
+"正在努力配置直播..." = "Efforts are being made to configure the live broadcast...";
+"开始直播" = "start live";
+
+
+"开定位" = "open positioning";
+"私密" = "private";
+"密码" = "password";
+"购物" = "Shopping";
+"直播分类:请选择" = "Live Category: Please select";
+
+
+"选择封面" = "Choose a cover";
+
+
+"举报原因" = "Reason for reporting";
+"举报小视频" = "Report a small video";
+"其他原因" = "other reasons";
+"请选择举报类型" = "Please select a report type";
+
+
+"提交" = "send";
+"举报理由" = "Reason for reporting";
+"举报描述(选填)" = "Description of report (optional)";
+"请详细描述您的举报理由" = "Please describe in detail the reason for your report";
+"举报成功" = "Report successful";
+"举报提交成功" = "Report submitted successfully";
+"我们将在24小时之内进行处理" = "We will process it within 24 hours";
+
+
+"小视频详情" = "Small video details";
+"请输入您的评论" = "Please enter your comment";
+"举报该动态" = "report this activity";
+"举报该用户" = "report this user";
+
+
+"视频简介:%@" = "Video Introduction:%@";
+"写真简介:%@" = "Introduction to photo:%@";
+
+
+"回复 %@: %@" = "Reply %@: %@";
+
+
+"%d人看了照片，共收入%.2f元" = "%d People look at the photos and earn a total of%.2f元";
+"我要购买" = "I want to buy";
+
+
+"分享至:" = "share to:";
+
+
+"这一刻你的想法" = "your thoughts at this moment";
+
+
+"所在位置" = "location";
+
+
+"图片不写本地吧" = "The picture is not written locally";
+"设备不支持视频" = "Device does not support video";
+"相册中获取视频" = "Get video from album";
+
+
+"不显示" = "Do not show";
+
+
+"输入恰当的关键字" = "Enter appropriate keywords";
+
+
+"编辑封面" = "Edit cover";
+"短视频发布按钮" = "Short video release button";
+
+
+"发布短视频" = "Post a short video";
+"图片保存失败" = "Failed to save image";
+"请编辑这一刻你的想法" = "Please edit your thoughts at this moment";
+"视频数据不小心丢失了，请重新选择" = "Video data was accidentally lost, please select again";
+"帧图数据不小心丢失了，请重新选择" = "The frame image data was accidentally lost, please select again";
+"图片参数配置失败" = "Image parameter configuration failed";
+"正在发布中..." = "publishing...";
+"视频上传超时" = "Video upload timed out";
+"封面图未上传完" = "The cover image has not been uploaded";
+"视频未上传完" = "The video has not been uploaded";
+"发布失败!" = "Failed to publish!";
+"编辑视频封面" = "Edit video cover";
+
+
+"分类" = "分类";
+"添加短视频分类" = "Add short video category";
+
+
+"短视频分类" = "Short video classification";
+
+
+"反geo检索发送成功" = "Anti-geo retrieval sent successfully";
+"反geo检索发送失败" = "Anti-geo retrieval send failed";
+"搜索成功" = "Search success";
+"搜索失败" = "Search failed";
+"搜索成功1" = "Search success 1";
+"搜索失败2" = "Search failed 2";
+
+
+"这是_search 对应的POI搜索结果" = "This is the POI search result corresponding to _search";
+"这是_search2对应的POI搜索结果" = "This is the POI search result corresponding to _search2";
+
+
+"最近删除" = "Recently deleted";
+"我的照片流" = "my photo stream";
+"保存照片出错:%@" = "Error saving photo:%@";
+"保存图片失败:%@" = "Failed to save image:%@";
+"No supported file types 视频类型暂不支持导出" = "No supported file types The video type does not support exporting";
+"最近添加" = "Recently added";
+"相机胶卷" = "Camera Roll";
+"所有照片" = "all photos";
+
+
+"模拟器中无法打开照相机,请在真机中使用" = "The camera cannot be opened in the simulator, please use it in the real machine";
+
+
+"相册权限" = "Album permissions";
+"无法访问相册，请在系统设置中允许访问" = "Unable to access album, please allow access in system settings";
+"设置" = "set up";
+"发起直播" = "Start a live broadcast";
+
+
+"邀请规则" = "Invitation Rules";
+"可提现金额(元)" = "Amount that can be withdrawn (yuan)";
+"成功邀请(人)" = "Successfully invited (person)";
+"立即邀请好友赚钱" = "Invite friends to earn money instantly";
+"我的团队" = "my team";
+"一级团队" = "first level team";
+"详情 >" = "Details >";
+"二级团队" = "secondary team";
+"三级团队" = "tertiary team";
+"提现记录" = "Withdrawals record";
+
+
+"账户余额：" = "Account Balance:";
+"自定义金额" = "custom amount";
+"兑换:" = "exchange:";
+"账户余额:%@" = "Account Balance:%@";
+
+
+"公会列表" = "Guild List";
+"请输入您想要加入的公会" = "Please enter the guild you want to join";
+"是否申请加入该公会" = "Whether to apply to join the guild";
+"申请已提交" = "application submitted";
+
+
+"代理管理" = "Agent management";
+"邀请码" = "Invitation code";
+"邀请赚钱" = "Invite to earn money";
+"我的账户" = "my account";
+"我的收益" = "my earnings";
+"道具商城" = "Props mall";
+"贵族中心" = "Noble Center";
+"座驾商城" = "Car Mall";
+"购买会员" = "buy membership";
+"靓号商城" = "Lianghao Mall";
+"兑换游戏币" = "Exchange game currency";
+"送出" = "send";
+"主播认证" = "Host certification";
+"主播中心" = "Anchor Center";
+"我的小店" = "my little shop";
+"直播间收支记录" = "Live room revenue and expenditure records";
+"分享收益" = "share the benefits";
+"游戏分享收益" = "Game sharing revenue";
+"代理管理" = "Agent management";
+"车" = "car";
+"布谷票贡献榜" = "Cuckoo vote contribution list";
+"三级分销" = "tertiary distribution";
+"0印票" = "0 stamps";
+"未开通" = "nonactivated";
+"0级" = "Level 0";
+"0 个商品" = "0 items";
+"0 个订单" = "0 orders";
+
+
+"公会资料修改" = "Guild information modification";
+"请输入公会名称" = "Please enter a guild name";
+"请输入公会宣言" = "Please enter the guild declaration";
+"编辑公会头像" = "Edit Guild Avatar";
+"请填写公会名称" = "Please fill in the guild name";
+"请填写公会宣言" = "Please fill in the guild manifesto";
+"请编辑头像" = "Please edit the avatar";
+"正在创建公会请等待" = "is  Please wait to create a guild";
+"正在上传修改请等待" = "is  Please wait for uploading changes";
+"超过最大字数限制" = "Exceeded maximum character limit";
+
+
+"公会资料修改" = "Guild information modification";
+"请输入公会名称" = "Please enter a guild name";
+"请输入公会宣言" = "Please enter the guild declaration";
+"编辑公会头像" = "Edit Guild Avatar";
+"请填写公会名称" = "Please fill in the guild name";
+"请填写公会宣言" = "Please fill in the guild manifesto";
+"正在创建公会请等待" = "is  Please wait to create a guild";
+
+
+"编辑资料" = "edit information";
+
+
+"提现" = "withdraw";
+"总%@数" = "total%@数";
+"今日可领%@数" = "You can get %@ today";
+"%@提现" = "%@withdraw";
+"请输入要提现的%@数" = "Please enter the amount of %@ you want to withdraw";
+"提现成功" = "Withdrawal success";
+"0元" = "0 yuan";
+"%0.2lf元" = "%0.2lf Yuan";
+
+
+"成员列表" = "member list";
+"公会成员(%d)" = "Guild Member (%d)";
+"成员申请(%d)" = "Membership application (%d)";
+"成员申请(?人)" = "Member application (? person)";
+"公会成员(%@)" = "Guild Member (%@)";
+"成员申请(%@)" = "Membership Application (%@)";
+"是否踢出该成员" = "Whether to kick the member";
+"是否同意该成员加入公会" = "Whether to agree to the member to join the guild";
+"是否拒绝该成员加入公会" = "Whether to reject the member from joining the guild";
+
+
+"收益" = "income";
+"领取记录" = "pick up record";
+"我拍卖的商品收入" = "Income from my auctions";
+"我销售的商品收入" = "Revenue from merchandise I sell";
+"微信提现" = "WeChat cash withdrawal";
+"您还有未处理的提现" = "You have outstanding withdrawals";
+"支付宝提现" = "Alipay cash withdrawal";
+"绑定成功" = "Binding succeeded";
+"绑定失败" = "bind failed";
+
+
+"男" = "male";
+"女" = "Female";
+"性别只能修改保存一次" = "Gender can only be modified and saved once";
+
+
+"推荐人信息" = "Referrer information";
+"推荐人ID" = "Referrer ID";
+
+
+"请输入邀请码" = "Please enter the invitation code";
+"邀请码不能为空" = "Invitation code cannot be empty";
+"提交成功" = "Submitted successfully";
+
+
+"签到" = "sign in";
+
+
+"竞拍" = "auction";
+
+
+"按时收费" = "auction";
+"按场收费" = "Pay per venue";
+"付费记录" = "payment record";
+"收费记录" = "Charge record";
+
+
+"我的推荐人" = "my recommenders";
+
+
+"性别不可编辑" = "Gender is not editable";
+"编辑成功" = "Edited successfully";
+
+
+"VIP充值" = "VIP recharge";
+"永久会员" = "permanent member";
+"请选择会员套餐" = "Please select a membership package";
+"请选择支付金额" = "Please select the payment amount";
+"请选择支付方式" = "Please select the payment method";
+"会员到期日期:" = "Membership Expiration Date:";
+"恢复已购买商品" = "Restoring purchased items";
+"充值成功" = "Recharge successful";
+
+
+"账号绑定" = "account binding";
+"请输入支付宝名称" = "Please enter Alipay name";
+"请输入支付宝账号" = "Please enter your Alipay account";
+
+
+"账户:%@%@" = "account:%@%@";
+"请输入%@金额" = "please enter%@amount";
+"兑换%@" = "exchange%@";
+"请输入兑换的%@金额" = "Please enter the exchanged%@amount";
+"%d游戏币" = "%d game currency";
+"请输入足够的兑换金额" = "Please enter sufficient exchange amount";
+"兑换金额不得大于账户余额" = "The exchange amount cannot be greater than the account balance";
+"兑换失败" = "redemption failed";
+"兑换成功" = "Exchange successfully";
+
+
+"推送管理" = "Push management";
+
+
+"公会列表" = "Guild List";
+"请输入您想要加入的公会" = "Please enter the guild you want to join";
+"是否申请加入该公会" = "Whether to apply to join the guild";
+
+
+"我的星店" = "我的星店";
+"新增" = "新增";
+"编辑星店地址" = "编辑星店地址";
+"请输入正确的网址链接" = "Please enter the correct URL link";
+
+
+"帐号与安全" = "Account and Security";
+"安全等级:高" = "Security level: high";
+"您已绑定手机" = "Your phone is bound";
+
+
+"认证" = "认证";
+"带星号项为必填项,为了保证您的利益,请如实填写" = "Items with an asterisk are required, in order to ensure your interests, please fill in truthfully";
+"基本资料" = "basic information";
+"认证消息" = "Authentication message";
+"身份认证" = "Authentication";
+"公会邀请码" = "Guild invitation code";
+"(选填)" = "(optional)";
+"请输入您的公会邀请码" = "Please enter your guild invitation code";
+"昵称：%@" = "Nick name:%@";
+"性别：%@" = "gender:%@";
+"认证类型" = "Authentication type";
+"请选择认证类型" = "Please select an authentication type";
+"请输入真实姓名" = "please enter your real name";
+"请输入联系方式" = "Please enter contact information";
+"请输入18位有效的身份证号码" = "Please enter a valid 18-digit ID number";
+"请上传身份证正面照" = "Please upload a front photo of your ID card";
+"请上传身份证反面照" = "Please upload a photo of the reverse side of your ID card";
+"请上传手持身份证正面照" = "Please upload a frontal photo of your ID card";
+"请输入%@" = "please enter%@";
+"身份证反面照片上传成功" = "The photo of the reverse side of the ID card was uploaded successfully";
+"手持身份证正面照上传成功" = "The front photo of holding ID card is uploaded successfully";
+"推荐人信息类型" = "Referrer Information Type";
+
+
+"公会详情" = "Guild details";
+"道道道非常道" = "very good";
+"公会族长" = "guild patriarch";
+"公会人数" = "Guild size";
+"公会详情描述" = "Guild details";
+"成员管理" = "Member management";
+"公会成员" = "guild member";
+"退出公会" = "quit the guild";
+"公会族长 : %@" = "guild patriarch : %@";
+"公会人数 : %@人" = "Guild size : %@people";
+"申请中" = "Applying";
+"已加入" = "joined";
+"是否退出该公会" = "Whether to quit the guild";
+"您的公会未通过审核" = "Your guild has not been approved";
+"您的公会已解散" = "Your guild has been dissolved";
+
+
+"退出申请" = "withdraw application";
+"公会成员(%@)" = "guild member(%@)";
+"退出申请(%@)" = "withdraw application(%@)";
+"公会成员(%d)" = "guild member(%d)";
+"是否拒绝该成员加入公会" = "Whether to reject the member from joining the guild";
+"是否同意该成员退出公会" = "Do you agree to the member's withdrawal from the guild?";
+"退出申请(%d)" = "withdraw application(%d)";
+"是否拒绝该成员退出公会" = "Whether to refuse the member to quit the guild";
+
+
+"入会申请中" = "Application for membership";
+"退会申请中" = "Application for withdrawal";
+"状态：审核中" = "Status: under review";
+"重新申请" = "Re-apply";
+"邀请码：%@" = "Invitation code:%@";
+"会长：%@" = "President:%@";
+"公会人数：%d" = "Number of guilds:%d";
+"主播" = "anchor";
+"成员申请" = "Membership application";
+"查看详情" = "check the details";
+"观看直播" = "watch live";
+"踢出公会" = "kicked out of the guild";
+"你没有操作权限" = "you do not have permission to operate";
+"公会正在审核中" = "Guild is under review";
+"退出公会" = "quit the guild";
+"是否退出公会：%@？" = "Whether to quit the guild:%@？";
+"退会申请已提交" = "The withdrawal request has been submitted";
+"是否加入公会：%@？" = "Whether to join a guild:%@？";
+"入会申请已提交" = "Membership application submitted";
+"已复制" = "copied";
+"踢出成员" = "kick out a member";
+"是否踢出该成员？" = "Kick the member out?";
+"拒绝加入公会" = "refuse to join the guild";
+"是否拒绝该成员加入公会？" = "Do you want to deny this member from joining the guild?";
+"拒绝退出公会" = "refuse to leave the guild";
+"是否拒绝该成员退出公会？" = "Whether to refuse the member to quit the guild?";
+"同意加入公会" = "Agree to join the guild";
+"是否同意该成员加入公会？" = "Do you agree to this member joining the guild?";
+"同意退出公会" = "Agree to leave the guild";
+"是否同意该成员退出公会？" = "Do you agree to this member's withdrawal from the guild?";
+
+
+"%@元" = "%@Yuan";
+"兑换中" = "redemption";
+"累计领取:%@元" = "Accumulated collection:%@Yuan";
+
+
+"编辑昵称" = "Edit nickname";
+"编辑签名" = "edit signature";
+"编辑职业" = "Editing Occupation";
+"请输入小于33个文字" = "Please enter less than 33 characters";
+"请输入小于17个文字" = "Please enter less than 17 characters";
+"请编辑昵称" = "Please edit nickname";
+"请编辑签名" = "Please edit signature";
+"请编辑职业" = "Please edit occupation";
+
+
+"帮助与反馈" = "Help and Feedback";
+"关于我们" = "about us";
+"发现新版本，需要升级吗？" = "Found a new version and need to upgrade?";
+"当前已是最新版本！" = "It is the latest version now!";
+
+
+"公会详情" = "Guild details";
+"公会人数" = "Guild size";
+"公会详情描述" = "Guild details";
+"公会成员" = "Guild member";
+"公会会长 : %@" = "Guild President : %@";
+"公会人数 : %@人" = "Guild size : %@people";
+"是否退出该公会" = "Whether to quit the guild";
+
+
+"人数：%@" = "Number of people:%@";
+
+
+"%@余额:%@" = "%@balance:%@";
+
+
+"赠送" = "Give away";
+"输入金额大于账户余额" = "The amount entered is greater than the account balance";
+"%ld游戏币" = "%ld game currency";
+"请输入足够的金额" = "Please enter sufficient amount";
+"兑换比例为0，不能兑换" = "The exchange rate is 0 and cannot be exchanged";
+
+
+"天使的眼泪" = "angel's tears";
+"人数 :" = "number of people :";
+"会长 : %@" = "President : %@";
+"人" = "people";
+
+
+"神秘人" = "Mystery man";
+"检查更新" = "Check for updates";
+
+
+"%.2f万%@" = "%.2fTen thousand%@";
+
+
+"保密" = "keep secret";
+"单身" = "single";
+"恋爱中" = "in love";
+"已婚" = "Married";
+"同性" = "homosexual";
+
+
+"消费%@:%@" = "Consumption%@:%@";
+"贡献%@:%@" = "Contribute%@:%@";
+"开始观看时间:%@" = "Start watch time:%@";
+"观看时长:%@" = "Watch time:%@";
+
+
+"签到成功背景" = "sign in success background";
+"签到成功" = "Sign in successfully";
+"签到成功按钮" = "Sign in success button";
+"恭喜获得%@个钻石" = "Congratulations on getting %@ diamonds";
+"知道啦" = "Know it";
+
+
+"暂无昵称" = "No nickname yet";
+"账号" = "account";
+"认证:%@" = "Certification:%@";
+"回播\n%@" = "Playback\n%@";
+"回播\n0" = "Playback\n0";
+"小视频\n%@" = "Small video\n%@";
+"小视频\n0" = "small video\n0";
+"关注\n%@" = "focus on\n%@";
+"关注\n0" = "focus on\n0";
+"粉丝\n%@" = "fan\n%@";
+"粉丝\n0" = "fan\n0";
+"点击签到按钮" = "Click the sign in button";
+
+
+"签到按钮" = "Sign in button";
+"立即签到" = "Sign in now";
+
+
+"请输入兑换金额" = "Please enter the exchange amount";
+"兑换金额有误" = "Incorrect exchange amount";
+
+
+"会长" = "President";
+
+
+"头像" = "Avatar";
+"个性签名" = "Signature";
+"生日" = "Birthday";
+"情感状态" = "Emotional state";
+"家乡" = "Hometown";
+"职业" = "Profession";
+
+
+"获得%@" = "Get%@";
+
+
+"族长 : %@" = "Patriarch : %@";
+
+
+"%ld年" = "%ld year";
+"0%ld月" = "0%ld month";
+"%ld月" = "%ld month";
+"0%ld日" = "0%ld day";
+"%ld日" = "%ld day";
+
+
+"共%d个精彩回放" = "Total of %d highlights";
+
+
+"第1天" = "Day 1";
+"第%@天" = "The first%@sky";
+
+
+"签到页背景" = "Sign in page background";
+"插画" = "illustration";
+"数字显示" = "Digital Display";
+"已连续签到" = "Checked in consecutively";
+"天" = "sky";
+
+
+"%@的主页" = "%@'s homepage";
+"用户主页" = "User home page";
+
+
+"踢出公会" = "kicked out of the guild";
+
+
+"提现说明:%@" = "Withdrawal Instructions:%@";
+
+
+"玄铁" = "Black iron";
+"青铜" = "Bronze";
+"白银" = "Silver";
+"黄金" = "Gold";
+"铂金" = "Platinum";
+"星耀" = "Starshine";
+"王者" = "King";
+
+
+"贵族立即开通按钮" = "Nobles open now button";
+"立即获得%@钻石" = "Get it now%@diamond";
+"立即获得" = "Get it now";
+"%@元/%@天" = "%@Yuan/%@sky";
+
+
+"玄铁身份" = "Black iron identity";
+"身份-选中" = "Identity - checked";
+
+
+"贵族背景" = "Aristocratic background";
+"贵族特权" = "Aristocratic privilege";
+"拥有特权2/9" = "Have privilege 2/9";
+
+
+"发送验证码" = "Send the verification code";
+"发送失败" = "Failed to send";
+"重新获取(%lds)" = "Resend(%lds)";
+"获取验证码" = "Get verification code";
+"获取登录参数失败，请稍后尝试" = "Failed to get login parameters, please try later";
+
+
+"手机绑定" = "Mobile phone binding";
+"手机登录" = "Log in with phone";
+"%ld秒" = "%ld seconds";
+"发验证码" = "Send verification code";
+"请输入验证码" = "Please enter verification code";
+"验证码过程出错，请重新尝试" = "An error occurred during the verification code process, please try again";
+
+
+"为您推荐的主播" = "Streamers recommended for you";
+"成功responseJson:%@" = "success responseJson:%@";
+"失败responseJson:%@" = "Fail responseJson:%@";
+"—— 热门主播 ——" = "—— Popular anchors ——";
+"—— 官方推荐 ——" = "—— Official recommendation ——";
+
+
+"手机注册" = "Register your phone";
+"填写昵称" = "Fill in nickname";
+"请输入你的昵称" = "Please enter your nickname";
+
+
+"注册账号" = "Register an account";
+"完成注册" = "Complete registration";
+"找回密码" = "Retrieve password";
+"验证码登录" = "Verification code login";
+"登录" = "Log in";
+"中国" = "China";
+"请输入手机号" = "Please enter phone number";
+"再次输入密码" = "Please enter phone number";
+"两次密码输入不一致" = "Inconsistent password entered twice";
+"修改密码成功" = "Password has been updated";
+"登录即代表你同意" = "By logging in you agree";
+"《用户隐私政策》" = "《User Privacy Policy》";
+
+
+"lr换一批" = "lr change batch";
+"lr进入按钮" = "lr enter button";
+"换一批" = "Change batch";
+"点击进入" = "Click to enter";
+
+
+"log背景" = "log background";
+"log选中输入框" = "log Check the input box";
+"log手机号输入" = "log Phone number input";
+"log输入验证码" = "log Enter confirmation code";
+"log手机号" = "log Phone number";
+"log验证码" = "log Verification code";
+"国家和地区" = "Country and region";
+"手机号" = "Phone number";
+"请输入您的手机号" = "Please enter your mobile number";
+"忘记密码" = "Forgot password";
+"其他登录方式" = "Other login methods";
+"游客身份登录" = "Login as guest";
+"注册" = "Register";
+
+
+"手机号验证码登录" = "Mobile number verification code login";
+"立即登录" = "log in immediately";
+"登录即代表同意" = "By logging in you agree";
+"-----其他方式登录-----" = "-----Other ways to log in-----";
+
+
+"经验+%@" = "Experience+%@";
+"恭喜您升到%ld级！" = "Congratulations on your promotion to level %ld!";
+
+
+"lr男生" = "lr boy";
+"lr女生" = "lr girls";
+"lr选中" = "lr selected";
+"lr未选" = "lr not selected";
+"lr头像" = "lr avatar";
+"神奇" = "magic";
+
+
+"立即查看" = "View now";
+"发布动态" = "Post news";
+
+
+"首页" = "front page";
+"消息" = "information";
+
+
+"请填写邀请码" = "Please fill in the invitation code";
+
+
+"加入在线用户大群成功" = "Join a large group of online users successfully";
+"加入在线用户大群失败，错误码：%d，错误原因：%@" = "Failed to join the online user group, error code: %d, error reason：%@";
+"退出在线用户大群成功" = "Successfully exit the large group of online users";
+"退出在线用户大群失败，错误码：%d，错误原因：%@" = "Failed to exit the online user group, error code: %d, error reason: %@";
+
+
+"=====初始化接口失败，错误码：%ld" = "=====Failed to initialize interface, error code:%ld";
+"链接为空" = "Link is empty";
+"哎呀！网络不大给力！" = "oops! The network is not very powerful!";
+"您正在使用手机自带网络进行访问" = "You are using your phone's own network to access";
+"您正在使用wifi进行访问" = "you are using wifi to access";
+"发送媒体消息结果" = "Send media message result";
+"用户取消了支付" = "User cancels payment";
+"支付结果" = "Payment result";
+"支付成功！" = "Payment successful!";
+"支付成功－PaySuccess，retcode = %d" = "Payment successful－PaySuccess，retcode = %d";
+"用户取消" = "User cancels";
+"支付结果：错误，retcode = %d, retstr = %@" = "Payment Result: Error，retcode = %d, retstr = %@";
+"用户拒绝授权！" = "User denied authorization!";
+"用户取消！" = "User canceled!";
+"您当前正在直播" = "You are currently live";
+"您当前正在直播间内" = "You are currently in the live room";
+"请退出当前直播间后重新尝试！" = "Please exit the current live room and try again!";
+
+
+"白方胜" = "Bai Fangsheng";
+"黑方胜" = "Black wins";
+"只能悔一步棋!!!" = "Only regret one move!!!";
+"请先落子!!!" = "Please drop first!!!";
+
+
+"初级棋盘" = "Elementary chessboard";
+"悔棋" = "regret";
+"新游戏" = "new game";
+"设置游戏背景" = "Set game background";
+"没有位置信息" = "no location information";
+"高级棋盘" = "Advanced Chessboard";
+"欢迎来自%@的棋手" = "Welcome chess players from %@";
+
+
+"知道了" = "understood";
+
+
+"已达到最大限制字数" = "Maximum word limit reached";
+
+
+"UIView (CustomAutoLayout)参数出错" = "UIView (CustomAutoLayout)parameter error";
+"UIView (CustomAutoLayout)父控件没有设置参数出错" = "UIView (CustomAutoLayout)Parent control does not set parameters error";
+
+
+"所排列的View的父控件不同" = "The parent controls of the arranged Views are different";
+
+
+"%d秒前" = "%d seconds ago";
+"%d分钟前" = "%d minutes ago";
+"今天 HH:mm" = "today HH:mm";
+"昨天HH:mm" = "yesterday HH:mm";
+"前天HH:mm" = "the day before yesterday HH:mm";
+"%d个月前" = "%d months ago";
+"%d年前" = "%d years ago";
+
+
+"kvo，修改name为%@" = "kvo，Modify name to %@";
+"通知名" = "notification name";
+"收到通知1：%@" = "Received notification 1:%@";
+
+
+"昨天 %@" = "yesterday %@";
+
+
+"亲，您的网络有点小卡哦！" = "Dear, your network is a little stuck!";
+"亲，您的网络开小差啦！" = "Dear, your network is deserted!";
+
+
+"扫描二维码" = "Scan QR code";
+"开启" = "开启";
+"将二维码放入取景框中，即可自动扫描" = "Put the QR code in the viewfinder and it can be scanned automatically";
+
+
+"点击演示添加Icon后该做的操作" = "Click to demonstrate what to do after adding Icon";
+"新浪微博" = "Sina Weibo";
+"%@ 分享了直播" = "%@ Shared live";
+
+
+"=======将JSON串转化为NSDictionary失败" = "=======Failed to convert JSON string to NSDictionary";
+"没有定位权限" = "No location permission";
+"没有摄像头权限" = "no camera permission";
+"没有录音权限" = "No recording permission";
+"没有相册权限" = "No album permission";
+"值为nil" = "value is nil";
+
+
+"腾讯云视频进度 %llu" = "Tencent Cloud Video Progress %llu";
+"上传成功" = "Uploaded successfully";
+
+
+"删除的文件不存在" = "Deleted file does not exist";
+"copySourceFile成功" = "copy Source File succeeded";
+"copySourceFile失败" = "copy Source File failed";
+
+
+"网络断开了ReachableViaWWAN" = "Network disconnected from Reachable Via WWAN";
+"网络断开了NotReachable" = "Network disconnected Not Reachable";
+
+
+"请检查当前网络" = "Please check the current network";
+
+
+"请求链接-----------------------------------------------------\n%@" = "request link-----------------------------------------------------\n%@";
+"您的AES加密密码长度不是16位！" = "Your AES encrypted password is not 16 bits long!";
+"===================：解密失败，请检查AES加密的KEY等！" = "===================：Decryption failed, please check the AES encrypted KEY, etc.!";
+"===================：获取加密串失败！" = "===================: Failed to get encrypted string!";
+"===================：错误信息：接口名为 ctl=%@,act=%@，弹出错误信息：%@" = "===================：Error message: Interface named ctl=%@,act=%@，An error message pops up:%@";
+"===================：正确信息：接口名为 ctl=%@,act=%@，弹出正确信息：%@" = "===================: Correct information: Interface named ctl=%@,act=%@, the correct information pops up:%@";
+"返回的数据为空" = "The returned data is empty";
+
+
+"登录IMSDK失败" = "Failed to log in to IMSDK";
+"获取签名为空" = "get signature is empty";
+"获取签名失败，请稍后尝试" = "Failed to get signature, please try later";
+"请求网络失败" = "Failed to request network";
+"过期，重新登录" = "expired, log in again";
+"已经登录或者正在登录" = "logged in or logging in";
+"登录IMSDK错误码： %d %@" = "Login IMSDK error code: %d %@";
+"加入全员广播大群成功" = "Join the full broadcast group successfully";
+"加入全员广播大群失败，错误码：%d，错误原因：%@" = "Failed to join the all-member broadcast group, error code:%d，wrong reason:%@";
+"IM还未登录成功" = "IM has not logged in successfully";
+"还未获取到全员广播大群ID" = "Have not obtained the full broadcast group ID";
+"请求中。。。" = "requesting。。。";
+"获取到全员广播大群信息失败" = "Failed to get the group information of all members broadcast";
+
+
+"域名列表不为空，但是没有数据！" = "The list of domains is not empty, but there is no data!";
+"域名列表为空！" = "Domain list is empty!";
+
+
+"============加载webview开始时间点：%f" = "============Load webview start time point: %f";
+"刷新" = "刷新";
+
+
+"不同意用户协议将无法发布视频" = "If you do not agree to the user agreement, you will not be able to publish videos";
+"视频提交至服务器中..." = "Submit the video to the server...";
+"合拍" = "in tune";
+"未知" = "unknown";
+
+
+"视频生成中..." = "Video is being generated...";
+
+
+"测试" = "test";
+
+
+"确认使用" = "Confirm use";
+"需要设置 ACL 的对象名" = "needs to be set ACL the object name of";
+"第一个对象名" = "first object name";
+"第二个对象名" = "second object name";
+"存储桶名" = "bucket name";
+"对象名" = "object name";
+
+
+"sendHttpRequest failed，参数转成json格式失败" = "sendHttpRequest failed，Failed to convert parameters to json format";
+"参数错误" = "Parameter error";
+"服务请求失败" = "service request failed";
+
+
+"视频流播放失败，Error:" = "Video streaming failed to play, Error:";
+
+
+"开始通过用户id拉取用户资料信息" = "Start pulling user profile information by user id";
+"从服务器上拉取用户资料信息成功%@" = "Successfully pulled user profile information from the server%@";
+"从服务器上拉取用户资料信息失败 errCode = %d, errMsg = %@" = "Failed to pull user profile information from server errCode = %d, errMsg = %@";
+"开始保存用户昵称信息到服务器 \n" = "Start saving user nickname information to the server \n";
+"开始保存用户头像Url地址到服务器 \n" = "Start saving the user avatar Url address to the server \n";
+"开始保存用户性别信息到服务器 \n" = "Start saving user gender information to the server \n";
+
+
+"编辑个人信息" = "Edit personal information";
+"获取技术支持服务" = "Get technical support services";
+"点击关于SDK" = "Click About SDK";
+
+
+"音乐不存在" = "music doesn't exist";
+
+
+"发现" = "Find";
+"收藏" = "collect";
+"选择音乐" = "choose music";
+" 搜索音乐" = " search for music";
+
+
+"视频data存在" = "video data exists";
+"导出失败：Failed:%@" = "Export failed: Failed:%@";
+"导出取消：Canceled:%@" = "Export canceled: Canceled:%@";
+"音轨提取失败" = "Track extraction failed";
+"唯播ID:%@" = "Only broadcast ID:%@";
+"生成中..." = "generating...";
+
+
+"横屏" = "horizontal screen";
+"竖屏" = "vertical screen";
+"横屏:width=%f   height=%f" = "horizontal screen:width=%f   height=%f";
+"竖屏:width=%f   height=%f" = "vertical screen:width=%f   height=%f";
+"全屏/非全屏" = "fullscreen/non-fullscreen";
+"//添加播放进度条更新" = "//Added playback progress bar update";
+"当前已经播放%.2fs。" = "currently playing%.2fs。";
+
+
+"请输入或扫二维码获取播放地址" = "Please enter or scan the QR code to get the playback address";
+"合唱事件" = "chorus event";
+"视频播放成功" = "Video played successfully";
+"网络断连,且经多次重连抢救无效,可以放弃治疗,更多重试请自行重启播放" = "If the network is disconnected, and the rescue is invalid after multiple reconnections, you can give up the treatment. For more retries, please restart the playback by yourself.";
+"获取加速拉流地址失败" = "Failed to get the acceleration pull stream address";
+"播放文件不存在" = "Play file does not exist";
+"H265解码失败" = "H265 decoding failed";
+"HLS解码key获取失败" = "Failed to obtain HLS decoding key";
+"获取点播文件信息失败" = "Failed to get VOD file information";
+"播放地址不合法，点播目前仅支持flv,hls,mp4播放方式!" = "The playback address is illegal, and the VOD currently only supports flv, hls, and mp4 playback methods!";
+
+
+"注册成功" = "registration success";
+"用户ID已经被注册" = "User ID has already been registered";
+
+
+"自动登录成功" = "Automatic login succeeded";
+"自动登录失败" = "Automatic login failed";
+
+
+"账号未注册" = "Account not registered";
+"密码错误" = "wrong password";
+"登录成功" = "login successful";
+
+
+"如何获取技术支持服务？" = "How to get technical support service?";
+
+
+"TCAdapter时间统计 时间点:%@ [%s Line %d] ------->>>>>>\n" = "TCAdapter time statistics:%@ [%s Line %d] ------->>>>>>\n";
+"TCAdapter时间统计" = "TCAdapter time statistics";
+"时间点:%@ [%s Line %d] ------->>>>>>" = "time point:%@ [%s Line %d] ------->>>>>>";
+
+
+"逻辑不可达" = "logically unreachable";
+"[图片]" = "[picture]";
+"[文件]" = "[document]";
+"[语音]" = "[voice]";
+"[表情]" = "[expression]";
+"[位置]" = "[Location]";
+"群" = "group";
+"讨论组" = "discussion group";
+"聊天室" = "chatroom";
+"%@退出了%@" = "%@quit%@";
+"%@的禁言限制已取消" = "%@The mute restriction has been lifted for";
+"%@被禁言%d秒" = "%@banned%d seconds";
+"%@修改%@名称为%@" = "%@Revise%@name is%@";
+"%@修改了%@介绍" = "%@edited%@introduce";
+"%@修改了%@公告" = "%@edited%@announcement";
+"%@修改%@头像" = "%@Revise%@avatar";
+"%@已转让%@" = "%@transferred%@";
+"邀请" = "invite";
+"进%@" = "Enter%@";
+"踢" = "Kick";
+"出%@" = "out%@";
+"为管理员" = "for administrator";
+"管理员身份" = "Administrator status";
+"[群提醒]" = "[group reminder]";
+"[视频]" = "[video]";
+"[自定义消息]" = "[custom message]";
+"撤回了一条消息" = "retracted a message";
+"%@申请加入群%@请求" = "%@Apply to join the group%@ask";
+"%@同意你加入群%@请求" = "%@agree to join the group%@ask";
+"%@拒绝你加入群%@请求" = "%@refuse you to join the group%@ask";
+" 理由:%@" = " reason:%@";
+"您被%@踢出群%@" = "you are%@kick out of the group%@";
+"%@解散群%@" = "%@disband the group%@";
+"%@创建群%@成功" = "%@Create a group%@success";
+"%@邀请你加入群%@" = "%@invite you to join the group%@";
+"%@退群%@成功" = "%@withdraw from the group%@success";
+"%@设置你为群%@管理员" = "%@set you up as a group%@administrator";
+"%@取消你群%@管理员资格" = "%@cancel your group%@Administrator qualification";
+"群%@已被回收" = "group%@has been recycled";
+"%@同意你发出的加入群%@的邀请" = "%@Agree to join the group sent by you%@invitation";
+"%@拒绝你发出的加入群%@的邀请" = "%@Reject your join group%@invitation";
+"%@添加你为好友\n" = "%@add you as a friend\n";
+"%@与你解除好友关系\n" = "%@unfriend you\n";
+"%@请求加为好友\n" = "%@Request to be added as a friend\n";
+"%@删除你的好友请求\n" = "%@delete your friend request\n";
+"%@将你添加到黑名单\n" = "%@add you to the blacklist\n";
+"%@将你移出黑名单\n" = "%@remove you from the blacklist\n";
+"未决已读上报" = "Pending read escalation";
+"%@修改了资料\n" = "%@Modified the information\n";
+"推荐数据增加" = "Recommended data increase";
+"推荐数据删除" = "Recommended data deletion";
+"已决增加" = "Decided to add";
+"已决删除" = "Deletion decided";
+"推荐已读上报" = "Recommended read report";
+"已决已读上报" = "Decided and read report";
+"[资料变更消息]" = "[data change message]";
+
+
+"同意任何用户加好友" = "Agree to add friends to any user";
+"需要验证" = "requires verification";
+"拒绝任何人加好友" = "Refuse anyone to add friends";
+"请求理由:%@" = "Reason for request:%@";
+"添加理由:%@" = "Add reason:%@";
+"推荐好友:%@" = "Refer a friend:%@";
+"已添加" = "added";
+"你" = "你";
+"申请理由:%@" = "Reason for Application:%@";
+"邀请理由:%@" = "Reason for invitation:%@";
+"拒绝理由:%@" = "Reason for rejection:%@";
+"同意理由:%@" = "Reason for consent:%@";
+"申请加入群%@" = "Apply to join the group%@";
+"邀请%@加入群%@" = "invite%@join group%@";
+"已同意%@进群%@" = "approved%@into the group%@";
+"受%@邀请进群%@" = "by%@Invite to the group%@";
+"审核" = "audit";
+"已拒绝" = "rejected";
+"已同意" = "approved";
+
+
+"发送消息失败：%@" = "Failed to send message:%@";
+"该词被禁用" = "the word is banned";
+"您已被禁言" = "you have been banned";
+"TIMConversation 为空" = "TIMConversation Is empty";
+
+
+"[礼物]" = "[Gift]";
+"未知消息" = "Unknown message";
+"获取消息数据失败" = "Failed to get message data";
+"转换语音数据错误" = "Error converting voice data";
+"最近消息" = "latest news";
+"暂无会话" = "No session yet";
+"获取用户信息失败" = "Failed to get user information";
+"删除会话成功" = "Delete session succeeded";
+"获取消息成功" = "get message success";
+"发送消息成功" = "message sent successfully";
+"上传图片失败" = "Failed to upload image";
+"语音数据格式转换失败" = "Voice data format conversion failed";
+
+
+"不支持的消息类型" = "unsupported message type";
+"删除成功：%d" = "successfully deleted: %d";
+
+
+"自定义消息不是CustomElemCmd类型" = "Custom message is not of type CustomElemCmd";
+
+
+"参数不正确" = "The parameter is incorrect";
+"---修改角色失败code=%d,err=%@---" = "---Modify role failure code=%d,err=%@---";
+"---禁言失败code=%d,err=%@---" = "---Mute failure code=%d,err=%@---";
+
+
+"禁止加群" = "Groups are not allowed";
+"需要管理员审批" = "Admin approval required";
+"任何人可以加入" = "anyone can join";
+"接收消息" = "receive message";
+"不接收消息" = "do not receive messages";
+"接收但不提醒" = "Receive but not alert";
+"与当前群名一致" = "match the current group name";
+"群名称过长" = "Group name is too long";
+"群名片过长" = "Group business card is too long";
+"与当前群介绍一致" = "Consistent with the current group introduction";
+"群公告过长" = "Group announcement is too long";
+"与当前群公告一致" = "Consistent with the current group announcement";
+
+
+"我的好友" = "my good friend";
+
+
+"参数为空" = "parameter is empty";
+"获取群成员失败.code=%d,err=%@" = "Failed to get group members.code=%d,err=%@";
+"获取群列表失败.code=%d,err=%@" = "Failed to get group list.code=%d,err=%@";
+"移除群成员失败.code=%d,err=%@" = "Failed to remove group member.code=%d,err=%@";
+"获取群成员信息失败.code=%d,err=%@" = "Failed to get group member information.code=%d,err=%@";
+"获取群管理员失败.code=%d,err=%@" = "Failed to get group admin.code=%d,err=%@";
+
+
+"未知类型" = "unknown type";
+
+
+"昵称不能为空" = "username can not be blank";
+"昵称超过长度限制" = "Nickname exceeds length limit";
+
+
+"IMAGroupMember禁用此方法" = "IMAGroupMember disables this method";
+
+
+"未取到最后一条消息" = "Last message not fetched";
+"发送消息失败" = "Failed to send message";
+"消息撤回失败,code=%d,msg=%@" = "message recall failed,code=%d,msg=%@";
+
+
+"新朋友" = "new friend";
+"群系统消息" = "group system message";
+
+
+"我创建的群" = "group I created";
+"我管理的群" = "Groups I manage";
+"我加入的群" = "groups I joined";
+"群名称不能包含表情" = "Group name cannot contain emoji";
+"未选择加入群组的好友" = "Friends not opted into the group";
+
+
+"登录成功:%@ tinyid:%llu sig:%@" = "login successful:%@ tinyid:%llu sig:%@";
+"下线通知" = "下线通知";
+"您的帐号于另一台手机上登录。" = "Your account is signed in on another phone.";
+"重新登录" = "重新登录";
+
+
+"参数sgName不能为空" = "The parameter sg Name cannot be empty";
+"分组不能为空" = "Group cannot be empty";
+"不能删除默认分组" = "Cannot delete default group";
+
+
+"参数有误" = "wrong parameter";
+"不存在的分组" = "group that does not exist";
+"不存在的User" = "User that does not exist";
+
+
+"网络连接失败" = "network connection failed";
+"网络连接断开 code = %d, err = %@" = "network connection lost code = %d, err = %@";
+"连接中" = "connecting";
+"踢下线通知" = "Kick offline notification";
+"您的帐号于另一台手机上登录，是否重新登录？" = "Your account is logged in on another phone, do you want to log in again?";
+"断线重连失败" = "Failed to reconnect";
+"断线重连失败，是否重新登录？" = "Failed to reconnect after disconnection, do you want to log in again?";
+"刷新票据，登录失败" = "Refresh ticket, login failed";
+"刷新票据失败\ncode:%d, error:%@" = "Refresh ticket failed\ncode:%d, error:%@";
+"刷新票据失败,正在退出" = "Refresh ticket failed,exiting";
+"=========>>>>> 刷新会话列表" = "=========>>>>> Refresh the conversation list";
+"同步状态为:%d" = "Sync status is:%d";
+
+
+"%@ 必须是IMAHost的子类型" = "%@ Must be a subtype of IMAHost";
+"不支持的会话模式" = "Unsupported session mode";
+"网络切换到(-1:未知 0:无网 1:wifi 2:移动网):%d" = "network switch to(-1:unknown 0:no network 1:wifi 2:mobile network):%d";
+
+
+"收到广播消息%d" = "received broadcast message%d";
+"%@申请加入群:%@\n申请理由:%@" = "%@Apply to join the group:%@\n Reason for application:%@";
+"加群申请" = "Join group application";
+"忽略" = "neglect";
+"拒绝" = "reject";
+
+
+"备注名过长" = "Comment name is too long";
+"用户已在该分组" = "User is already in this group";
+"移动失败，已将好友移动到默认分组" = "Move failed, friends have been moved to default group";
+
+
+"key为空" = "key is empty";
+"备注名不能包含表情" = "Comment name cannot contain emoticons";
+"备注名超长" = "Comment name is too long";
+"验证信息过长" = "Verification information is too long";
+"添加好友成功后，获取好友资料失败,%@" = "After adding friends successfully, get friend information failed,%@";
+"remark过长" = "remark is too long";
+"必须是TIM_FUTURE_FRIEND_PENDENCY_IN_TYPE" = "must be TIM_FUTURE_FRIEND_PENDENCY_IN_TYPE";
+"删除推荐好友失败,code=%d,msg=%@" = "Failed to delete recommended friend,code=%d,msg=%@";
+"删除未决好友失败,code=%d,msg=%@" = "Failed to delete pending friends,code=%d,msg=%@";
+"删除已决好友失败,code=%d,msg=%@" = "Failed to delete decided friends,code=%d,msg=%@";
+
+
+"解散或退出历史直播房间:%@" = "Dismiss or exit the historical live room:%@";
+"直播房房间信息不正确" = "The room information of the live room is incorrect";
+"直播房房间信息liveTitle不正确" = "The liveTitle of the live room information is incorrect";
+"----->>>>>主播开始创建直播聊天室:%@ title = %@" = "----->>>>>The anchor starts to create a live chat room:%@ title = %@";
+"----->>>>>主播开始创建直播聊天室成功" = "----->>>>>The anchor started to create a live chat room successfully";
+"----->>>>>主播开始创建直播聊天室失败 code: %d , msg = %@" = "----->>>>>The host failed to create a live chat room code: %d , msg = %@";
+"----->>>>>主播重新加入自己的直播聊天室成功" = "----->>>>>The host failed to create a live chat room";
+"----->>>>>主播重新加入自己的直播聊天室失败 code: %d , msg = %@" = "----->>>>>The streamer failed to rejoin his live chat room code: %d , msg = %@";
+"----->>>>>主播开始创建IM聊天室成功" = "----->>>>>The host started to create an IM chat room successfully";
+"----->>>>>主播开始创建IM聊天室失败 code: %d , msg = %@" = "----->>>>>The host fails to create an IM chat room code: %d , msg = %@";
+"----->>>>>观众加入直播聊天室ID为空" = "----->>>>>The ID of the viewer joining the live chat room is empty";
+"直播聊天室ID为空" = "Live chat room ID is empty";
+"----->>>>>观众加入直播聊天室成功" = "----->>>>>Audience joins live chat room successfully";
+"----->>>>>观众加入直播聊天室失败 code: %d , msg = %@" = "----->>>>>Viewer failed to join live chat room code: %d , msg = %@";
+"----->>>>>观众退出的直播聊天室ID为空" = "----->>>>>The ID of the live chat room where the viewer exits is empty";
+
+
+"-----> 上传token成功 " = "-----> Upload token successfully ";
+"-----> 上传token失败 " = "-----> Failed to upload token ";
+
+
+"在线主播列表" = "List of online anchors";
+
+
+"上拉加载更多" = "Pull up to load more";
+"加载中" = "Loading";
+"没有更多了" = "no more";
+"立即购买" = "Buy now";
+"请先选择座驾" = "Please select a car first";
+"是否要购买此座驾" = "Do you want to buy this car";
+"确定购买" = "confirm purchase";
+"购买成功" = "successful purchase";
+
+
+"乘坐【%@】驾到" = "Take【%@】to";
+"座驾播放错误%@" = "car playback error%@";
+
+
+"%@经验值" = "%@Experience";
+
+
+"获取到的liveInfo为空" = "The obtained live Info is empty";
+"=========加载get_video接口出错 code: %d , msg = %@" = "=========Error loading get_video interface code: %d , msg = %@";
+"获取聊天室信息失败，请稍候尝试" = "Failed to get chat room information, please try later";
+"抱歉，推流地址为空，请稍后尝试" = "Sorry, the push stream address is empty, please try later";
+"视频已删除." = "Video deleted.";
+"抱歉，播放地址为空，请稍后尝试" = "Sorry, the playback address is empty, please try later";
+"主播有未处理的连麦请求，请稍候再试" = "The host has an unprocessed mic request, please try again later";
+"已达到请求上限，不能再请求" = "The request limit has been reached, no more requests can be made";
+"当前主播主播连麦数已上限，请稍后尝试" = "The current host host has the maximum number of microphones, please try later";
+"观众(%@)申请参加您的互动直播" = "Viewer (%@) has applied to join your interactive broadcast";
+"互动直播申请" = "Interactive Live Application";
+"连麦申请中..." = "Lianmai is applying...";
+"是否结束与主播的互动直播？" = "End the interactive live broadcast with the host?";
+"是否请求与主播连麦？" = "Do you want to connect with the host?";
+"您的连麦申请发送失败" = "Your Lianmai application failed to send";
+"申请连麦中，等待对方应答..." = "Apply for connecting to the microphone and wait for the other party to respond...";
+"取消连麦" = "Cancel Lianmai";
+"主播拒绝了您的连麦请求" = "The host has rejected your request to connect to the microphone";
+"亲，音乐模块后期开放，敬请期待..." = "Dear, the music module will be open later, so stay tuned...";
+"已打开麦克风" = "Microphone turned on";
+"已关闭麦克风" = "Microphone turned off";
+"前置摄像头下暂时不能打开闪光灯" = "The flash cannot be turned on temporarily under the front camera";
+"已打开镜像" = "mirroring opened";
+"已关闭镜像" = "mirroring closed";
+"退出后直播管理层" = "Live management after exit";
+
+
+"有呼叫到来,用户ID:%s；呼叫状态码：%d" = "There is a call coming, user ID: %s; call status code: %d";
+"断开连接" = "Disconnect";
+"408超时" = "408 Timeout";
+"=======主播端rtc的日志：%@" = "=======The log of the rtc on the anchor side：%@";
+
+
+"========接收监听：KSYPlayerVC: %@ -- ip:%@" = "========Receive monitor: KSYPlayerVC: %@ -- ip:%@";
+"========接收监听：player playback state: %ld" = "========Receive monitor: player playback state: %ld";
+"========接收监听：player load state: %ld" = "========Receive monitor: player load state: %ld";
+"========接收监听：player finish state: %ld" = "========Receive monitor: player finish state: %ld";
+"========接收监听：video size %.0f-%.0f" = "========Receive monitor: video size %.0f-%.0f";
+"========接收监听：first audio frame render" = "========Receive monitor: first audio frame render";
+"========接收监听：suggest using reload function!\n" = "========Receive monitor: suggest using reload function!\n";
+"========接收监听：Video Decode Wrong!\n" = "========Receive monitor: Video Decode Wrong!\n";
+"========接收监听：Audio Decode Wrong!\n" = "========Receive monitor: Audio Decode Wrong!\n";
+"========接收监听：Hardware Codec used\n" = "========Receive monitor: Hardware Codec used\n";
+"========接收监听：Software Codec used\n" = "========Receive monitor: Software Codec used\n";
+
+
+"=====当前金山SDK版本号：%@" = "=====Current Kingsoft SDK version number:%@";
+
+
+"======接收注册结果的回调函数，状态码:%d" = "======Callback function to receive registration result, status code:%d";
+"=======辅播端rtc的日志：%@" = "=======The log of the auxiliary broadcaster rtc:%@";
+
+
+"KSYAgoraStreamerKit 释放%s" = "KSYAgoraStreamerKit freed%s";
+
+
+"美颜key为空，请尝试重新打开app获取！" = "The beauty key is empty, please try to reopen the app to get it!";
+"=====当前金山SDK版本为: %@" = "=====The current version of Kingsoft SDK is: %@";
+"====获取Streamer中与网络相关的日志：%@" = "====Get network related logs in Streamer:%@";
+"错误的视频帧格式！" = "Wrong video frame format!";
+
+
+"等待观众推流···" = "Waiting for the audience to push the stream···";
+"拉流失败，结束连麦" = "Failed to pull the stream, end the Lianmai";
+"连麦观众视频断流，结束连麦" = "Lianmai audience video cut off, end Lianmai";
+"拉流失败，继续尝试连麦" = "Failed to pull the stream, continue to try Lianmai";
+"系统不支持硬编或硬解" = "The system does not support hard coding or hard decoding";
+
+
+"播放地址不合法，目前仅支持rtmp,flv,hls,mp4播放方式!" = "The playback address is illegal, currently only supports rtmp, flv, hls, mp4 playback!";
+"播放地址不合法，直播目前仅支持rtmp,flv播放方式!" = "The playback address is illegal, and the live broadcast currently only supports rtmp and flv playback methods!";
+"非腾讯云链接，若要放开限制请联系腾讯云商务团队" = "Non-Tencent Cloud links, if you want to release restrictions, please contact Tencent Cloud Business Team";
+"播放器启动失败" = "Player failed to start";
+"iOS 版本低于8.0，不支持硬件加速." = "iOS version lower than 8.0 does not support hardware acceleration.";
+"切换为硬解码. 重启播放流程" = "Switch to hard decoding. Restart the playback process";
+"切换为软解码. 重启播放流程" = "Switch to soft decoding. Restart the playback process";
+"缓存策略" = "caching strategy";
+"极速" = "Extreme speed";
+"流畅" = "smooth";
+"自动" = "automatic";
+
+
+"连麦中···" = "Lian Maizhong···";
+
+
+"连麦请求超时，主播没有做出回应" = "The Lianmai request timed out and the host did not respond";
+"获取麦克风权限失败，请前往隐私-麦克风设置里面打开应用权限" = "Failed to obtain microphone permission, please go to Privacy - Microphone Settings to open the application permission";
+"获取摄像头权限失败，请前往隐私-相机设置里面打开应用权限" = "Failed to obtain camera permission, please go to Privacy-Camera Settings to open App Permissions";
+"系统不支持硬编码， 启动连麦失败" = "The system does not support hard coding, and it fails to start connecting to the microphone";
+"推流失败，结束连麦" = "Failed to push the stream, end the continuous mic";
+"启动硬编码失败，结束连麦" = "Failed to start hard coding, end the continuous microphone";
+
+
+"iOS模拟器不支持推流和播放，请使用真机体验" = "IOS simulator does not support streaming and playback, please use the real machine to experience";
+"==========腾讯SDK版本号：%@" = "==========Tencent SDK version number:%@";
+"获取推流地址失败" = "Failed to get push stream address";
+"推流地址不合法，目前支持rtmp推流!" = "The push stream address is illegal, currently supports rtmp push stream!";
+"推流器启动失败:%d" = "Streamer failed to start:%d";
+"网络状况不佳：上行带宽太小，上传数据受阻" = "Poor network conditions: Upstream bandwidth is too small, uploading data is blocked";
+"闪光灯启动失败" = "The flash failed to start";
+"直播推流" = "live streaming";
+"iphone 6 及以上机型适合开启720p!" = "iphone 6 and above models are suitable for opening 720p!";
+"iphone 5 及以上机型适合开启540p!" = "iphone 5 and above models are suitable for opening 540p!";
+
+
+"主播不在直播" = "The anchor is not live";
+"可拖曳" = "draggable";
+"橙色view被点击了" = "orange view was clicked";
+"是否结束与主播的互动连麦？" = "Do you end the interaction with the host?";
+"获取连麦参数失败" = "Failed to get connected microphone parameters";
+"当前主播连麦数已上限，请稍后尝试" = "The current host's number of mics has been capped, please try later";
+"切换直播间成功!" = "Switch live room successfully!";
+"亲,大约%d秒后进入直播间" = "dear, about %d Enter the live room in seconds";
+"普通美颜" = "normal beauty";
+
+
+"恭贺您pk取得胜利" = "Congratulations on your pk victory";
+"连麦中不能pk" = "Lianmai can't pk";
+"发送PK消息成功" = "Send PK message successfully";
+"发送PK消息失败msg:%@" = "Failed to send PK message msg:%@";
+"主播暂时离开下，马上回来！" = "The anchor has left temporarily, come back soon!";
+"网络加载失败" = "network load failed";
+"=================：真正的点击了关闭按钮" = "=================: really clicked the close button";
+"=================：竞拍时真正的点击了关闭按钮" = "=================: The close button was actually clicked during the auction";
+"=================：收到MSG_END_VIDEO 处理，该消息一般是观众会收到" = "=================：Received MSG_END_VIDEO processing, this message is generally received by the audience";
+"=================：收到MSG_SYSTEM_CLOSE_LIVE 处理，该消息一般是主播会收到" = "=================：Received MSG_SYSTEM_CLOSE_LIVE processing, this message is generally received by the anchor";
+"收到拒绝PK消息" = "Reject PK message received";
+"结束PK请求成功responseJson:%@" = "End PK request success responseJson:%@";
+"结束PK请求失败responseJson:%@" = "End PK request failed responseJson:%@";
+"pk消息" = "pk message";
+"%@请求与您pk" = "%@request to pk with you";
+"消息类型type:%ld" = "message type:%ld";
+"退出群:%@ 成功" = "leave the group:%@ success";
+"退出群:%@ 失败，错误码：%d，错误原因：%@" = "Exit group: %@ failed, error code: %d, error reason：%@";
+"恭喜您中奖%@倍" = "Congratulations on your winning%@times";
+"您确定需要前往该直播间吗？" = "Are you sure you need to go to this studio?";
+"pk中不可以连麦" = "You can't connect the microphone in pk";
+"已收到举报消息,我们将尽快落实处理" = "Report received,We will implement it as soon as possible";
+"点击了开通守护功能" = "Click to activate the guard function";
+"开通守护成功" = "Open the guardian successfully";
+"开通守护之后发送群组消息成功" = "After the guardian is activated, the group message is successfully sent";
+"开通守护之后发送群组消息失败:code:%d msg:%@" = "Failed to send group message after enabling Guardian:code:%d msg:%@";
+"开通守护失败responseJson:%@" = "Failed to open guard responseJson:%@";
+"开通守护失败error:%@" = "Failed to activate the guardian error:%@";
+"直播间已处于竞拍中" = "The live room has been auctioned";
+
+
+"%s释放" = "%s release";
+"是否发起pk请求?" = "Whether to initiate a pk request?";
+"申请pk中，等待对方应答.." = "Applying for pk, waiting for the other party's response..";
+"取消pk" = "cancel pk";
+"对方取消PK" = "The other party cancels the PK";
+"我方" = "our side";
+"对方" = "other side";
+"弹窗背景" = "popup background";
+"PK结束" = "PK end";
+"pk关闭" = "pk close";
+"PK后" = "After PK";
+"胜利" = "victory";
+"成功" = "success";
+"平局" = "draw";
+"贡献:%@" = "contribute:%@";
+"贡献:1234" = "contribute:1234";
+"该直播按场收费,您还能预览倒计时%d秒" = "The live broadcast is charged per session, and you can also preview the countdown %d seconds";
+"1分钟内重复进入,不重复扣费,请能正常预览视频后,点击进入,以免扣费后不能正常进入,您还能预览倒计时%d秒" = "Repeated entry within 1 minute, no repeated deduction, please click to enter after you can preview the video normally, so as not to be unable to enter normally after deduction, you can also preview the countdown %d seconds";
+"直播间人数未达到收费人数" = "The number of people in the live broadcast room has not reached the number of people charged";
+"直播间已处于收费模式中" = "The live room is already in charge mode";
+"=================：付费直播关闭直播间的操作" = "=================: Paid live broadcast closes the operation of the live broadcast room";
+"pk中不能滑动直播间!" = "You cannot slide the live room in pk!";
+"连麦中不能滑动直播间!" = "Lianmai can't slide the live room!";
+
+
+"主播回来啦，视频即将恢复" = "The anchor is back, the video is about to resume";
+"正在退出直播中" = "exiting live stream";
+"您当前正在直播，是否退出直播？" = "You are currently live streaming, do you want to exit the live streaming?";
+"直播间退出群:%@ 成功1" = "Exit the group from the live broadcast room:%@ success 1";
+"直播间退出群:%@ 失败1，错误码：%d，错误原因：%@" = "Exit the group from the live broadcast room:%@ Failure 1, error code:%d，wrong reason：%@";
+"加入聊天室失败，请稍候尝试" = "Failed to join chat room, please try later";
+"=========加入直播聊天室失败 code: %d , msg = %@" = "=========Failed to join live chat room code: %d , msg = %@";
+"创建" = "create";
+"加入" = "join in";
+"当前是移动网络，是否继续%@直播？" = "It is currently a mobile network, do you want to continue the %@ live broadcast?？";
+"网络提示" = "Network Tips";
+"当前无网络，无法%@直播" = "There is currently no network, unable to %@ live broadcast";
+"当前是移动网络，是否继续直播？" = "It is currently a mobile network, do you want to continue the live broadcast?？";
+"当前是移动网络，是否继续观看直播？" = "It is currently a mobile network, do you want to continue watching the live broadcast?";
+"当前无网络，无法继续%@直播！" = "There is currently no network, unable to continue the %@ live broadcast!";
+"观看" = "观看";
+"电话中断处理：电话状态为call.callState = %@" = "Call interruption handling: The call status is call.callState = %@";
+"电话中断处理：在前如的时候处理的电话，挂断后，立即回到前台" = "Call interruption processing: the call handled at the time of the previous example, after hanging up, immediately return to the front desk";
+"电话中断处理：退到后台接话：不处理" = "Call interruption processing: back to the background to answer the call: no processing";
+"电话中断处理：已在后台接电话话：不处理" = "Call interruption processing: The phone has been answered in the background Call: not processed";
+"主播离开一下，精彩不中断，不要走开哦" = "The anchor leave for a while, the excitement will not be interrupted, don't go away";
+"初中断" = "initial interruption";
+
+
+"直播间预加载参数出错" = "Error in preloading parameters in live broadcast room";
+"抱歉，房间信息出错" = "Sorry, the room information is wrong";
+"视频已结束或正在创建中！" = "Video has ended or is being created!";
+"确定退出当前直播？" = "Are you sure you want to exit the current live broadcast?";
+"该直播已结束" = "This live broadcast has ended";
+"参数错误!" = "Parameter error!";
+
+
+"请先关闭键盘" = "Please close the keyboard first";
+
+
+"直播消息:" = "Live news:";
+"我点亮了" = "i light up";
+"金光一闪，%@ 加入了..." = "In a flash, %@ has joined...";
+"%@ 来了" = "%@ coming";
+"神秘人加入了房间" = "Mysterious man joined the room";
+"是隐身了" = "是隐身了";
+"==========消息设置出错了" = "==========message setting error";
+
+
+"当前余额不足，充值才能继续发送弹幕，是否去充值？" = "If the current balance is insufficient, the barrage can only be sent after recharging. Do you want to recharge?";
+"是否开启上庄？" = "Is Shangzhuang turned on?";
+"确定要移除该庄家？" = "Are you sure you want to remove this bookmaker?";
+"余额:%@" = "balance:%@";
+"剩余底金%@" = "Remaining deposit%@";
+"星店" = "star shop";
+"小店" = "small shop";
+"底金:%@" = "bottom gold:%@";
+"是否切换为手动发牌" = "Whether to switch to manual licensing";
+"是否切换为自动发牌" = "Whether to switch to automatic licensing";
+
+
+"守护 : 虚席以待" = "Guardian : Waiting";
+"守护 : %@人" = "Guardian: %@person";
+"守护列表请求数据失败responseJson:%@" = "daemon list request data failed responseJson:%@";
+"守护列表请求数据失败error:%@" = "daemon list request data failed error:%@";
+"精彩回放" = "Highlights";
+"直播Live" = "Live Live";
+"不能查看神秘人的信息" = "Unable to view the information of the mysterious man";
+
+
+"开启大喇叭，%ld%@/条" = "Turn on the loudspeaker,%ld%@/条";
+"和大家说点什么" = "say something to everyone";
+"发送按钮" = "send button";
+"您当前等级不能发言！" = "send button";
+"请勿刷屏" = "don't swipe";
+"请勿频繁发言" = "Do not speak frequently";
+
+
+"每日任务" = "daily tasks";
+
+
+"已领" = "received";
+"领取" = "receive";
+
+
+"击败了%@%%的用户" = "Defeated%@%%User";
+"击败了" = "Defeated";
+
+
+"PK中" = "PK";
+"0秒" = "0 seconds";
+"主播request_get_pk_info2:%@" = "Anchor request_get_pk_info2:%@";
+"punishment_time_user 消息发送成功" = "punishment_time_user message sent successfully";
+"punishment_time_user 消息发送失败" = "punishment_time_user Failed to send message";
+"观众request_get_pk_info2:%@" = "Viewer request_get_pk_info2:%@";
+"%d秒" = "%d seconds";
+"结束" = "Finish";
+
+
+"我方：%f" = "Our side:%f";
+"%f：对方" = "%f: the other party";
+"对方：%f" = "other side:%f";
+"%f：我方" = "%f: our side";
+"我方: %.0f" = "our side: %.0f";
+"对方: %.0f" = "other side: %.0f";
+"我方 %.0f" = "our side %.0f";
+"%.0f 对方" = "%.0f other side";
+"我方：%.0f" = "Our side:%.0f";
+"%.0f：对方" = "%.0f: opponent";
+
+
+"PK时长     " = "PK duration     ";
+"设置PK时长" = "Set PK duration";
+"确定发起PK" = "Determine to initiate PK";
+"约战PK" = "dating PK";
+"结束PK" = "end PK";
+"%@%@分钟" = "%@%@minute";
+"PKList接口请求成功responseJson:%@" = "PK List interface request success responseJson:%@";
+"PKList接口请求失败responseJson:%@" = "PK List interface request failed responseJson:%@";
+"PKList接口请求失败error:%@" = "PK List interface request failed error:%@";
+"获取对方用户信息成功responseJson:%@" = "Get the other party's user information successfully responseJson:%@";
+"获取对方用户信息失败responseJson:%@" = "Failed to get the other party's user information responseJson:%@";
+"获取对方用户信息失败error:%@" = "Failed to obtain the other party's user information error:%@";
+"%@分钟" = "%@minute";
+"PK时间选择" = "PK time selection";
+
+
+"关闭连麦" = "Close Lianmai";
+
+
+"选择付款方式" = "choose to pay by cash";
+"立即支付" = "pay immediately";
+
+
+"%ld钻石" = "%ld diamond";
+
+
+"钻石充值" = "diamond recharge";
+"余额：%ld" = "Balance:%ld";
+
+
+"%@的红包" = "%@'s red envelope";
+
+
+"布谷" = "cuckoo";
+"TA好像忘记写签名了" = "TA seems to have forgotten to write a signature";
+"%@\n关注" = "%@\n Follow";
+"%@\n粉丝" = "%@\n fans";
+"%@\n送出" = "%@\n send";
+"管理" = "manage";
+"解除禁言" = "unmute";
+"禁言" = "mute";
+"设置为管理员" = "set as admin";
+"取消管理员" = "cancel admin";
+"10分钟" = "10 minutes";
+"1小时" = "1 hour";
+"12小时" = "12 hours";
+"1天" = "1 day";
+"永久" = "permanent";
+"禁言失败" = "mute failed";
+"设置管理员成功" = "set administrator successfully";
+"管理员设置,请重新操作" = "Administrator settings, please try again";
+
+
+"举报类型" = "Report Type";
+
+
+"%d钻石" = "%d diamond";
+
+
+"调用方法contentoffset方法动画完毕时调用次方法+++++++++++" = "Call the method contentoffset method to call the next method when the animation is completed+++++++++++";
+"正在拖拽视图，所以需要将自动播放暂停掉" = "The view is being dragged, so the autoplay needs to be paused";
+"开启定时器" = "start timer";
+"定时器被调用------------------------" = "timer is called------------------------";
+"七彩火箭" = "colorful rocket";
+
+
+"添加礼物和数量" = "Add gifts and quantities";
+"选择礼物" = "choose a gift";
+"心愿单" = "wish list";
+"请选择礼物" = "Please choose a gift";
+"请填写礼物数量" = "Please fill in the number of gifts";
+"添加数量" = "add quantity";
+"报答方式(选填)" = "Repayment method (optional)";
+"无" = "none";
+"点击输入礼物数量" = "Click to enter gift quantity";
+"编辑8字以内" = "Edit within 8 characters";
+"心愿一" = "wish one";
+"心愿二" = "wish two";
+"心愿三" = "wish three";
+
+
+"添加" = "Add to";
+
+
+"奇才火箭" = "Wizards Rocket";
+"%@个" = "%@indivual";
+"200个" = "200indivual";
+
+
+"直播心愿单(0/3)" = "Live Wishlist(0/3)";
+"直播心愿单(%ld/3)" = "Live Wishlist(%ld/3)";
+"请添加心愿" = "please add a wish";
+"心愿单不能超过三个！" = "Wishlist cannot exceed three!";
+"删除心愿成功" = "Delete wish succeeded";
+
+
+"9999个" = "9999indivual";
+"报答方式(选填):编辑8个字以内" = "Repayment method (optional): edit within 8 characters";
+"添加心愿" = "add a wish";
+"生成心愿" = "generate a wish";
+
+
+"余额:" = "balance:";
+"充值 >" = "recharge >";
+"送礼" = "gift";
+"连发" = "burst";
+"幸运" = "Lucky";
+"彩钻" = "Colored Diamonds";
+"您当前没有贵族礼物特权,无法发送贵族专属礼物" = "You currently do not have the privilege of noble gifts, so you cannot send noble gifts";
+
+
+"道具礼物(%@)" = "prop gift(%@)";
+"URL不合法" = "URL is not valid";
+"商品列表" = "Product list";
+
+
+"贵族列表" = "List of nobles";
+
+
+"svga播放错误%@" = "svga playback error%@";
+
+
+"TA的守护" = "TA's guardian";
+"守护特权" = "Guardian Privilege";
+"成为Ta的守护,享受独一无二的特权" = "Become the guardian of Ta and enjoy unique privileges";
+"开通守护" = "open guard";
+"续费守护" = "Renewal Guardian";
+"到期: " = "maturity: ";
+"我的钻石: %@" = "my diamond: %@";
+"我的钻石: " = "my diamond: ";
+"守护类型接口请求失败responseJson:%@" = "The daemon type interface request failed responseJson:%@";
+"守护类型接口请求失败error:%@" = "daemon type interface request failed error:%@";
+"点击了第%ld个按钮" = "clicked on%buttons";
+"点击了开通守护按钮" = "Click on the Open Guard button";
+"我的钻石: 0" = "my diamond: 0";
+
+
+"贡献%@%@" = "contribute%@%@";
+"布谷票" = "Cuckoo Ticket";
+
+
+"守护(%@)" = "guard(%@)";
+"快去为你喜爱的主播开通守护吧!" = "Go and open a guardian for your favorite anchor!";
+"我的守护正星夜兼程的赶来" = "My guardian is here at the same time";
+"成为TA的第一个守护" = "Be the first guardian of TA";
+"点击了守护列表中的第%ld项" = "Click on the No. 1 in the guard list %ld项";
+"守护" = "守护";
+
+
+"推送" = "push";
+"购买" = "Buy";
+
+
+"送主播" = "send anchor";
+"购买了%@商品" = "Bought%@commodity";
+"购买了%@商品送主播" = "购买了%@Merchandise to the anchor";
+
+
+"送给主播" = "to the anchor";
+"买给自己" = "buy for yourself";
+
+
+"星店商品管理" = "Star store product management";
+"查看星店" = "View Star Shop";
+
+
+"音乐" = "music";
+"麦克风" = "microphone";
+"翻转" = "flip";
+"闪光灯" = "flash";
+"镜像" = "mirror";
+"直播开启中，请稍候!" = "The live broadcast is on, please wait!";
+
+
+"lr背景" = "lr background";
+"lr声音" = "lr sound";
+"音效" = "sound effect";
+
+
+"基础工具" = "basic tools";
+"游戏与功能列表" = "List of games and features";
+"使用中" = "Using";
+
+
+"上传" = "upload";
+"lr上传" = "lr upload";
+
+
+"参与%@次出价" = "participate%@bid";
+
+
+"关闭美颜" = "Turn off beauty";
+
+
+"嫩肤" = "skin rejuvenation";
+"白肤" = "fair skin";
+"自然" = "nature";
+"柔肤" = "Soft skin";
+"白皙" = "fair";
+"1 小清新" = "1 small fresh";
+"2 靓丽" = "2 beautiful";
+"3 甜美可人" = "3 sweet and lovely";
+"4 怀旧" = "4 nostalgic";
+"5 蓝调" = "5 blues";
+"6 老照片" = "6 old photos";
+"磨皮" = "Microdermabrasion";
+"参数" = "parameter";
+
+
+"关" = "close";
+"简单美颜" = "simple beauty";
+"美颜pro" = "beauty pro";
+"红润美颜" = "rosy beauty";
+"美颜特效" = "Beauty effects";
+"特效" = "special effects";
+"支付宝认证" = "Alipay authentication";
+"设置" = "set up";
+"回播" = "Playback";
+"最后更新：今天 14:14" = "Last update: today 14:14";
+"昵称" = "昵称";
+"《用户隐私政策》" = "《User Privacy Policy》";
+"送出" = "send";
+"签到" = "sign in";
+"微信登录" = "WeChat login";
+"登录即代表你同意" = "By logging in you agree";
+"游客登录" = "Guest login";
+
+"账号" = "account";
+
+"身份认证" = "Authentication";
+
+"关注" = "focus on";
+
+"小视频" = "small video";
+
+"上拉可以加载更多" = "Pull up to load more";
+
+"登录即代表你同意" = "By logging in you agree";
+
+"粉丝" = "fan";
+
+"私信" = "message";
+
+"主播暂时离开下;马上回来！" = "The anchor leaves temporarily;Be right back!";
+
+"最后更新：无记录" = "Last update: no record";
+
+"签名" = "sign";
+
+"下拉可以刷新" = "Pull down to refresh";
+
+"拉黑" = "pull black";
+
+"忽略未读" = "ignore unread";
+
+"手机登录" = "Log in with phone";
+
+"其他方式" = "other methods";
+
+
+"退出登录"="退出登录";
+"我们将关闭启动程序，请重新启动" = "We will close the launcher, please restart";
+"切换语言" = "switch language";
+"昨日排行" = "Yesterday's ranking";
+"昨日榜" = "   Yesterday's list   ";
+"暂无消息" = "No news yet";
+"青少年模式简介" = "Introduction to Teen Mode";
+"公告" = "Announcement";
+"背景选择" = "Background image";
+//master_dev_v3_u1.0
+//"PK battle"
+//"kick people"
+//Kick people successfully
+//@"You have not activated nobles, you need to activate before sending this gift"
+//stealthy approach
+//List stealth
+//Are you sure you want to end the broadcast?
+//Follow the anchor
+//Turn on targeting
+

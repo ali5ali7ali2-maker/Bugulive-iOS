@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="KGk-i7-Jjw" customClass="BogoNewsLikesCell">
+            <rect key="frame" x="0.0" y="0.0" width="329" height="164"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="329" height="164"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-vN-cWG">
+                        <rect key="frame" x="95" y="52" width="134" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="赞了你的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-In-1Zr">
+                        <rect key="frame" x="95" y="76.5" width="134" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWc-ct-ETG">
+                        <rect key="frame" x="95" y="97" width="31" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="LFs-j3-NGP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRU-Fb-Qd6">
+                        <rect key="frame" x="234" y="42" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="UrX-sp-LGj"/>
+                            <constraint firstAttribute="width" constant="80" id="fMZ-bx-fdG"/>
+                        </constraints>
+                        <state key="normal" image="bogo_news_likes_VideoPlay" backgroundImage="bogo_news_likes_VideoBgImg"/>
+                    </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K0T-Ip-taG">
+                        <rect key="frame" x="15" y="47" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="9uG-Xd-pk3"/>
+                            <constraint firstAttribute="width" constant="70" id="MAE-eR-6l8"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfG-V7-w1e">
+                        <rect key="frame" x="16" y="163.5" width="297" height="0.5"/>
+                        <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="y2Q-Ns-RGF"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一的好服务" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZO-yi-qOH">
+                        <rect key="frame" x="239" y="49" width="70" height="66"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="gKG-LX-yTs"/>
+                            <constraint firstAttribute="height" constant="66" id="haa-DG-zZ2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XCq-vN-cWG" firstAttribute="top" secondItem="K0T-Ip-taG" secondAttribute="top" constant="5" id="1r5-vF-Fpx"/>
+                    <constraint firstItem="uBf-In-1Zr" firstAttribute="top" secondItem="XCq-vN-cWG" secondAttribute="bottom" constant="5" id="6QN-sF-az7"/>
+                    <constraint firstAttribute="trailing" secondItem="qfG-V7-w1e" secondAttribute="trailing" constant="16" id="8WN-MG-0Vp"/>
+                    <constraint firstItem="NRU-Fb-Qd6" firstAttribute="leading" secondItem="XCq-vN-cWG" secondAttribute="trailing" constant="5" id="Bn2-ST-REo"/>
+                    <constraint firstItem="hWc-ct-ETG" firstAttribute="leading" secondItem="uBf-In-1Zr" secondAttribute="leading" id="C93-c6-jPt"/>
+                    <constraint firstItem="K0T-Ip-taG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Hin-wU-qPS"/>
+                    <constraint firstItem="BZO-yi-qOH" firstAttribute="centerY" secondItem="NRU-Fb-Qd6" secondAttribute="centerY" id="Pzc-hs-82r"/>
+                    <constraint firstAttribute="bottom" secondItem="qfG-V7-w1e" secondAttribute="bottom" id="Ry0-0g-g5u"/>
+                    <constraint firstItem="K0T-Ip-taG" firstAttribute="centerY" secondItem="NRU-Fb-Qd6" secondAttribute="centerY" id="UFs-42-NvP"/>
+                    <constraint firstItem="hWc-ct-ETG" firstAttribute="bottom" secondItem="K0T-Ip-taG" secondAttribute="bottom" id="UxS-ex-GV4"/>
+                    <constraint firstItem="uBf-In-1Zr" firstAttribute="leading" secondItem="XCq-vN-cWG" secondAttribute="leading" id="VoM-sC-CXj"/>
+                    <constraint firstAttribute="trailing" secondItem="NRU-Fb-Qd6" secondAttribute="trailing" constant="15" id="X1J-99-qze"/>
+                    <constraint firstItem="qfG-V7-w1e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="XLE-Sm-yaS"/>
+                    <constraint firstItem="NRU-Fb-Qd6" firstAttribute="leading" secondItem="uBf-In-1Zr" secondAttribute="trailing" constant="5" id="cYC-DV-pcl"/>
+                    <constraint firstItem="BZO-yi-qOH" firstAttribute="centerX" secondItem="NRU-Fb-Qd6" secondAttribute="centerX" id="dko-Ox-vVu"/>
+                    <constraint firstItem="NRU-Fb-Qd6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gWW-Fs-FQB"/>
+                    <constraint firstItem="XCq-vN-cWG" firstAttribute="leading" secondItem="K0T-Ip-taG" secondAttribute="trailing" constant="10" id="wl0-ji-zYe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentImgView" destination="BZO-yi-qOH" id="G01-xB-iRI"/>
+                <outlet property="contentL" destination="uBf-In-1Zr" id="7D0-fc-vI1"/>
+                <outlet property="headImgView" destination="K0T-Ip-taG" id="DRP-ZQ-4Qw"/>
+                <outlet property="nickNameL" destination="XCq-vN-cWG" id="hfN-uZ-ERF"/>
+                <outlet property="rightImgBtn" destination="NRU-Fb-Qd6" id="ZRa-e5-oYF"/>
+                <outlet property="timeL" destination="hWc-ct-ETG" id="g7l-DZ-O6e"/>
+            </connections>
+            <point key="canvasLocation" x="99" y="88"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="bogo_news_likes_VideoBgImg" width="80" height="80"/>
+        <image name="bogo_news_likes_VideoPlay" width="26" height="26"/>
+    </resources>
+</document>

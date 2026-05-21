@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bogo_shop_likes" translatesAutoresizingMaskIntoConstraints="NO" id="4pi-EN-scH">
+                    <rect key="frame" x="15" y="18" width="16" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="aBc-ve-DI9"/>
+                        <constraint firstAttribute="height" constant="14" id="qTw-wb-XRB"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="猜你喜欢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yl7-3e-m5s">
+                    <rect key="frame" x="36" y="15" width="65.5" height="20"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="9Gg-ye-v9C"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="4pi-EN-scH" firstAttribute="leading" secondItem="9Gg-ye-v9C" secondAttribute="leading" constant="15" id="Et6-l2-ddA"/>
+                <constraint firstItem="yl7-3e-m5s" firstAttribute="leading" secondItem="4pi-EN-scH" secondAttribute="trailing" constant="5" id="UuG-9c-VqN"/>
+                <constraint firstItem="yl7-3e-m5s" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="VB1-VU-w01"/>
+                <constraint firstItem="4pi-EN-scH" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="kY6-pf-www"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="81"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="bogo_shop_likes" width="16" height="14"/>
+    </resources>
+</document>

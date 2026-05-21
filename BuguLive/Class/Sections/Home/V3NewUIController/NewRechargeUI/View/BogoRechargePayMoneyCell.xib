@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="BogoRechargePayMoneyCell">
+            <rect key="frame" x="0.0" y="0.0" width="303" height="199"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="303" height="199"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0S-qv-wQn">
+                        <rect key="frame" x="0.0" y="0.0" width="303" height="199"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOC-eH-AXJ" customClass="QMUIButton">
+                        <rect key="frame" x="0.0" y="76.5" width="303" height="26"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" image="bogo_me_top_diamond">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTD-Jv-0uR">
+                        <rect key="frame" x="135" y="112.5" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="m0S-qv-wQn" secondAttribute="trailing" id="Fsh-dQ-WZA"/>
+                <constraint firstItem="m0S-qv-wQn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="RLf-vJ-JVS"/>
+                <constraint firstItem="m0S-qv-wQn" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="dN9-9l-qpu"/>
+                <constraint firstAttribute="bottom" secondItem="m0S-qv-wQn" secondAttribute="bottom" id="fG2-Yt-EX2"/>
+                <constraint firstItem="dOC-eH-AXJ" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="hvi-Rb-lvs"/>
+                <constraint firstItem="rTD-Jv-0uR" firstAttribute="top" secondItem="dOC-eH-AXJ" secondAttribute="bottom" constant="10" id="luw-zC-qfh"/>
+                <constraint firstItem="rTD-Jv-0uR" firstAttribute="centerX" secondItem="dOC-eH-AXJ" secondAttribute="centerX" id="r6h-8o-eIF"/>
+                <constraint firstItem="dOC-eH-AXJ" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="-10" id="uMA-Nl-x1c"/>
+                <constraint firstItem="dOC-eH-AXJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ujR-bj-0I1"/>
+                <constraint firstAttribute="trailing" secondItem="dOC-eH-AXJ" secondAttribute="trailing" id="wME-Id-ou7"/>
+            </constraints>
+            <size key="customSize" width="303" height="199"/>
+            <connections>
+                <outlet property="bgButton" destination="m0S-qv-wQn" id="lqj-5C-aVI"/>
+                <outlet property="diamondBtn" destination="dOC-eH-AXJ" id="aXb-Q5-x6b"/>
+                <outlet property="numberL" destination="rTD-Jv-0uR" id="rOk-m7-227"/>
+            </connections>
+            <point key="canvasLocation" x="54" y="80"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="bogo_me_top_diamond" width="26" height="26"/>
+    </resources>
+</document>

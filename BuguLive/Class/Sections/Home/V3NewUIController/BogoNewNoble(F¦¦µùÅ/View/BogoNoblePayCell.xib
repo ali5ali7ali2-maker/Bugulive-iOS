@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Vd4-Bq-Ltd" customClass="BogoNoblePayCell">
+            <rect key="frame" x="0.0" y="0.0" width="303" height="199"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="303" height="199"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIA-4l-HwB">
+                        <rect key="frame" x="0.0" y="0.0" width="303" height="199"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LD7-mP-Wnc" customClass="QMUIButton">
+                        <rect key="frame" x="0.0" y="105.5" width="303" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" image="bogo_me_top_diamond">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDC-Qh-s7D">
+                        <rect key="frame" x="135" y="75" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="LD7-mP-Wnc" firstAttribute="centerX" secondItem="Vd4-Bq-Ltd" secondAttribute="centerX" id="4OO-fY-DhL"/>
+                <constraint firstAttribute="trailing" secondItem="wIA-4l-HwB" secondAttribute="trailing" id="FtB-bN-Phv"/>
+                <constraint firstItem="wIA-4l-HwB" firstAttribute="leading" secondItem="Vd4-Bq-Ltd" secondAttribute="leading" id="MWn-Au-uWu"/>
+                <constraint firstItem="LD7-mP-Wnc" firstAttribute="centerY" secondItem="Vd4-Bq-Ltd" secondAttribute="centerY" constant="15" id="Sxv-yc-TTe"/>
+                <constraint firstAttribute="trailing" secondItem="LD7-mP-Wnc" secondAttribute="trailing" id="TMM-rp-dAY"/>
+                <constraint firstItem="LD7-mP-Wnc" firstAttribute="leading" secondItem="Vd4-Bq-Ltd" secondAttribute="leading" id="TiO-5j-PHE"/>
+                <constraint firstAttribute="bottom" secondItem="wIA-4l-HwB" secondAttribute="bottom" id="gr7-L8-rMM"/>
+                <constraint firstItem="wIA-4l-HwB" firstAttribute="top" secondItem="Vd4-Bq-Ltd" secondAttribute="top" id="qgT-Uw-zfn"/>
+                <constraint firstItem="LD7-mP-Wnc" firstAttribute="top" secondItem="HDC-Qh-s7D" secondAttribute="bottom" constant="14.5" id="u7Z-4i-YOU"/>
+                <constraint firstItem="HDC-Qh-s7D" firstAttribute="centerX" secondItem="LD7-mP-Wnc" secondAttribute="centerX" id="ym6-s7-Uvg"/>
+            </constraints>
+            <size key="customSize" width="303" height="199"/>
+            <connections>
+                <outlet property="bgButton" destination="wIA-4l-HwB" id="aJk-l3-wzU"/>
+                <outlet property="diamondBtn" destination="LD7-mP-Wnc" id="wfW-1s-I2C"/>
+                <outlet property="numberL" destination="HDC-Qh-s7D" id="2k2-DU-zdu"/>
+            </connections>
+            <point key="canvasLocation" x="-7" y="65"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="bogo_me_top_diamond" width="20" height="18"/>
+    </resources>
+</document>

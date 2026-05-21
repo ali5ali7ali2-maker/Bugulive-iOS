@@ -1,0 +1,16 @@
+#use_frameworks!
+
+source 'http://git.bogokj.com/fandong/BogoSpec.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+
+target 'BogoPayKit_Example' do
+  pod 'BogoPayKit', :path => '../'
+
+  target 'BogoPayKit_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

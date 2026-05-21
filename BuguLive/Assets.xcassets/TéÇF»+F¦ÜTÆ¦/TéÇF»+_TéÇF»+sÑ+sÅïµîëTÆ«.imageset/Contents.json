@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "邀请_邀请好友按钮.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "邀请_邀请好友按钮@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "邀请_邀请好友按钮@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

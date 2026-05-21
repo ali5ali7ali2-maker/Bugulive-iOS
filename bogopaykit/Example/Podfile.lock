@@ -1,0 +1,55 @@
+PODS:
+  - BogoPayKit (0.1.9):
+    - FDFoundationObjC
+    - FDUIKitObjC
+  - FDFoundationObjC (1.0.2):
+    - MJExtension
+  - FDFullscreenPopGesture (1.1)
+  - FDUIKitObjC (1.0.7):
+    - FDFoundationObjC
+    - FDFullscreenPopGesture
+    - Masonry
+    - MBProgressHUD
+    - MJRefresh
+    - YYKit
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.2.0)
+  - MJExtension (3.2.1)
+  - MJRefresh (3.4.3)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - BogoPayKit (from `../`)
+
+SPEC REPOS:
+  http://git.bogokj.com/fandong/BogoSpec.git:
+    - FDFoundationObjC
+    - FDUIKitObjC
+  https://github.com/CocoaPods/Specs.git:
+    - FDFullscreenPopGesture
+    - Masonry
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - YYKit
+
+EXTERNAL SOURCES:
+  BogoPayKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BogoPayKit: bc602f952b4c517c21db30e6e15bc0d1a70bf5a5
+  FDFoundationObjC: b02b1f97b39ba22ddec5f86aac57a07c02ca02af
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  FDUIKitObjC: 01a131ae273203f65f22181bb60d3e99c447a7fa
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
+  MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: 008bb16bd05481391e30c1bd616750b9f8413e04
+
+COCOAPODS: 1.10.1

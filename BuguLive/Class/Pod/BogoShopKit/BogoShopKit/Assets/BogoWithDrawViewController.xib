@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BogoWithDrawViewController">
+            <connections>
+                <outlet property="tableView" destination="szn-hm-kdp" id="l0c-LH-R8r"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="withDrawBtn" destination="6yW-tE-Igv" id="rf3-Ic-3or"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="szn-hm-kdp">
+                    <rect key="frame" x="0.0" y="44" width="414" height="659"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yW-tE-Igv">
+                    <rect key="frame" x="77" y="703" width="260" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="260" id="WNW-2S-FhQ"/>
+                        <constraint firstAttribute="height" constant="40" id="gWC-05-Pad"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="立即提现"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="withDrawBtnAction:" destination="-1" eventType="touchUpInside" id="Bii-A1-LqX"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXO-0C-fpi">
+                    <rect key="frame" x="10" y="763" width="394" height="79"/>
+                    <string key="text">提现说明：   1、此收益仅为店铺卖货所得收益； 
+2、每日提现次数最多2次，每日提现金额最高50000元；  3、为保障您的资金安全，请先绑定支付宝账号</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="xXO-0C-fpi" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="8hr-a0-5Rz"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="xXO-0C-fpi" secondAttribute="bottom" constant="20" id="FDw-ly-g6M"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="szn-hm-kdp" secondAttribute="trailing" id="Goa-lH-4of"/>
+                <constraint firstItem="xXO-0C-fpi" firstAttribute="top" secondItem="6yW-tE-Igv" secondAttribute="bottom" constant="20" id="WBJ-hT-zbA"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="xXO-0C-fpi" secondAttribute="trailing" constant="10" id="YBv-kn-IZ7"/>
+                <constraint firstItem="6yW-tE-Igv" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aah-PC-ap1"/>
+                <constraint firstItem="szn-hm-kdp" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="dUH-fG-vZv"/>
+                <constraint firstItem="6yW-tE-Igv" firstAttribute="top" secondItem="szn-hm-kdp" secondAttribute="bottom" id="h4K-Jh-P7s"/>
+                <constraint firstItem="szn-hm-kdp" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="ldJ-0M-ZUp"/>
+            </constraints>
+            <point key="canvasLocation" x="274" y="130"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

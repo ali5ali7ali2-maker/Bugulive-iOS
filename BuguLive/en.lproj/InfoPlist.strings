@@ -1,0 +1,16 @@
+/* 
+  InfoPlist.strings
+  BuguLive
+
+  Created by 志刚杨 on 2022/8/3.
+  Copyright © 2022 xfg. All rights reserved.
+*/
+
+"NSAppleMusicUsageDescription" = "We want to access your media to get the photos in the phone, upload the avatar operation";
+"NSCameraUsageDescription" = "We want to access your camera to get the photos in your phone, upload avatar operation";
+"NSContactsUsageDescription" = "We want to access your address book";
+"NSLocationAlwaysUsageDescription" = "need to locate";
+"NSLocationWhenInUseUsageDescription" = "need to locate";
+"NSMicrophoneUsageDescription" = "We want to access your mic, user live, even mic";
+"NSPhotoLibraryAddUsageDescription" = "Please allow the APP to save pictures to the album";
+"NSPhotoLibraryUsageDescription" = "We want to access your media to get the photos in the phone, upload the avatar operation";

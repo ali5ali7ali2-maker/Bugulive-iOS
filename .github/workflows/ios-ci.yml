@@ -1,0 +1,57 @@
+name: iOS CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-simulator:
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show tool versions
+        run: |
+          xcodebuild -version
+          ruby -v
+
+      - name: Install CocoaPods
+        run: |
+          gem install cocoapods --no-document
+          pod --version
+
+      - name: Install Pods
+        run: |
+          pod repo update
+          pod install --repo-update
+
+      - name: List schemes
+        run: xcodebuild -workspace BuguLive.xcworkspace -list
+
+      - name: Build for iOS Simulator
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -workspace BuguLive.xcworkspace \
+            -scheme BuguLive \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            clean build | tee ios-build.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-log
+          path: ios-build.log

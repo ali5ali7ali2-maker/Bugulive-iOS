@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BogoShopCategoryGoodViewController">
+            <connections>
+                <outlet property="defaultBtn" destination="inv-U4-N08" id="DQ0-4D-pnZ"/>
+                <outlet property="lineView" destination="eYH-53-4JC" id="FVC-mb-TAT"/>
+                <outlet property="priceBtn" destination="nSg-Ea-Qsc" id="qs0-AK-LVv"/>
+                <outlet property="salesBtn" destination="zvY-TU-ySn" id="qqr-OI-RZU"/>
+                <outlet property="tableView" destination="Tsg-El-BwM" id="oyy-F7-K9T"/>
+                <outlet property="view" destination="8fH-nv-YlL" id="8EF-sb-lFh"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8fH-nv-YlL">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9J-5B-icU">
+                    <rect key="frame" x="0.0" y="44" width="414" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="inv-U4-N08">
+                            <rect key="frame" x="0.0" y="0.0" width="138" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="综合排序">
+                                <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" red="0.95686274509803915" green="0.14117647058823529" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="defaultBtnAction:" destination="-1" eventType="touchUpInside" id="Xss-zX-OP6"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvY-TU-ySn" customClass="QMUIButton">
+                            <rect key="frame" x="138" y="0.0" width="138" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="销量" image="shop_排序.png">
+                                <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" red="0.95686274509803915" green="0.14117647058823529" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="salesBtnAction:" destination="-1" eventType="touchUpInside" id="PWN-BP-WPJ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSg-Ea-Qsc" customClass="QMUIButton">
+                            <rect key="frame" x="276" y="0.0" width="138" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="价格" image="shop_排序.png">
+                                <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected" image="shop_排序-1.png">
+                                <color key="titleColor" red="0.95686274509803915" green="0.14117647058823529" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="priceBtnAction:" destination="-1" eventType="touchUpInside" id="JUU-QP-lI9"/>
+                            </connections>
+                        </button>
+                        <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYH-53-4JC">
+                            <rect key="frame" x="61" y="31" width="16" height="4"/>
+                            <color key="backgroundColor" red="0.95686274509803915" green="0.14117647058823529" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="4" id="Ktz-GF-jrx"/>
+                                <constraint firstAttribute="width" constant="16" id="xVN-EU-zVh"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="nSg-Ea-Qsc" secondAttribute="bottom" id="9bS-5X-Voc"/>
+                        <constraint firstAttribute="bottom" secondItem="inv-U4-N08" secondAttribute="bottom" id="BKs-qz-2Rs"/>
+                        <constraint firstAttribute="height" constant="40" id="Bl5-eA-DMa"/>
+                        <constraint firstAttribute="bottom" secondItem="eYH-53-4JC" secondAttribute="bottom" constant="5" id="EWo-kc-GOW"/>
+                        <constraint firstItem="eYH-53-4JC" firstAttribute="centerX" secondItem="inv-U4-N08" secondAttribute="centerX" id="NiS-ax-ufi"/>
+                        <constraint firstItem="zvY-TU-ySn" firstAttribute="top" secondItem="u9J-5B-icU" secondAttribute="top" id="PTK-NV-VeW"/>
+                        <constraint firstAttribute="trailing" secondItem="nSg-Ea-Qsc" secondAttribute="trailing" id="QVW-rf-gVj"/>
+                        <constraint firstItem="inv-U4-N08" firstAttribute="width" secondItem="zvY-TU-ySn" secondAttribute="width" id="YE5-GP-fB4"/>
+                        <constraint firstItem="zvY-TU-ySn" firstAttribute="leading" secondItem="inv-U4-N08" secondAttribute="trailing" id="ZNA-Vg-Khp"/>
+                        <constraint firstItem="zvY-TU-ySn" firstAttribute="width" secondItem="nSg-Ea-Qsc" secondAttribute="width" id="ZRA-0d-Va0"/>
+                        <constraint firstItem="nSg-Ea-Qsc" firstAttribute="top" secondItem="u9J-5B-icU" secondAttribute="top" id="l04-1Y-JJa"/>
+                        <constraint firstItem="nSg-Ea-Qsc" firstAttribute="leading" secondItem="zvY-TU-ySn" secondAttribute="trailing" id="owt-pq-xnY"/>
+                        <constraint firstAttribute="bottom" secondItem="zvY-TU-ySn" secondAttribute="bottom" id="qgf-Ds-o4i"/>
+                        <constraint firstItem="inv-U4-N08" firstAttribute="leading" secondItem="u9J-5B-icU" secondAttribute="leading" id="rEh-US-uPS"/>
+                        <constraint firstItem="inv-U4-N08" firstAttribute="top" secondItem="u9J-5B-icU" secondAttribute="top" id="z96-e7-0ED"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tsg-El-BwM">
+                    <rect key="frame" x="0.0" y="84" width="414" height="812"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ela-1O-Edo"/>
+                        <outlet property="delegate" destination="-1" id="yaM-6A-LC9"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="ONp-Q1-P91"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Tsg-El-BwM" firstAttribute="leading" secondItem="ONp-Q1-P91" secondAttribute="leading" id="ArD-Zx-NmI"/>
+                <constraint firstItem="u9J-5B-icU" firstAttribute="top" secondItem="ONp-Q1-P91" secondAttribute="top" id="T7d-Gz-tLY"/>
+                <constraint firstItem="ONp-Q1-P91" firstAttribute="trailing" secondItem="Tsg-El-BwM" secondAttribute="trailing" id="UOt-TZ-fHp"/>
+                <constraint firstAttribute="bottom" secondItem="Tsg-El-BwM" secondAttribute="bottom" id="WKg-69-tMR"/>
+                <constraint firstItem="u9J-5B-icU" firstAttribute="leading" secondItem="ONp-Q1-P91" secondAttribute="leading" id="Yxy-cN-8PS"/>
+                <constraint firstItem="Tsg-El-BwM" firstAttribute="top" secondItem="u9J-5B-icU" secondAttribute="bottom" id="ngA-8b-jbY"/>
+                <constraint firstItem="ONp-Q1-P91" firstAttribute="trailing" secondItem="u9J-5B-icU" secondAttribute="trailing" id="zeT-ua-9le"/>
+            </constraints>
+            <point key="canvasLocation" x="-17.39130434782609" y="75.669642857142847"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="shop_排序-1.png" width="12" height="10"/>
+        <image name="shop_排序.png" width="12" height="10"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

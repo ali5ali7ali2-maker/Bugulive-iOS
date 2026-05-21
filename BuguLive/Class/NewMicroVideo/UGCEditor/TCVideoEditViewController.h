@@ -1,0 +1,27 @@
+//
+//  TCVideoEditViewController.h
+//  TCLVBIMDemo
+//
+//  Created by xiang zhang on 2017/4/10.
+//  Copyright © 2017年 tencent. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "music_obj.h"
+
+@interface TCVideoEditViewController : UIViewController
+
+@property (strong,nonatomic) NSString *videoPath;
+
+@property (strong,nonatomic) AVAsset  *videoAsset;
+
+@property (strong,nonatomic)music_obj *element;
+//从剪切过来
+@property (assign,nonatomic) BOOL     isFromCut;
+
+//从合唱过来
+@property (assign,nonatomic) BOOL     isFromChorus;
+
+@property (assign, nonatomic) int     renderRotation;
+
+@end

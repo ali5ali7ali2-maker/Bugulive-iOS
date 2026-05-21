@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BogoRechargeTopView">
+            <rect key="frame" x="0.0" y="0.0" width="535" height="328"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bogo_recharge_TopBgImage" translatesAutoresizingMaskIntoConstraints="NO" id="cMb-IY-Jjr">
+                    <rect key="frame" x="13" y="13" width="509" height="302"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zr-kX-yFH" customClass="QMUIButton">
+                    <rect key="frame" x="192.66666666666663" y="121" width="150" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="Qto-3p-lxk"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="Button" image="bogo_me_top_diamond"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thi-pv-DU1">
+                    <rect key="frame" x="15" y="162" width="505" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Thi-pv-DU1" firstAttribute="top" secondItem="4zr-kX-yFH" secondAttribute="bottom" constant="15" id="1vl-Jp-dGD"/>
+                <constraint firstItem="Thi-pv-DU1" firstAttribute="centerX" secondItem="4zr-kX-yFH" secondAttribute="centerX" id="2MO-Re-juS"/>
+                <constraint firstAttribute="trailing" secondItem="cMb-IY-Jjr" secondAttribute="trailing" constant="13" id="5Sx-me-EJj"/>
+                <constraint firstItem="cMb-IY-Jjr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="DaL-q9-0T1"/>
+                <constraint firstItem="cMb-IY-Jjr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="13" id="Ohp-Aa-2E5"/>
+                <constraint firstAttribute="bottom" secondItem="cMb-IY-Jjr" secondAttribute="bottom" constant="13" id="esq-Zg-rK3"/>
+                <constraint firstItem="Thi-pv-DU1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="ky2-6p-Nar"/>
+                <constraint firstAttribute="trailing" secondItem="Thi-pv-DU1" secondAttribute="trailing" constant="15" id="plB-hE-E5e"/>
+                <constraint firstItem="4zr-kX-yFH" firstAttribute="centerY" secondItem="cMb-IY-Jjr" secondAttribute="centerY" constant="-30" id="zcl-xx-ecc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="diamondBtn" destination="4zr-kX-yFH" id="a9l-Ul-eH1"/>
+                <outlet property="numerLabel" destination="Thi-pv-DU1" id="ALp-bs-ecY"/>
+            </connections>
+            <point key="canvasLocation" x="-50" y="148"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bogo_me_top_diamond" width="26" height="26"/>
+        <image name="bogo_recharge_TopBgImage" width="351" height="140"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

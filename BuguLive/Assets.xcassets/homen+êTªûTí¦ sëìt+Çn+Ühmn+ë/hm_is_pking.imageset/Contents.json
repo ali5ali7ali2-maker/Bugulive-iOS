@@ -1,0 +1,62 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_is_pking.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ic_is_pking@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ic_is_pking@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "正在PK中.png",
+      "idiom" : "universal",
+      "locale" : "zh-Hans",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "正在PK中@2x-1.png",
+      "idiom" : "universal",
+      "locale" : "zh-Hans",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "正在PK中@3x-1.png",
+      "idiom" : "universal",
+      "locale" : "zh-Hans",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "ic_is_pking-1.png",
+      "idiom" : "universal",
+      "locale" : "English",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ic_is_pking@2x-1.png",
+      "idiom" : "universal",
+      "locale" : "English",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ic_is_pking@3x-1.png",
+      "idiom" : "universal",
+      "locale" : "English",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
+  }
+}

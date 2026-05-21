@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="55" id="KGk-i7-Jjw" customClass="SetCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aaaa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WA8-CQ-yYc">
+                        <rect key="frame" x="20" y="18" width="34.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00M" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyI-RA-B5V">
+                        <rect key="frame" x="243.5" y="19.5" width="38.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.56470588235294117" green="0.56470588235294117" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygp-iW-w4E">
+                        <rect key="frame" x="292" y="16.5" width="8" height="22"/>
+                        <state key="normal" image="进入-1"/>
+                    </button>
+                    <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgP-mz-pXv">
+                        <rect key="frame" x="222" y="16.5" width="60" height="22"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                        <state key="normal" backgroundImage="speech_sounds">
+                            <color key="titleColor" red="0.58823529409999997" green="0.45882352939999999" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ygp-iW-w4E" firstAttribute="leading" secondItem="jgP-mz-pXv" secondAttribute="trailing" constant="10" id="354-1m-0I2"/>
+                    <constraint firstItem="LyI-RA-B5V" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WA8-CQ-yYc" secondAttribute="trailing" constant="80" id="3BR-Q1-FBy"/>
+                    <constraint firstItem="WA8-CQ-yYc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5Wz-mH-xuE"/>
+                    <constraint firstItem="LyI-RA-B5V" firstAttribute="centerY" secondItem="ygp-iW-w4E" secondAttribute="centerY" id="EFm-aN-c5i"/>
+                    <constraint firstItem="ygp-iW-w4E" firstAttribute="leading" secondItem="LyI-RA-B5V" secondAttribute="trailing" constant="10" id="HHY-DR-HLX"/>
+                    <constraint firstItem="jgP-mz-pXv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="K1L-X5-qWK"/>
+                    <constraint firstAttribute="trailing" secondItem="ygp-iW-w4E" secondAttribute="trailing" constant="20" id="Mwu-Mv-WbI"/>
+                    <constraint firstItem="WA8-CQ-yYc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Yfw-gu-bwC"/>
+                    <constraint firstItem="ygp-iW-w4E" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ngZ-Fj-va4"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="audioBtn" destination="jgP-mz-pXv" id="jBY-yt-2Cc"/>
+                <outlet property="leftTitleLabel" destination="WA8-CQ-yYc" id="6wk-s3-1h0"/>
+                <outlet property="nextBtn" destination="ygp-iW-w4E" id="bXR-Qe-HaN"/>
+                <outlet property="rightTitleLabel" destination="LyI-RA-B5V" id="iMQ-sh-YrX"/>
+            </connections>
+            <point key="canvasLocation" x="-8" y="182.15892053973016"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="speech_sounds" width="60" height="22"/>
+        <image name="进入-1" width="8" height="14"/>
+    </resources>
+</document>

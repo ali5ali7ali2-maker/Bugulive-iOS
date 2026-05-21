@@ -1,0 +1,15 @@
+/* 
+  InfoPlist.strings
+  BuguLive
+
+  Created by 志刚杨 on 2022/8/3.
+  Copyright © 2022 xfg. All rights reserved.
+*/
+"NSAppleMusicUsageDescription" = "我们要访问您的媒体已获取手机中的照片，上传头像操作";
+"NSCameraUsageDescription" = "我们要访问您的相机已获取手机中的照片，上传头像操作";
+"NSContactsUsageDescription" = "我们要访问您的通信录";
+"NSLocationWhenInUseUsageDescription" = "需要定位";
+"NSLocationAlwaysUsageDescription" = "需要定位";
+"NSMicrophoneUsageDescription" = "我们要访问您的麦克风，用户直播，连麦";
+"NSPhotoLibraryAddUsageDescription" = "请允许APP保存图片到相册";
+"NSPhotoLibraryUsageDescription" = "我们要访问您的媒体已获取手机中的照片，上传头像操作";

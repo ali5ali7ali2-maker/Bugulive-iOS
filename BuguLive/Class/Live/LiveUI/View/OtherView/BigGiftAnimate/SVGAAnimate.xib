@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GiftView"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SVGAAnimate">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="361"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjc-2I-xjM">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SRl-Vk-WiB" customClass="FLAnimatedImageView">
+                    <rect key="frame" x="0.0" y="21" width="600" height="340"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="SRl-Vk-WiB" firstAttribute="top" secondItem="qjc-2I-xjM" secondAttribute="bottom" id="4Lq-yy-Ohy"/>
+                <constraint firstItem="qjc-2I-xjM" firstAttribute="width" secondItem="SRl-Vk-WiB" secondAttribute="width" id="K43-d3-Pdj"/>
+                <constraint firstItem="qjc-2I-xjM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ozj-El-ule"/>
+                <constraint firstItem="SRl-Vk-WiB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="g5a-4d-A5F"/>
+                <constraint firstItem="SRl-Vk-WiB" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="tNR-FS-FRH"/>
+                <constraint firstItem="SRl-Vk-WiB" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="u2i-0i-bBk"/>
+                <constraint firstItem="qjc-2I-xjM" firstAttribute="leading" secondItem="SRl-Vk-WiB" secondAttribute="leading" id="w3A-lR-ePZ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="gifImage" destination="SRl-Vk-WiB" id="Yd9-Vo-woP"/>
+                <outlet property="nickLabel" destination="qjc-2I-xjM" id="djA-Dy-tyO"/>
+            </connections>
+        </view>
+    </objects>
+</document>

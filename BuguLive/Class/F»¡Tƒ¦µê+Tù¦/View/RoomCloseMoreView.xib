@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="RoomCloseMoreView">
+            <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="Kjw-Dt-jxE">
+                    <rect key="frame" x="0.0" y="293.66666666666669" width="430" height="345.00000000000006"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylL-sB-vWw" customClass="QMUIButton">
+                            <rect key="frame" x="177.66666666666666" y="0.0" width="75" height="75"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="75" id="B8Q-0X-47Q"/>
+                                <constraint firstAttribute="width" constant="75" id="vb4-vd-JwY"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" backgroundImage="分享 (1)"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clo-Gm-vvw" customClass="QMUIButton">
+                            <rect key="frame" x="177.66666666666666" y="135" width="75" height="75"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" backgroundImage="关闭 (9)"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jl5-90-6gY" customClass="QMUIButton">
+                            <rect key="frame" x="177.66666666666666" y="269.99999999999994" width="75" height="75"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" backgroundImage="取消 (1)"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="jl5-90-6gY" firstAttribute="width" secondItem="ylL-sB-vWw" secondAttribute="width" id="6Si-lA-ipA"/>
+                        <constraint firstItem="clo-Gm-vvw" firstAttribute="width" secondItem="ylL-sB-vWw" secondAttribute="width" id="A8b-8q-iaE"/>
+                        <constraint firstItem="clo-Gm-vvw" firstAttribute="height" secondItem="ylL-sB-vWw" secondAttribute="height" id="cbL-uh-CYb"/>
+                        <constraint firstItem="jl5-90-6gY" firstAttribute="height" secondItem="ylL-sB-vWw" secondAttribute="height" id="m4A-9q-Uvl"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Kjw-Dt-jxE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="1IC-eV-chY"/>
+                <constraint firstItem="Kjw-Dt-jxE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OtJ-s7-o6D"/>
+                <constraint firstAttribute="trailing" secondItem="Kjw-Dt-jxE" secondAttribute="trailing" id="PV4-Vy-8w8"/>
+            </constraints>
+            <connections>
+                <outlet property="cancelBtn" destination="jl5-90-6gY" id="q1f-di-sUm"/>
+                <outlet property="colseBtn" destination="clo-Gm-vvw" id="vdb-Xd-6B3"/>
+                <outlet property="shareBtn" destination="ylL-sB-vWw" id="lKF-5A-Wyy"/>
+            </connections>
+            <point key="canvasLocation" x="136.80000000000001" y="153.37331334332833"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="关闭 (9)" width="74" height="74"/>
+        <image name="分享 (1)" width="74" height="74"/>
+        <image name="取消 (1)" width="74" height="74"/>
+    </resources>
+</document>
