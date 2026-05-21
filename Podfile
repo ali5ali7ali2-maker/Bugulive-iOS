@@ -78,7 +78,7 @@ pod 'TXLiteAVSDK_Professional','9.1.10564'
 pod 'ZQPlayer'
 #列表视频播放器
 pod 'CLPlayer', '~> 1.2.7'
-pod 'YYKit',:git => 'https://github.com/ivoidcat/YYKit'
+pod 'YYKit', '1.0.9'
 #七牛
 pod "Qiniu", "~> 7.2"
 
