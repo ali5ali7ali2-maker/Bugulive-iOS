@@ -71,39 +71,45 @@ jobs:
         run: |
           set -e
 
-          PDF_DIR="BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
-          PDF_FILE="$PDF_DIR/iOS集成升级必读.pdf"
+          python3 - <<'PY'
+          import os
 
-          mkdir -p "$PDF_DIR"
+          pdf_dir = "BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
+          pdf_file = os.path.join(pdf_dir, "iOS集成升级必读.pdf")
 
-          if [ ! -f "$PDF_FILE" ]; then
-            echo "Creating placeholder PDF: $PDF_FILE"
-            cat > "$PDF_FILE" <<'EOF'
-%PDF-1.4
-1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
-endobj
-2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
-endobj
-3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
-endobj
-xref
-0 4
-0000000000 65535 f
-0000000009 00000 n
-0000000058 00000 n
-0000000115 00000 n
-trailer
-<< /Size 4 /Root 1 0 R >>
-startxref
-186
-%%EOF
-EOF
-          fi
+          os.makedirs(pdf_dir, exist_ok=True)
 
-          ls -la "$PDF_DIR"
+          if not os.path.exists(pdf_file):
+              print(f"Creating placeholder PDF: {pdf_file}")
+              pdf_content = b"""%PDF-1.4
+          1 0 obj
+          << /Type /Catalog /Pages 2 0 R >>
+          endobj
+          2 0 obj
+          << /Type /Pages /Kids [3 0 R] /Count 1 >>
+          endobj
+          3 0 obj
+          << /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
+          endobj
+          xref
+          0 4
+          0000000000 65535 f
+          0000000009 00000 n
+          0000000058 00000 n
+          0000000115 00000 n
+          trailer
+          << /Size 4 /Root 1 0 R >>
+          startxref
+          186
+          %%EOF
+          """
+              with open(pdf_file, "wb") as f:
+                  f.write(pdf_content)
+          else:
+              print(f"Exists: {pdf_file}")
+          PY
+
+          ls -la "BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
 
       - name: Create missing BogoShopKit PNG placeholders
         run: |
@@ -123,15 +129,15 @@ EOF
               )
 
           def make_png(width=1, height=1):
-              raw = b''.join(
-                  b'\x00' + b'\x00\x00\x00\x00' * width
+              raw = b"".join(
+                  b"\x00" + b"\x00\x00\x00\x00" * width
                   for _ in range(height)
               )
               return (
-                  b'\x89PNG\r\n\x1a\n' +
-                  chunk(b'IHDR', struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)) +
-                  chunk(b'IDAT', zlib.compress(raw)) +
-                  chunk(b'IEND', b'')
+                  b"\x89PNG\r\n\x1a\n" +
+                  chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)) +
+                  chunk(b"IDAT", zlib.compress(raw)) +
+                  chunk(b"IEND", b"")
               )
 
           base = "BuguLive/Class/Pod/BogoShopKit/BogoShopKit/Assets"
