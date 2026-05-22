@@ -79,31 +79,84 @@ jobs:
           if [ ! -f "$PDF_FILE" ]; then
             echo "Creating placeholder PDF: $PDF_FILE"
             cat > "$PDF_FILE" <<'EOF'
-          %PDF-1.4
-          1 0 obj
-          << /Type /Catalog /Pages 2 0 R >>
-          endobj
-          2 0 obj
-          << /Type /Pages /Kids [3 0 R] /Count 1 >>
-          endobj
-          3 0 obj
-          << /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
-          endobj
-          xref
-          0 4
-          0000000000 65535 f
-          0000000009 00000 n
-          0000000058 00000 n
-          0000000115 00000 n
-          trailer
-          << /Size 4 /Root 1 0 R >>
-          startxref
-          186
-          %%EOF
-          EOF
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
+endobj
+xref
+0 4
+0000000000 65535 f
+0000000009 00000 n
+0000000058 00000 n
+0000000115 00000 n
+trailer
+<< /Size 4 /Root 1 0 R >>
+startxref
+186
+%%EOF
+EOF
           fi
 
           ls -la "$PDF_DIR"
+
+      - name: Create missing BogoShopKit PNG placeholders
+        run: |
+          set -e
+
+          python3 - <<'PY'
+          import os
+          import struct
+          import zlib
+
+          def chunk(tag, data):
+              return (
+                  struct.pack(">I", len(data)) +
+                  tag +
+                  data +
+                  struct.pack(">I", zlib.crc32(tag + data) & 0xffffffff)
+              )
+
+          def make_png(width=1, height=1):
+              raw = b''.join(
+                  b'\x00' + b'\x00\x00\x00\x00' * width
+                  for _ in range(height)
+              )
+              return (
+                  b'\x89PNG\r\n\x1a\n' +
+                  chunk(b'IHDR', struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)) +
+                  chunk(b'IDAT', zlib.compress(raw)) +
+                  chunk(b'IEND', b'')
+              )
+
+          base = "BuguLive/Class/Pod/BogoShopKit/BogoShopKit/Assets"
+
+          files = [
+              "身份证头像面@3x.png",
+              "身份证头像面@2x.png",
+              "身份证头像面.png",
+              "身份证国徽面@3x.png",
+          ]
+
+          os.makedirs(base, exist_ok=True)
+          png_data = make_png()
+
+          for name in files:
+              path = os.path.join(base, name)
+              if not os.path.exists(path):
+                  print(f"Creating placeholder PNG: {path}")
+                  with open(path, "wb") as f:
+                      f.write(png_data)
+              else:
+                  print(f"Exists: {path}")
+          PY
+
+          ls -la "BuguLive/Class/Pod/BogoShopKit/BogoShopKit/Assets"
 
       - name: List schemes
         run: xcodebuild -workspace BuguLive.xcworkspace -list
@@ -120,6 +173,8 @@ jobs:
             -sdk iphonesimulator \
             -destination "generic/platform=iOS Simulator" \
             CODE_SIGNING_ALLOWED=NO \
+            EXCLUDED_ARCHS="" \
+            'ARCHS=$(ARCHS_STANDARD)' \
             clean build 2>&1 | tee ios-build.log
 
           echo ${PIPESTATUS[0]} > build-status.txt
@@ -128,7 +183,7 @@ jobs:
         if: always()
         run: |
           echo "================ XCODE ERROR SUMMARY ================"
-          grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error" ios-build.log | tail -150 || true
+          grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -150 || true
           echo "====================================================="
 
       - name: Fail if build failed
