@@ -71,45 +71,19 @@ jobs:
         run: |
           set -e
 
-          python3 - <<'PY'
-          import os
+          PDF_DIR="BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
+          PDF_FILE="$PDF_DIR/iOS集成升级必读.pdf"
 
-          pdf_dir = "BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
-          pdf_file = os.path.join(pdf_dir, "iOS集成升级必读.pdf")
+          mkdir -p "$PDF_DIR"
 
-          os.makedirs(pdf_dir, exist_ok=True)
+          if [ ! -f "$PDF_FILE" ]; then
+            echo "Creating placeholder PDF: $PDF_FILE"
+            printf '%s\n' "Placeholder PDF file for CI build." > "$PDF_FILE"
+          else
+            echo "Exists: $PDF_FILE"
+          fi
 
-          if not os.path.exists(pdf_file):
-              print(f"Creating placeholder PDF: {pdf_file}")
-              pdf_content = b"""%PDF-1.4
-1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
-endobj
-2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
-endobj
-3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
-endobj
-xref
-0 4
-0000000000 65535 f
-0000000009 00000 n
-0000000058 00000 n
-0000000115 00000 n
-trailer
-<< /Size 4 /Root 1 0 R >>
-startxref
-186
-%%EOF
-"""
-              with open(pdf_file, "wb") as f:
-                  f.write(pdf_content)
-          else:
-              print(f"Exists: {pdf_file}")
-          PY
-
-          ls -la "BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
+          ls -la "$PDF_DIR"
 
       - name: Create missing BogoShopKit PNG placeholders
         run: |
