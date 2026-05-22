@@ -125,13 +125,15 @@ pod 'AFSoundManager'
 #pod 'TXIMSDK_Plus_iOS','6.9.3557'
 pod 'AgoraRtcEngine_iOS','3.7.0'
 
-pod 'Firebase',:modular_headers => true
-pod 'FirebaseAuth',:modular_headers => true
-pod 'GoogleSignIn','7.0.0',:modular_headers => true
-pod 'FirebaseCore',:modular_headers => true
-pod 'GoogleUtilities', :modular_headers => true
-
+pod 'Firebase', :modular_headers => true
+pod 'FirebaseAuth', :modular_headers => true
+pod 'GoogleSignIn', '7.0.0', :modular_headers => true
+pod 'FirebaseCore', :modular_headers => true
+pod 'FirebaseCoreExtension', :modular_headers => true
 pod 'FirebaseFirestore', :modular_headers => true
+pod 'FirebaseFirestoreInternal', :modular_headers => true
+pod 'FirebaseSharedSwift', :modular_headers => true
+pod 'GoogleUtilities', :modular_headers => true
 #pod 'SSZipArchive'
 pod 'Protobuf'
 #svga动画库
