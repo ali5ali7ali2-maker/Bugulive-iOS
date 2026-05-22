@@ -13,12 +13,12 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: true
 
-      - name: Pull LFS files
+      - name: Pull Git LFS files
         run: git lfs pull
 
       - name: Select Xcode
@@ -31,6 +31,7 @@ jobs:
           xcodebuild -version
           ruby -v
           pod --version || true
+          git lfs version || true
 
       - name: Install CocoaPods
         run: |
@@ -43,12 +44,13 @@ jobs:
           rm -f Pods/Manifest.lock
           pod install --repo-update
 
-      - name: Fix mojibake Chinese folder path
+      - name: Fix project paths and missing CI resources
         run: |
           set -e
 
+          echo "===== Fix voice-room Chinese path ====="
           EXPECTED_DIR="BuguLive/Class/语音房间"
-          FOUND_JSON=$(find "BuguLive/Class" -path "*/model/room_json.json" -print -quit)
+          FOUND_JSON=$(find "BuguLive/Class" -path "*/model/room_json.json" -print -quit || true)
 
           echo "Found room_json at: $FOUND_JSON"
 
@@ -60,17 +62,17 @@ jobs:
             if [ "$SOURCE_DIR" != "$EXPECTED_DIR" ]; then
               mkdir -p "$EXPECTED_DIR"
               cp -R "$SOURCE_DIR"/. "$EXPECTED_DIR"/
-              echo "Copied files to expected Chinese folder path."
+              echo "Copied voice-room files to expected Chinese folder path."
             fi
           fi
 
-          echo "Checking expected model folder:"
-          ls -la "$EXPECTED_DIR/model"
+          if [ -d "$EXPECTED_DIR/model" ]; then
+            ls -la "$EXPECTED_DIR/model"
+          else
+            echo "Warning: $EXPECTED_DIR/model does not exist"
+          fi
 
-      - name: Create missing UMeng PDF placeholder
-        run: |
-          set -e
-
+          echo "===== Create missing UMeng PDF placeholder ====="
           PDF_DIR="BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
           PDF_FILE="$PDF_DIR/iOS集成升级必读.pdf"
 
@@ -78,23 +80,26 @@ jobs:
 
           if [ ! -f "$PDF_FILE" ]; then
             echo "Creating placeholder PDF: $PDF_FILE"
-            printf '%s\n' "Placeholder PDF file for CI build." > "$PDF_FILE"
+            printf '%s\n' "Placeholder PDF file for CI simulator build." > "$PDF_FILE"
           else
             echo "Exists: $PDF_FILE"
           fi
 
           ls -la "$PDF_DIR"
 
-      - name: Create missing BogoShopKit PNG placeholders
-        run: |
-          set -e
+          echo "===== Create missing BogoShopKit PNG placeholders automatically ====="
 
           python3 - <<'PY'
           import os
+          import re
           import struct
           import zlib
+          from pathlib import Path
 
-          def chunk(tag, data):
+          project_file = Path("BuguLive.xcodeproj/project.pbxproj")
+          asset_base = Path("BuguLive/Class/Pod/BogoShopKit/BogoShopKit/Assets")
+
+          def png_chunk(tag: bytes, data: bytes) -> bytes:
               return (
                   struct.pack(">I", len(data)) +
                   tag +
@@ -102,41 +107,68 @@ jobs:
                   struct.pack(">I", zlib.crc32(tag + data) & 0xffffffff)
               )
 
-          def make_png(width=1, height=1):
+          def make_transparent_png(width: int = 1, height: int = 1) -> bytes:
               raw = b"".join(
                   b"\x00" + b"\x00\x00\x00\x00" * width
                   for _ in range(height)
               )
               return (
                   b"\x89PNG\r\n\x1a\n" +
-                  chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)) +
-                  chunk(b"IDAT", zlib.compress(raw)) +
-                  chunk(b"IEND", b"")
+                  png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)) +
+                  png_chunk(b"IDAT", zlib.compress(raw)) +
+                  png_chunk(b"IEND", b"")
               )
 
-          base = "BuguLive/Class/Pod/BogoShopKit/BogoShopKit/Assets"
+          def collect_bogoshopkit_pngs() -> list[str]:
+              names = set()
 
-          files = [
-              "身份证头像面@3x.png",
-              "身份证头像面@2x.png",
-              "身份证头像面.png",
-              "身份证国徽面@3x.png",
-              "身份证国徽面@2x.png",
-              "身份证国徽面.png",
-              "暂无商品_空状态@3x.png",
-              "暂无商品_空状态@2x.png",
-              "暂无商品_空状态.png",
-          ]
+              if project_file.exists():
+                  text = project_file.read_text(errors="ignore")
 
-          os.makedirs(base, exist_ok=True)
-          png_data = make_png()
+                  # Capture direct resource names ending with .png in the Xcode project file.
+                  for match in re.findall(r"([^/;\"=]+?\.png)", text):
+                      if any(token in match for token in [
+                          "身份证",
+                          "暂无商品",
+                          "收货地址",
+                          "BogoShop",
+                          "商品",
+                          "地址",
+                      ]):
+                          names.add(match.strip())
 
-          for name in files:
-              path = os.path.join(base, name)
-              if not os.path.exists(path):
+                  # Capture paths that include the BogoShopKit asset directory.
+                  for match in re.findall(r"BogoShopKit/BogoShopKit/Assets/([^;\"=]+?\.png)", text):
+                      names.add(match.strip())
+
+              # Known files already seen in CI errors.
+              names.update([
+                  "身份证头像面@3x.png",
+                  "身份证头像面@2x.png",
+                  "身份证头像面.png",
+                  "身份证国徽面@3x.png",
+                  "身份证国徽面@2x.png",
+                  "身份证国徽面.png",
+                  "暂无商品_空状态@3x.png",
+                  "暂无商品_空状态@2x.png",
+                  "暂无商品_空状态.png",
+                  "收货地址_选择@3x.png",
+                  "收货地址_选择@2x.png",
+              ])
+
+              return sorted(names)
+
+          asset_base.mkdir(parents=True, exist_ok=True)
+          png_data = make_transparent_png()
+          png_names = collect_bogoshopkit_pngs()
+
+          print(f"Detected {len(png_names)} BogoShopKit PNG placeholder candidates")
+
+          for name in png_names:
+              path = asset_base / name
+              if not path.exists():
                   print(f"Creating placeholder PNG: {path}")
-                  with open(path, "wb") as f:
-                      f.write(png_data)
+                  path.write_bytes(png_data)
               else:
                   print(f"Exists: {path}")
           PY
