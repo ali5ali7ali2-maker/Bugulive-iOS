@@ -43,6 +43,30 @@ jobs:
           rm -f Pods/Manifest.lock
           pod install --repo-update
 
+      - name: Fix mojibake Chinese folder path
+        run: |
+          set -e
+
+          EXPECTED_DIR="BuguLive/Class/语音房间"
+          FOUND_JSON=$(find "BuguLive/Class" -path "*/model/room_json.json" -print -quit)
+
+          echo "Found room_json at: $FOUND_JSON"
+
+          if [ -n "$FOUND_JSON" ]; then
+            SOURCE_DIR=$(dirname "$(dirname "$FOUND_JSON")")
+            echo "Source voice room dir: $SOURCE_DIR"
+            echo "Expected voice room dir: $EXPECTED_DIR"
+
+            if [ "$SOURCE_DIR" != "$EXPECTED_DIR" ]; then
+              mkdir -p "$EXPECTED_DIR"
+              cp -R "$SOURCE_DIR"/. "$EXPECTED_DIR"/
+              echo "Copied files to expected Chinese folder path."
+            fi
+          fi
+
+          echo "Checking expected model folder:"
+          ls -la "$EXPECTED_DIR/model"
+
       - name: List schemes
         run: xcodebuild -workspace BuguLive.xcworkspace -list
 
