@@ -45,11 +45,11 @@ jobs:
           rm -f Pods/Manifest.lock
           pod install --repo-update
 
-      - name: Fix project resources for CI
+      - name: Repair missing resources for CI
         run: |
           set -e
 
-          echo "===== Fix mojibake Chinese voice room path ====="
+          echo "===== Fix mojibake Chinese voice-room path ====="
 
           EXPECTED_DIR="BuguLive/Class/语音房间"
           FOUND_JSON=$(find "BuguLive/Class" -path "*/model/room_json.json" -print -quit || true)
@@ -64,7 +64,7 @@ jobs:
             if [ "$SOURCE_DIR" != "$EXPECTED_DIR" ]; then
               mkdir -p "$EXPECTED_DIR"
               cp -R "$SOURCE_DIR"/. "$EXPECTED_DIR"/
-              echo "Copied voice room files to expected Chinese folder path."
+              echo "Copied voice-room files to expected Chinese folder path."
             fi
           fi
 
@@ -74,126 +74,117 @@ jobs:
             echo "Warning: expected model folder does not exist: $EXPECTED_DIR/model"
           fi
 
-          echo "===== Create missing UMeng PDF placeholder ====="
+          echo "===== Automatically create missing Xcode resources ====="
 
-          PDF_DIR="BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
-          PDF_FILE="$PDF_DIR/iOS集成升级必读.pdf"
+          ruby <<'RUBY'
+          require 'xcodeproj'
+          require 'fileutils'
+          require 'pathname'
+          require 'zlib'
+          require 'base64'
 
-          mkdir -p "$PDF_DIR"
+          repo_root = Pathname.pwd.expand_path
+          project_path = 'BuguLive.xcodeproj'
+          target_name = 'BuguLive'
 
-          if [ ! -f "$PDF_FILE" ]; then
-            echo "Creating placeholder PDF: $PDF_FILE"
-            printf '%s\n' "Placeholder PDF file for CI simulator build." > "$PDF_FILE"
-          else
-            echo "Exists: $PDF_FILE"
-          fi
+          project = Xcodeproj::Project.open(project_path)
+          target = project.targets.find { |t| t.name == target_name }
 
-          ls -la "$PDF_DIR"
+          unless target
+            abort "Target not found: #{target_name}"
+          end
 
-          echo "===== Create missing BogoShopKit PNG placeholders ====="
+          def png_chunk(tag, data)
+            [data.bytesize].pack('N') +
+              tag +
+              data +
+              [Zlib.crc32(tag + data)].pack('N')
+          end
 
-          python3 - <<'PY'
-          import os
-          import re
-          import struct
-          import zlib
-          from pathlib import Path
+          def transparent_png
+            raw = "\x00\x00\x00\x00\x00".b
 
-          project_file = Path("BuguLive.xcodeproj/project.pbxproj")
-          asset_base = Path("BuguLive/Class/Pod/BogoShopKit/BogoShopKit/Assets")
+            "\x89PNG\r\n\x1a\n".b +
+              png_chunk("IHDR".b, [1, 1, 8, 6, 0, 0, 0].pack("NNCCCCC")) +
+              png_chunk("IDAT".b, Zlib::Deflate.deflate(raw)) +
+              png_chunk("IEND".b, "".b)
+          end
 
-          def has_cjk(text: str) -> bool:
-              return any("\u4e00" <= ch <= "\u9fff" for ch in text)
+          def transparent_gif
+            Base64.decode64("R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==")
+          end
 
-          def png_chunk(tag: bytes, data: bytes) -> bytes:
-              return (
-                  struct.pack(">I", len(data)) +
-                  tag +
-                  data +
-                  struct.pack(">I", zlib.crc32(tag + data) & 0xffffffff)
-              )
+          def placeholder_for(ext)
+            case ext.downcase
+            when '.png'
+              transparent_png
+            when '.gif'
+              transparent_gif
+            when '.json'
+              "{}\n"
+            when '.pdf'
+              "Placeholder PDF file for CI simulator build.\n"
+            when '.strings'
+              "\n"
+            when '.plist'
+              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict/></plist>\n"
+            else
+              ""
+            end
+          end
 
-          def make_transparent_png(width: int = 1, height: int = 1) -> bytes:
-              raw = b"".join(
-                  b"\x00" + b"\x00\x00\x00\x00" * width
-                  for _ in range(height)
-              )
+          supported_extensions = [
+            '.png',
+            '.gif',
+            '.json',
+            '.pdf',
+            '.strings',
+            '.plist'
+          ]
 
-              return (
-                  b"\x89PNG\r\n\x1a\n" +
-                  png_chunk(
-                      b"IHDR",
-                      struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)
-                  ) +
-                  png_chunk(b"IDAT", zlib.compress(raw)) +
-                  png_chunk(b"IEND", b"")
-              )
+          created = []
+          skipped = []
 
-          def collect_png_names_from_project() -> set[str]:
-              names = set()
+          resources = target.resources_build_phase.files_references.compact
 
-              if not project_file.exists():
-                  print(f"Warning: project file not found: {project_file}")
-                  return names
+          resources.each do |ref|
+            begin
+              real_path = ref.real_path
+            rescue => e
+              skipped << "#{ref.display_name}: #{e.message}"
+              next
+            end
 
-              text = project_file.read_text(errors="ignore")
+            next unless real_path
 
-              patterns = [
-                  r'path = "?([^";]+\.png)"?;',
-                  r'name = "?([^";]+\.png)"?;',
-                  r'BogoShopKit/BogoShopKit/Assets/([^";]+\.png)',
-              ]
+            full_path = Pathname.new(real_path.to_s).expand_path
+            ext = full_path.extname.downcase
 
-              for pattern in patterns:
-                  for match in re.findall(pattern, text):
-                      name = os.path.basename(match.strip())
-                      if name.endswith(".png") and has_cjk(name):
-                          names.add(name)
+            next unless supported_extensions.include?(ext)
+            next unless full_path.to_s.start_with?(repo_root.to_s)
+            next if full_path.exist?
 
-              return names
+            FileUtils.mkdir_p(full_path.dirname.to_s)
+            File.binwrite(full_path.to_s, placeholder_for(ext))
 
-          known_missing = {
-              "身份证头像面@3x.png",
-              "身份证头像面@2x.png",
-              "身份证头像面.png",
-              "身份证国徽面@3x.png",
-              "身份证国徽面@2x.png",
-              "身份证国徽面.png",
-              "暂无商品_空状态@3x.png",
-              "暂无商品_空状态@2x.png",
-              "暂无商品_空状态.png",
-              "收货地址_选择@3x.png",
-              "收货地址_选择@2x.png",
-              "收货地址_选择.png",
-              "收货地址_修改@3x.png",
-              "收货地址_修改@2x.png",
-              "收货地址_修改.png",
-              "提交订单_店铺@3x.png",
-              "提交订单_店铺@2x.png",
-              "提交订单_店铺.png",
-          }
+            created << full_path.relative_path_from(repo_root).to_s
+          end
 
-          asset_base.mkdir(parents=True, exist_ok=True)
+          puts "Created missing resource placeholders: #{created.length}"
 
-          png_names = collect_png_names_from_project()
-          png_names.update(known_missing)
+          created.each do |path|
+            puts "Created: #{path}"
+          end
 
-          print(f"Total BogoShopKit PNG placeholders to check: {len(png_names)}")
+          if skipped.any?
+            puts "Skipped unresolved resource references:"
+            skipped.each { |item| puts "Skipped: #{item}" }
+          end
+          RUBY
 
-          png_data = make_transparent_png()
-
-          for name in sorted(png_names):
-              path = asset_base / name
-
-              if not path.exists():
-                  print(f"Creating placeholder PNG: {path}")
-                  path.write_bytes(png_data)
-              else:
-                  print(f"Exists: {path}")
-          PY
-
-          echo "===== BogoShopKit Assets after placeholder generation ====="
-          ls -la "BuguLive/Class/Pod/BogoShopKit/BogoShopKit/Assets"
+          echo "===== Verify resources likely to fail ====="
+          test -f "BuguLive/Class/Sections/DT_Controller(动态)/发布/XWPublish/images/plus@2x.png" && echo "plus@2x.png exists"
+          test -f "BuguLive/Class/Sections/DT_Controller(动态)/发布/XWPublish/images/plus@3x.png" && echo "plus@3x.png exists"
 
       - name: List schemes
         run: |
@@ -211,8 +202,9 @@ jobs:
             -sdk iphonesimulator \
             -destination "generic/platform=iOS Simulator" \
             CODE_SIGNING_ALLOWED=NO \
-            EXCLUDED_ARCHS="" \
+            'EXCLUDED_ARCHS[sdk=iphonesimulator*]=' \
             'ARCHS=$(ARCHS_STANDARD)' \
+            ONLY_ACTIVE_ARCH=NO \
             clean build 2>&1 | tee ios-build.log
 
           echo ${PIPESTATUS[0]} > build-status.txt
@@ -221,7 +213,7 @@ jobs:
         if: always()
         run: |
           echo "================ XCODE ERROR SUMMARY ================"
-          grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -200 || true
+          grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -220 || true
           echo "====================================================="
 
       - name: Fail if build failed
