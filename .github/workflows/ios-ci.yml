@@ -114,10 +114,6 @@ jobs:
 
           ruby <<'RUBY'
           require 'xcodeproj'
-          require 'fileutils'
-          require 'pathname'
-          require 'zlib'
-          require 'base64'
 
           def patch_project_build_settings(project_path)
             return unless File.exist?(project_path)
@@ -135,7 +131,6 @@ jobs:
                 config.build_settings['ARCHS'] = 'arm64'
                 config.build_settings['EXCLUDED_ARCHS'] = ''
                 config.build_settings['ENABLE_USER_SCRIPT_SANDBOXING'] = 'NO'
-
                 config.build_settings['ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS'] = 'NO'
                 config.build_settings['ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS'] = 'NO'
               end
@@ -169,223 +164,239 @@ jobs:
             fi
           fi
 
-          echo "===== Create QMapKit simulator stub framework for CI ====="
+          echo "===== Create clean QMapKit simulator stub framework for CI ====="
 
           QMAP_BASE="BuguLive/Others/Vendors/QMap"
           QMAP_FRAMEWORK="$QMAP_BASE/QMapKit.framework"
+
+          mkdir -p "$QMAP_FRAMEWORK"
+
+          # Important fix:
+          # Some old repositories contain Headers or Modules as files/symlinks.
+          # mkdir -p fails when the path already exists as a file.
+          rm -rf "$QMAP_FRAMEWORK/Headers"
+          rm -rf "$QMAP_FRAMEWORK/Modules"
+          rm -rf "$QMAP_FRAMEWORK/QMapKit"
 
           mkdir -p "$QMAP_FRAMEWORK/Headers"
           mkdir -p "$QMAP_FRAMEWORK/Modules"
 
           cat > "$QMAP_FRAMEWORK/Headers/QMapKit.h" <<'EOF'
-          #import <Foundation/Foundation.h>
-          #import <UIKit/UIKit.h>
-          #import <CoreLocation/CoreLocation.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-          #ifndef QMAPKIT_STUB_H
-          #define QMAPKIT_STUB_H
+#ifndef QMAPKIT_STUB_H
+#define QMAPKIT_STUB_H
 
-          typedef NS_ENUM(NSInteger, QMapType) {
-              QMapTypeStandard = 0,
-              QMapTypeSatellite = 1
-          };
+typedef NS_ENUM(NSInteger, QMapType) {
+    QMapTypeStandard = 0,
+    QMapTypeSatellite = 1
+};
 
-          typedef NS_ENUM(NSInteger, QUserTrackingMode) {
-              QUserTrackingModeNone = 0,
-              QUserTrackingModeFollow = 1,
-              QUserTrackingModeFollowWithHeading = 2
-          };
+typedef NS_ENUM(NSInteger, QUserTrackingMode) {
+    QUserTrackingModeNone = 0,
+    QUserTrackingModeFollow = 1,
+    QUserTrackingModeFollowWithHeading = 2
+};
 
-          typedef NS_ENUM(NSInteger, QAnnotationViewDragState) {
-              QAnnotationViewDragStateNone = 0,
-              QAnnotationViewDragStateStarting = 1,
-              QAnnotationViewDragStateDragging = 2,
-              QAnnotationViewDragStateCanceling = 3,
-              QAnnotationViewDragStateEnding = 4
-          };
+typedef NS_ENUM(NSInteger, QAnnotationViewDragState) {
+    QAnnotationViewDragStateNone = 0,
+    QAnnotationViewDragStateStarting = 1,
+    QAnnotationViewDragStateDragging = 2,
+    QAnnotationViewDragStateCanceling = 3,
+    QAnnotationViewDragStateEnding = 4
+};
 
-          @protocol QAnnotation <NSObject>
-          @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-          @optional
-          @property (nonatomic, readonly, copy) NSString *title;
-          @property (nonatomic, readonly, copy) NSString *subtitle;
-          @end
+@protocol QAnnotation <NSObject>
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@optional
+@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *subtitle;
+@end
 
-          @class QMapView;
-          @class QAnnotationView;
-          @class QPointAnnotation;
-          @class QPinAnnotationView;
-          @class QUserLocation;
-          @class QPolyline;
-          @class QPolygon;
-          @class QCircle;
-          @class QOverlayRenderer;
-          @class QMapServices;
-          @class QMapSearch;
-          @class QMapLocationManager;
+@class QMapView;
+@class QAnnotationView;
+@class QPointAnnotation;
+@class QPinAnnotationView;
+@class QUserLocation;
+@class QPolyline;
+@class QPolygon;
+@class QCircle;
+@class QOverlayRenderer;
+@class QOverlayPathRenderer;
+@class QMapServices;
+@class QMapSearch;
+@class QMapLocationManager;
 
-          @protocol QMapViewDelegate <NSObject>
-          @optional
-          - (void)mapView:(QMapView *)mapView didSelectAnnotationView:(QAnnotationView *)view;
-          - (void)mapView:(QMapView *)mapView didDeselectAnnotationView:(QAnnotationView *)view;
-          - (void)mapView:(QMapView *)mapView didUpdateUserLocation:(QUserLocation *)userLocation;
-          @end
+@protocol QMapViewDelegate <NSObject>
+@optional
+- (void)mapView:(QMapView *)mapView didSelectAnnotationView:(QAnnotationView *)view;
+- (void)mapView:(QMapView *)mapView didDeselectAnnotationView:(QAnnotationView *)view;
+- (void)mapView:(QMapView *)mapView didUpdateUserLocation:(QUserLocation *)userLocation;
+@end
 
-          @interface QMapServices : NSObject
-          + (instancetype)sharedServices;
-          @property (nonatomic, copy) NSString *APIKey;
-          @property (nonatomic, copy) NSString *apiKey;
-          @end
+@interface QMapServices : NSObject
++ (instancetype)sharedServices;
+@property (nonatomic, copy) NSString *APIKey;
+@property (nonatomic, copy) NSString *apiKey;
+@end
 
-          @interface QMapView : UIView
-          @property (nonatomic, weak) id<QMapViewDelegate> delegate;
-          @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
-          @property (nonatomic) CGFloat zoomLevel;
-          @property (nonatomic) QMapType mapType;
-          @property (nonatomic) BOOL showsUserLocation;
-          @property (nonatomic) QUserTrackingMode userTrackingMode;
-          - (instancetype)initWithFrame:(CGRect)frame;
-          - (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated;
-          - (void)addAnnotation:(id<QAnnotation>)annotation;
-          - (void)addAnnotations:(NSArray *)annotations;
-          - (void)removeAnnotation:(id<QAnnotation>)annotation;
-          - (void)removeAnnotations:(NSArray *)annotations;
-          - (QAnnotationView *)viewForAnnotation:(id<QAnnotation>)annotation;
-          - (QAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier;
-          @end
+@interface QMapView : UIView
+@property (nonatomic, weak) id<QMapViewDelegate> delegate;
+@property (nonatomic) CLLocationCoordinate2D centerCoordinate;
+@property (nonatomic) CGFloat zoomLevel;
+@property (nonatomic) QMapType mapType;
+@property (nonatomic) BOOL showsUserLocation;
+@property (nonatomic) QUserTrackingMode userTrackingMode;
+- (instancetype)initWithFrame:(CGRect)frame;
+- (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated;
+- (void)addAnnotation:(id<QAnnotation>)annotation;
+- (void)addAnnotations:(NSArray *)annotations;
+- (void)removeAnnotation:(id<QAnnotation>)annotation;
+- (void)removeAnnotations:(NSArray *)annotations;
+- (QAnnotationView *)viewForAnnotation:(id<QAnnotation>)annotation;
+- (QAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier;
+@end
 
-          @interface QUserLocation : NSObject
-          @property (nonatomic, strong) CLLocation *location;
-          @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-          @end
+@interface QUserLocation : NSObject
+@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@end
 
-          @interface QPointAnnotation : NSObject <QAnnotation>
-          @property (nonatomic) CLLocationCoordinate2D coordinate;
-          @property (nonatomic, copy) NSString *title;
-          @property (nonatomic, copy) NSString *subtitle;
-          @end
+@interface QPointAnnotation : NSObject <QAnnotation>
+@property (nonatomic) CLLocationCoordinate2D coordinate;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
+@end
 
-          @interface QAnnotationView : UIView
-          @property (nonatomic, strong) id<QAnnotation> annotation;
-          @property (nonatomic, copy) NSString *reuseIdentifier;
-          @property (nonatomic, strong) UIImage *image;
-          @property (nonatomic) CGPoint centerOffset;
-          @property (nonatomic) BOOL canShowCallout;
-          @property (nonatomic) BOOL draggable;
-          - (instancetype)initWithAnnotation:(id<QAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier;
-          @end
+@interface QAnnotationView : UIView
+@property (nonatomic, strong) id<QAnnotation> annotation;
+@property (nonatomic, copy) NSString *reuseIdentifier;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic) CGPoint centerOffset;
+@property (nonatomic) BOOL canShowCallout;
+@property (nonatomic) BOOL draggable;
+- (instancetype)initWithAnnotation:(id<QAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier;
+@end
 
-          @interface QPinAnnotationView : QAnnotationView
-          @property (nonatomic) BOOL animatesDrop;
-          @property (nonatomic, strong) UIColor *pinColor;
-          @end
+@interface QPinAnnotationView : QAnnotationView
+@property (nonatomic) BOOL animatesDrop;
+@property (nonatomic, strong) UIColor *pinColor;
+@end
 
-          @interface QMapSearch : NSObject
-          @property (nonatomic, weak) id delegate;
-          @end
+@interface QMapSearch : NSObject
+@property (nonatomic, weak) id delegate;
+@end
 
-          @interface QMapLocationManager : NSObject
-          @property (nonatomic, weak) id delegate;
-          - (void)startUpdatingLocation;
-          - (void)stopUpdatingLocation;
-          @end
+@interface QMapLocationManager : NSObject
+@property (nonatomic, weak) id delegate;
+- (void)startUpdatingLocation;
+- (void)stopUpdatingLocation;
+@end
 
-          @interface QPolyline : NSObject
-          @end
+@interface QPolyline : NSObject
+@end
 
-          @interface QPolygon : NSObject
-          @end
+@interface QPolygon : NSObject
+@end
 
-          @interface QCircle : NSObject
-          @end
+@interface QCircle : NSObject
+@end
 
-          @interface QOverlayRenderer : NSObject
-          @end
+@interface QOverlayRenderer : NSObject
+@end
 
-          #endif
-          EOF
+@interface QOverlayPathRenderer : QOverlayRenderer
+@end
+
+#endif
+EOF
 
           cat > "$QMAP_FRAMEWORK/Modules/module.modulemap" <<'EOF'
-          framework module QMapKit {
-            umbrella header "QMapKit.h"
-            export *
-            module * { export * }
-          }
-          EOF
+framework module QMapKit {
+  umbrella header "QMapKit.h"
+  export *
+  module * { export * }
+}
+EOF
 
           cat > /tmp/QMapKitStub.m <<'EOF'
-          #import "QMapKit.h"
+#import "QMapKit.h"
 
-          @implementation QMapServices
-          + (instancetype)sharedServices {
-              static QMapServices *service;
-              static dispatch_once_t onceToken;
-              dispatch_once(&onceToken, ^{
-                  service = [QMapServices new];
-              });
-              return service;
-          }
-          @end
+@implementation QMapServices
++ (instancetype)sharedServices {
+    static QMapServices *service;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        service = [QMapServices new];
+    });
+    return service;
+}
+@end
 
-          @implementation QMapView
-          - (instancetype)initWithFrame:(CGRect)frame {
-              self = [super initWithFrame:frame];
-              return self;
-          }
-          - (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated {
-              _centerCoordinate = coordinate;
-          }
-          - (void)addAnnotation:(id<QAnnotation>)annotation {}
-          - (void)addAnnotations:(NSArray *)annotations {}
-          - (void)removeAnnotation:(id<QAnnotation>)annotation {}
-          - (void)removeAnnotations:(NSArray *)annotations {}
-          - (QAnnotationView *)viewForAnnotation:(id<QAnnotation>)annotation { return nil; }
-          - (QAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier { return nil; }
-          @end
+@implementation QMapView
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    return self;
+}
+- (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated {
+    _centerCoordinate = coordinate;
+}
+- (void)addAnnotation:(id<QAnnotation>)annotation {}
+- (void)addAnnotations:(NSArray *)annotations {}
+- (void)removeAnnotation:(id<QAnnotation>)annotation {}
+- (void)removeAnnotations:(NSArray *)annotations {}
+- (QAnnotationView *)viewForAnnotation:(id<QAnnotation>)annotation { return nil; }
+- (QAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier { return nil; }
+@end
 
-          @implementation QUserLocation
-          - (CLLocationCoordinate2D)coordinate {
-              return self.location ? self.location.coordinate : kCLLocationCoordinate2DInvalid;
-          }
-          @end
+@implementation QUserLocation
+- (CLLocationCoordinate2D)coordinate {
+    return self.location ? self.location.coordinate : kCLLocationCoordinate2DInvalid;
+}
+@end
 
-          @implementation QPointAnnotation
-          @end
+@implementation QPointAnnotation
+@end
 
-          @implementation QAnnotationView
-          - (instancetype)initWithAnnotation:(id<QAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
-              self = [super initWithFrame:CGRectZero];
-              if (self) {
-                  _annotation = annotation;
-                  _reuseIdentifier = [reuseIdentifier copy];
-              }
-              return self;
-          }
-          @end
+@implementation QAnnotationView
+- (instancetype)initWithAnnotation:(id<QAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithFrame:CGRectZero];
+    if (self) {
+        _annotation = annotation;
+        _reuseIdentifier = [reuseIdentifier copy];
+    }
+    return self;
+}
+@end
 
-          @implementation QPinAnnotationView
-          @end
+@implementation QPinAnnotationView
+@end
 
-          @implementation QMapSearch
-          @end
+@implementation QMapSearch
+@end
 
-          @implementation QMapLocationManager
-          - (void)startUpdatingLocation {}
-          - (void)stopUpdatingLocation {}
-          @end
+@implementation QMapLocationManager
+- (void)startUpdatingLocation {}
+- (void)stopUpdatingLocation {}
+@end
 
-          @implementation QPolyline
-          @end
+@implementation QPolyline
+@end
 
-          @implementation QPolygon
-          @end
+@implementation QPolygon
+@end
 
-          @implementation QCircle
-          @end
+@implementation QCircle
+@end
 
-          @implementation QOverlayRenderer
-          @end
-          EOF
+@implementation QOverlayRenderer
+@end
+
+@implementation QOverlayPathRenderer
+@end
+EOF
 
           SDK_PATH="$(xcrun --sdk iphonesimulator --show-sdk-path)"
 
@@ -403,31 +414,31 @@ jobs:
             -o "$QMAP_FRAMEWORK/QMapKit"
 
           cat > "$QMAP_FRAMEWORK/Info.plist" <<'EOF'
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-              <key>CFBundleDevelopmentRegion</key>
-              <string>en</string>
-              <key>CFBundleExecutable</key>
-              <string>QMapKit</string>
-              <key>CFBundleIdentifier</key>
-              <string>com.ci.stub.QMapKit</string>
-              <key>CFBundleInfoDictionaryVersion</key>
-              <string>6.0</string>
-              <key>CFBundleName</key>
-              <string>QMapKit</string>
-              <key>CFBundlePackageType</key>
-              <string>FMWK</string>
-              <key>CFBundleShortVersionString</key>
-              <string>1.0</string>
-              <key>CFBundleVersion</key>
-              <string>1</string>
-              <key>MinimumOSVersion</key>
-              <string>12.0</string>
-          </dict>
-          </plist>
-          EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleExecutable</key>
+    <string>QMapKit</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.ci.stub.QMapKit</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>QMapKit</string>
+    <key>CFBundlePackageType</key>
+    <string>FMWK</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>MinimumOSVersion</key>
+    <string>12.0</string>
+</dict>
+</plist>
+EOF
 
           echo "QMapKit framework files:"
           find "$QMAP_FRAMEWORK" -maxdepth 3 -type f -print
