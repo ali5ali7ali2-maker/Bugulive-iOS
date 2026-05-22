@@ -106,9 +106,56 @@ jobs:
           echo "pod install failed after 3 attempts"
           exit 1
 
-      - name: Repair missing and invalid resources for CI
+      - name: Repair project build settings and resources for CI
         run: |
           set -e
+
+          echo "===== Patch project build settings for Xcode 16 CI ====="
+
+          ruby <<'RUBY'
+          require 'xcodeproj'
+          require 'fileutils'
+          require 'pathname'
+          require 'zlib'
+          require 'base64'
+
+          repo_root = Pathname.pwd.expand_path
+          main_project_path = 'BuguLive.xcodeproj'
+          target_name = 'BuguLive'
+
+          def patch_project_build_settings(project_path)
+            return unless File.exist?(project_path)
+
+            project = Xcodeproj::Project.open(project_path)
+
+            project.targets.each do |target|
+              target.build_configurations.each do |config|
+                config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+                config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+                config.build_settings['SWIFT_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+                config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+                config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
+                config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+                config.build_settings['ARCHS'] = 'arm64'
+                config.build_settings['EXCLUDED_ARCHS'] = ''
+
+                # Important for old projects with many Chinese/legacy asset names on Xcode 15/16.
+                config.build_settings['ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS'] = 'NO'
+                config.build_settings['ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS'] = 'NO'
+
+                # Reduce script sandbox problems in old projects.
+                config.build_settings['ENABLE_USER_SCRIPT_SANDBOXING'] = 'NO'
+              end
+            end
+
+            project.save
+            puts "Patched project build settings: #{project_path}"
+          end
+
+          patch_project_build_settings('BuguLive.xcodeproj')
+          patch_project_build_settings('UGCKit/UGCKit.xcodeproj')
+          patch_project_build_settings('UGCKit/Source/BeautyPanel/TCBeautyPanel/TCBeautyPanel.xcodeproj')
+          RUBY
 
           echo "===== Fix mojibake Chinese voice-room path ====="
 
@@ -301,8 +348,8 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             EXCLUDED_ARCHS="" \
             ARCHS=arm64 \
-            VALID_ARCHS=arm64 \
             ONLY_ACTIVE_ARCH=YES \
+            VALID_ARCHS=arm64 \
             SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
             SWIFT_COMPILATION_MODE=singlefile \
@@ -310,6 +357,9 @@ jobs:
             SWIFT_ENABLE_BATCH_MODE=NO \
             GCC_TREAT_WARNINGS_AS_ERRORS=NO \
             CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER=NO \
+            ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS=NO \
+            ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS=NO \
+            ENABLE_USER_SCRIPT_SANDBOXING=NO \
             -jobs 1 \
             -resultBundlePath build.xcresult \
             clean build 2>&1 | tee ios-build.log
@@ -326,7 +376,7 @@ jobs:
           if [ -f ios-build.log ]; then
             echo ""
             echo "---- Direct log errors ----"
-            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution|Command SwiftCompile" ios-build.log | tail -500 || true
+            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution|Command SwiftCompile|GeneratedAssetSymbols" ios-build.log | tail -600 || true
           else
             echo "ios-build.log was not created."
           fi
@@ -335,7 +385,7 @@ jobs:
           echo "---- Swift-specific surrounding context ----"
 
           if [ -f ios-build.log ]; then
-            grep -n -i -A 6 -B 6 -E "cannot find|No such module|has no member|ambiguous|use of unresolved identifier|expected declaration|consecutive statements|SwiftCompile|Command SwiftCompile|failed with a nonzero exit code" ios-build.log | tail -700 || true
+            grep -n -i -A 10 -B 10 -E "cannot find|No such module|has no member|ambiguous|use of unresolved identifier|expected declaration|consecutive statements|SwiftCompile|Command SwiftCompile|failed with a nonzero exit code|GeneratedAssetSymbols" ios-build.log | tail -900 || true
           else
             echo "ios-build.log was not created."
           fi
