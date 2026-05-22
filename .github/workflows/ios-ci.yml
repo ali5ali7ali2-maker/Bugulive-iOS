@@ -67,13 +67,52 @@ jobs:
           echo "Checking expected model folder:"
           ls -la "$EXPECTED_DIR/model"
 
+      - name: Create missing UMeng PDF placeholder
+        run: |
+          set -e
+
+          PDF_DIR="BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
+          PDF_FILE="$PDF_DIR/iOS集成升级必读.pdf"
+
+          mkdir -p "$PDF_DIR"
+
+          if [ ! -f "$PDF_FILE" ]; then
+            echo "Creating placeholder PDF: $PDF_FILE"
+            cat > "$PDF_FILE" <<'EOF'
+          %PDF-1.4
+          1 0 obj
+          << /Type /Catalog /Pages 2 0 R >>
+          endobj
+          2 0 obj
+          << /Type /Pages /Kids [3 0 R] /Count 1 >>
+          endobj
+          3 0 obj
+          << /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>
+          endobj
+          xref
+          0 4
+          0000000000 65535 f
+          0000000009 00000 n
+          0000000058 00000 n
+          0000000115 00000 n
+          trailer
+          << /Size 4 /Root 1 0 R >>
+          startxref
+          186
+          %%EOF
+          EOF
+          fi
+
+          ls -la "$PDF_DIR"
+
       - name: List schemes
         run: xcodebuild -workspace BuguLive.xcworkspace -list
 
       - name: Build for iOS Simulator
         run: |
           touch ios-build.log
-          set -o pipefail
+          set +e
+
           xcodebuild \
             -workspace BuguLive.xcworkspace \
             -scheme BuguLive \
@@ -82,6 +121,21 @@ jobs:
             -destination "generic/platform=iOS Simulator" \
             CODE_SIGNING_ALLOWED=NO \
             clean build 2>&1 | tee ios-build.log
+
+          echo ${PIPESTATUS[0]} > build-status.txt
+
+      - name: Print Xcode error summary
+        if: always()
+        run: |
+          echo "================ XCODE ERROR SUMMARY ================"
+          grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error" ios-build.log | tail -150 || true
+          echo "====================================================="
+
+      - name: Fail if build failed
+        if: always()
+        run: |
+          STATUS=$(cat build-status.txt)
+          exit $STATUS
 
       - name: Upload build log
         if: always()
