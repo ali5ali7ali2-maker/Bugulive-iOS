@@ -55,20 +55,28 @@ jobs:
           path: |
             Pods
             ~/Library/Caches/CocoaPods
-            ~/.cocoapods
           key: ${{ runner.os }}-pods-${{ hashFiles('Podfile') }}
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Install CocoaPods
+      - name: Install CocoaPods tools
         run: |
           gem install cocoapods --no-document
           gem install xcodeproj --no-document
           pod --version
 
-      - name: Install Pods with retry
+      - name: Install Pods with CDN retry
         run: |
           set +e
+
+          echo "===== Current Podfile source ====="
+          grep -n "source" Podfile || true
+
+          echo "===== Remove old GitHub CocoaPods specs repos if they exist ====="
+          pod repo remove cocoapods || true
+          pod repo remove master || true
+          rm -rf ~/.cocoapods/repos/cocoapods
+          rm -rf ~/.cocoapods/repos/master
 
           for attempt in 1 2 3; do
             echo "===== pod install attempt $attempt of 3 ====="
@@ -76,7 +84,7 @@ jobs:
             rm -f Podfile.lock
             rm -f Pods/Manifest.lock
 
-            pod install --repo-update
+            pod install --verbose
 
             POD_STATUS=$?
 
@@ -88,7 +96,7 @@ jobs:
             echo "pod install failed with status $POD_STATUS"
 
             if [ "$attempt" -lt 3 ]; then
-              echo "Retrying after network reset..."
+              echo "Retrying after network issue..."
               sleep 30
             fi
           done
@@ -125,20 +133,6 @@ jobs:
             echo "Warning: expected model folder does not exist: $EXPECTED_DIR/model"
           fi
 
-          echo "===== Create missing UMeng PDF placeholder ====="
-
-          PDF_DIR="BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
-          PDF_FILE="$PDF_DIR/iOS集成升级必读.pdf"
-
-          mkdir -p "$PDF_DIR"
-
-          if [ ! -f "$PDF_FILE" ]; then
-            echo "Creating placeholder PDF: $PDF_FILE"
-            printf '%s\n' "Placeholder PDF file for CI simulator build." > "$PDF_FILE"
-          else
-            echo "Exists: $PDF_FILE"
-          fi
-
           echo "===== Automatically create missing Xcode resources ====="
 
           ruby <<'RUBY'
@@ -163,6 +157,7 @@ jobs:
 
           def transparent_png
             raw = "\x00\x00\x00\x00\x00".b
+
             "\x89PNG\r\n\x1a\n".b +
               png_chunk("IHDR".b, [1, 1, 8, 6, 0, 0, 0].pack("NNCCCCC")) +
               png_chunk("IDAT".b, Zlib::Deflate.deflate(raw)) +
@@ -187,6 +182,10 @@ jobs:
               "\n"
             when '.plist'
               "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict/></plist>\n"
+            when '.txt'
+              "\n"
+            when '.html'
+              "<html><body></body></html>\n"
             else
               ""
             end
@@ -198,7 +197,9 @@ jobs:
             '.json',
             '.pdf',
             '.strings',
-            '.plist'
+            '.plist',
+            '.txt',
+            '.html'
           ]
 
           created = []
@@ -271,7 +272,7 @@ jobs:
           echo "================ XCODE ERROR SUMMARY ================"
 
           if [ -f ios-build.log ]; then
-            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -220 || true
+            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -250 || true
           else
             echo "ios-build.log was not created because the build step did not run."
           fi
