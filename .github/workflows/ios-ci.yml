@@ -2,6 +2,8 @@ name: iOS CI
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 concurrency:
   group: ios-ci-${{ github.ref }}
@@ -171,9 +173,6 @@ jobs:
 
           mkdir -p "$QMAP_FRAMEWORK"
 
-          # Important fix:
-          # Some old repositories contain Headers or Modules as files/symlinks.
-          # mkdir -p fails when the path already exists as a file.
           rm -rf "$QMAP_FRAMEWORK/Headers"
           rm -rf "$QMAP_FRAMEWORK/Modules"
           rm -rf "$QMAP_FRAMEWORK/QMapKit"
