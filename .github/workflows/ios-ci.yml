@@ -10,7 +10,7 @@ concurrency:
 jobs:
   build-simulator:
     runs-on: macos-14
-    timeout-minutes: 60
+    timeout-minutes: 70
 
     env:
       COCOAPODS_DISABLE_STATS: true
@@ -301,9 +301,16 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             EXCLUDED_ARCHS="" \
             ARCHS=arm64 \
+            VALID_ARCHS=arm64 \
             ONLY_ACTIVE_ARCH=YES \
             SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
+            SWIFT_COMPILATION_MODE=singlefile \
+            SWIFT_WHOLE_MODULE_OPTIMIZATION=NO \
+            SWIFT_ENABLE_BATCH_MODE=NO \
+            GCC_TREAT_WARNINGS_AS_ERRORS=NO \
+            CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER=NO \
+            -jobs 1 \
             -resultBundlePath build.xcresult \
             clean build 2>&1 | tee ios-build.log
 
@@ -319,7 +326,16 @@ jobs:
           if [ -f ios-build.log ]; then
             echo ""
             echo "---- Direct log errors ----"
-            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution" ios-build.log | tail -400 || true
+            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution|Command SwiftCompile" ios-build.log | tail -500 || true
+          else
+            echo "ios-build.log was not created."
+          fi
+
+          echo ""
+          echo "---- Swift-specific surrounding context ----"
+
+          if [ -f ios-build.log ]; then
+            grep -n -i -A 6 -B 6 -E "cannot find|No such module|has no member|ambiguous|use of unresolved identifier|expected declaration|consecutive statements|SwiftCompile|Command SwiftCompile|failed with a nonzero exit code" ios-build.log | tail -700 || true
           else
             echo "ios-build.log was not created."
           fi
@@ -335,18 +351,18 @@ jobs:
               python3 - <<'PY'
           import json
 
+          def get_value(value):
+              if isinstance(value, dict) and "_value" in value:
+                  return value.get("_value")
+              return value
+
           def walk(obj):
               if isinstance(obj, dict):
-                  message = obj.get("message")
+                  message = get_value(obj.get("message"))
                   document = obj.get("documentLocationInCreatingWorkspace") or obj.get("documentLocation")
 
-                  if isinstance(message, dict):
-                      msg = message.get("_value")
-                  else:
-                      msg = message
-
-                  if msg:
-                      print("ISSUE:", msg)
+                  if message:
+                      print("ISSUE:", message)
 
                   if document:
                       print("LOCATION:", document)
