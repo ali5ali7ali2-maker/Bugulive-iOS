@@ -106,7 +106,7 @@ jobs:
           echo "pod install failed after 3 attempts"
           exit 1
 
-      - name: Repair missing resources for CI
+      - name: Repair missing and invalid resources for CI
         run: |
           set -e
 
@@ -129,13 +129,7 @@ jobs:
             fi
           fi
 
-          if [ -d "$EXPECTED_DIR/model" ]; then
-            ls -la "$EXPECTED_DIR/model"
-          else
-            echo "Warning: expected model folder does not exist: $EXPECTED_DIR/model"
-          fi
-
-          echo "===== Automatically create missing Xcode resources ====="
+          echo "===== Automatically repair missing and invalid Xcode resources ====="
 
           ruby <<'RUBY'
           require 'xcodeproj'
@@ -159,7 +153,6 @@ jobs:
 
           def transparent_png
             raw = "\x00\x00\x00\x00\x00".b
-
             "\x89PNG\r\n\x1a\n".b +
               png_chunk("IHDR".b, [1, 1, 8, 6, 0, 0, 0].pack("NNCCCCC")) +
               png_chunk("IDAT".b, Zlib::Deflate.deflate(raw)) +
@@ -168,6 +161,13 @@ jobs:
 
           def transparent_gif
             Base64.decode64("R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==")
+          end
+
+          def valid_png?(path)
+            return false unless File.exist?(path)
+            File.open(path, "rb") { |f| f.read(8) == "\x89PNG\r\n\x1a\n".b }
+          rescue
+            false
           end
 
           def placeholder_xib
@@ -235,6 +235,7 @@ jobs:
           ]
 
           created = []
+          replaced = []
           skipped = []
 
           resources = target.resources_build_phase.files_references.compact
@@ -254,7 +255,14 @@ jobs:
 
             next unless supported_extensions.include?(ext)
             next unless full_path.to_s.start_with?(repo_root.to_s)
-            next if full_path.exist?
+
+            if full_path.exist?
+              if ext == '.png' && !valid_png?(full_path.to_s)
+                File.binwrite(full_path.to_s, transparent_png)
+                replaced << full_path.relative_path_from(repo_root).to_s
+              end
+              next
+            end
 
             FileUtils.mkdir_p(full_path.dirname.to_s)
             File.binwrite(full_path.to_s, placeholder_for(ext))
@@ -262,10 +270,10 @@ jobs:
           end
 
           puts "Created missing resource placeholders: #{created.length}"
+          created.each { |path| puts "Created: #{path}" }
 
-          created.each do |path|
-            puts "Created: #{path}"
-          end
+          puts "Replaced invalid PNG resources: #{replaced.length}"
+          replaced.each { |path| puts "Replaced invalid PNG: #{path}" }
 
           if skipped.any?
             puts "Skipped unresolved resource references:"
@@ -280,6 +288,8 @@ jobs:
       - name: Build for iOS Simulator
         run: |
           touch ios-build.log
+          rm -rf build.xcresult
+          rm -f xcresult.json
           set +e
 
           xcodebuild \
@@ -289,9 +299,12 @@ jobs:
             -sdk iphonesimulator \
             -destination "generic/platform=iOS Simulator" \
             CODE_SIGNING_ALLOWED=NO \
-            'EXCLUDED_ARCHS[sdk=iphonesimulator*]=' \
-            'ARCHS=$(ARCHS_STANDARD)' \
+            EXCLUDED_ARCHS="" \
+            ARCHS="$(ARCHS_STANDARD)" \
             ONLY_ACTIVE_ARCH=NO \
+            SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            -resultBundlePath build.xcresult \
             clean build 2>&1 | tee ios-build.log
 
           BUILD_STATUS=${PIPESTATUS[0]}
@@ -304,9 +317,59 @@ jobs:
           echo "================ XCODE ERROR SUMMARY ================"
 
           if [ -f ios-build.log ]; then
-            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -250 || true
+            echo ""
+            echo "---- Direct log errors ----"
+            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file" ios-build.log | tail -350 || true
           else
-            echo "ios-build.log was not created because the build step did not run."
+            echo "ios-build.log was not created."
+          fi
+
+          echo ""
+          echo "---- xcresult issues ----"
+
+          if [ -d build.xcresult ]; then
+            xcrun xcresulttool get --legacy --format json --path build.xcresult > xcresult.json 2>/dev/null || \
+            xcrun xcresulttool get --format json --path build.xcresult > xcresult.json 2>/dev/null || true
+
+            if [ -f xcresult.json ]; then
+              python3 - <<'PY'
+          import json
+
+          def walk(obj):
+              if isinstance(obj, dict):
+                  message = obj.get("message")
+                  document = obj.get("documentLocationInCreatingWorkspace") or obj.get("documentLocation")
+
+                  if isinstance(message, dict):
+                      msg = message.get("_value")
+                  else:
+                      msg = message
+
+                  if msg:
+                      print("ISSUE:", msg)
+
+                  if document:
+                      print("LOCATION:", document)
+
+                  for value in obj.values():
+                      walk(value)
+
+              elif isinstance(obj, list):
+                  for item in obj:
+                      walk(item)
+
+          try:
+              with open("xcresult.json", "r", encoding="utf-8") as f:
+                  data = json.load(f)
+              walk(data)
+          except Exception as e:
+              print("Could not parse xcresult:", e)
+          PY
+            else
+              echo "Could not export xcresult.json"
+            fi
+          else
+            echo "build.xcresult was not created."
           fi
 
           echo "====================================================="
@@ -329,10 +392,12 @@ jobs:
           echo "Build failed or did not run. Status: $STATUS"
           exit "$STATUS"
 
-      - name: Upload build log
+      - name: Upload build logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ios-build-log
-          path: ios-build.log
+          path: |
+            ios-build.log
+            xcresult.json
           if-no-files-found: warn
