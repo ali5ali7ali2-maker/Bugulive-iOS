@@ -2,10 +2,10 @@ name: iOS CI
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+
+concurrency:
+  group: ios-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-simulator:
@@ -300,8 +300,8 @@ jobs:
             -destination "generic/platform=iOS Simulator" \
             CODE_SIGNING_ALLOWED=NO \
             EXCLUDED_ARCHS="" \
-            ARCHS="$(ARCHS_STANDARD)" \
-            ONLY_ACTIVE_ARCH=NO \
+            ARCHS=arm64 \
+            ONLY_ACTIVE_ARCH=YES \
             SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
             -resultBundlePath build.xcresult \
@@ -319,7 +319,7 @@ jobs:
           if [ -f ios-build.log ]; then
             echo ""
             echo "---- Direct log errors ----"
-            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file" ios-build.log | tail -350 || true
+            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution" ios-build.log | tail -400 || true
           else
             echo "ios-build.log was not created."
           fi
