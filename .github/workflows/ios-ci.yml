@@ -124,6 +124,8 @@ jobs:
               "身份证国徽面@2x.png",
               "身份证国徽面.png",
               "暂无商品_空状态@3x.png",
+              "暂无商品_空状态@2x.png",
+              "暂无商品_空状态.png",
           ]
 
           os.makedirs(base, exist_ok=True)
