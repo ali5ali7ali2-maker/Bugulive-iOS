@@ -10,13 +10,21 @@ on:
 jobs:
   build-simulator:
     runs-on: macos-14
-    timeout-minutes: 45
+    timeout-minutes: 60
+
+    env:
+      COCOAPODS_DISABLE_STATS: true
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: true
+
+      - name: Prepare CI status files
+        run: |
+          touch ios-build.log
+          echo 1 > build-status.txt
 
       - name: Pull Git LFS files
         run: |
@@ -31,19 +39,62 @@ jobs:
         run: |
           xcodebuild -version
           ruby -v
+          gem -v
           pod --version || true
           git lfs version || true
+
+      - name: Configure Git network retry settings
+        run: |
+          git config --global http.postBuffer 524288000
+          git config --global http.lowSpeedLimit 0
+          git config --global http.lowSpeedTime 999999
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: |
+            Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('Podfile') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
 
       - name: Install CocoaPods
         run: |
           gem install cocoapods --no-document
+          gem install xcodeproj --no-document
           pod --version
 
-      - name: Install Pods
+      - name: Install Pods with retry
         run: |
-          rm -f Podfile.lock
-          rm -f Pods/Manifest.lock
-          pod install --repo-update
+          set +e
+
+          for attempt in 1 2 3; do
+            echo "===== pod install attempt $attempt of 3 ====="
+
+            rm -f Podfile.lock
+            rm -f Pods/Manifest.lock
+
+            pod install --repo-update
+
+            POD_STATUS=$?
+
+            if [ "$POD_STATUS" -eq 0 ]; then
+              echo "pod install succeeded"
+              exit 0
+            fi
+
+            echo "pod install failed with status $POD_STATUS"
+
+            if [ "$attempt" -lt 3 ]; then
+              echo "Retrying after network reset..."
+              sleep 30
+            fi
+          done
+
+          echo "pod install failed after 3 attempts"
+          exit 1
 
       - name: Repair missing resources for CI
         run: |
@@ -74,6 +125,20 @@ jobs:
             echo "Warning: expected model folder does not exist: $EXPECTED_DIR/model"
           fi
 
+          echo "===== Create missing UMeng PDF placeholder ====="
+
+          PDF_DIR="BuguLive/Others/Vendors/UMengs/common/common_ios_7.3.5"
+          PDF_FILE="$PDF_DIR/iOS集成升级必读.pdf"
+
+          mkdir -p "$PDF_DIR"
+
+          if [ ! -f "$PDF_FILE" ]; then
+            echo "Creating placeholder PDF: $PDF_FILE"
+            printf '%s\n' "Placeholder PDF file for CI simulator build." > "$PDF_FILE"
+          else
+            echo "Exists: $PDF_FILE"
+          fi
+
           echo "===== Automatically create missing Xcode resources ====="
 
           ruby <<'RUBY'
@@ -90,20 +155,14 @@ jobs:
           project = Xcodeproj::Project.open(project_path)
           target = project.targets.find { |t| t.name == target_name }
 
-          unless target
-            abort "Target not found: #{target_name}"
-          end
+          abort "Target not found: #{target_name}" unless target
 
           def png_chunk(tag, data)
-            [data.bytesize].pack('N') +
-              tag +
-              data +
-              [Zlib.crc32(tag + data)].pack('N')
+            [data.bytesize].pack('N') + tag + data + [Zlib.crc32(tag + data)].pack('N')
           end
 
           def transparent_png
             raw = "\x00\x00\x00\x00\x00".b
-
             "\x89PNG\r\n\x1a\n".b +
               png_chunk("IHDR".b, [1, 1, 8, 6, 0, 0, 0].pack("NNCCCCC")) +
               png_chunk("IDAT".b, Zlib::Deflate.deflate(raw)) +
@@ -166,7 +225,6 @@ jobs:
 
             FileUtils.mkdir_p(full_path.dirname.to_s)
             File.binwrite(full_path.to_s, placeholder_for(ext))
-
             created << full_path.relative_path_from(repo_root).to_s
           end
 
@@ -181,10 +239,6 @@ jobs:
             skipped.each { |item| puts "Skipped: #{item}" }
           end
           RUBY
-
-          echo "===== Verify resources likely to fail ====="
-          test -f "BuguLive/Class/Sections/DT_Controller(动态)/发布/XWPublish/images/plus@2x.png" && echo "plus@2x.png exists"
-          test -f "BuguLive/Class/Sections/DT_Controller(动态)/发布/XWPublish/images/plus@3x.png" && echo "plus@3x.png exists"
 
       - name: List schemes
         run: |
@@ -207,20 +261,40 @@ jobs:
             ONLY_ACTIVE_ARCH=NO \
             clean build 2>&1 | tee ios-build.log
 
-          echo ${PIPESTATUS[0]} > build-status.txt
+          BUILD_STATUS=${PIPESTATUS[0]}
+          echo "$BUILD_STATUS" > build-status.txt
+          exit 0
 
       - name: Print Xcode error summary
         if: always()
         run: |
           echo "================ XCODE ERROR SUMMARY ================"
-          grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -220 || true
+
+          if [ -f ios-build.log ]; then
+            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found" ios-build.log | tail -220 || true
+          else
+            echo "ios-build.log was not created because the build step did not run."
+          fi
+
           echo "====================================================="
 
       - name: Fail if build failed
         if: always()
         run: |
+          if [ ! -f build-status.txt ]; then
+            echo "build-status.txt was not created. A previous step failed before xcodebuild."
+            exit 1
+          fi
+
           STATUS=$(cat build-status.txt)
-          exit $STATUS
+
+          if [ "$STATUS" -eq 0 ]; then
+            echo "Build succeeded."
+            exit 0
+          fi
+
+          echo "Build failed or did not run. Status: $STATUS"
+          exit "$STATUS"
 
       - name: Upload build log
         if: always()
