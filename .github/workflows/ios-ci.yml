@@ -369,11 +369,26 @@ jobs:
           }
 
           allowed = ['.png', '.gif', '.json', '.pdf', '.strings', '.plist', '.txt', '.html', '.xib']
+          project_root = File.expand_path('.', Dir.pwd)
 
           target.resources_build_phase.files_references.compact.each do |ref|
             next if ref.nil?
+            next if ref.isa == 'PBXReferenceProxy'
 
-            path = ref.real_path.to_s
+            path = nil
+            begin
+              path = ref.real_path.to_s if ref.respond_to?(:real_path)
+            rescue
+              path = nil
+            end
+
+            if path.nil? || path.empty?
+              next unless ref.respond_to?(:path)
+              raw_path = ref.path.to_s
+              next if raw_path.empty?
+              path = File.expand_path(raw_path, project_root)
+            end
+
             next if path.empty?
 
             ext = File.extname(path).downcase
