@@ -3,7 +3,9 @@ name: iOS CI
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 concurrency:
   group: ios-ci-${{ github.ref }}
@@ -12,7 +14,7 @@ concurrency:
 jobs:
   build-simulator:
     runs-on: macos-14
-    timeout-minutes: 70
+    timeout-minutes: 90
 
     env:
       COCOAPODS_DISABLE_STATS: true
@@ -25,33 +27,20 @@ jobs:
         with:
           lfs: true
 
-      - name: Prepare CI status files
-        run: |
-          touch ios-build.log
-          echo 1 > build-status.txt
-
       - name: Pull Git LFS files
-        run: |
-          git lfs pull
+        run: git lfs pull
 
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: "15.4"
 
       - name: Show tool versions
         run: |
           xcodebuild -version
           ruby -v
           gem -v
-          pod --version || true
-          git lfs version || true
-
-      - name: Configure Git network retry settings
-        run: |
-          git config --global http.postBuffer 524288000
-          git config --global http.lowSpeedLimit 0
-          git config --global http.lowSpeedTime 999999
+          git lfs version
 
       - name: Cache CocoaPods
         uses: actions/cache@v4
@@ -59,722 +48,73 @@ jobs:
           path: |
             Pods
             ~/Library/Caches/CocoaPods
-          key: ${{ runner.os }}-pods-${{ hashFiles('Podfile') }}
+          key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock', 'Podfile') }}
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Install CocoaPods tools
+      - name: Install CocoaPods
         run: |
           gem install cocoapods --no-document
-          gem install xcodeproj --no-document
           pod --version
 
-      - name: Install Pods with CDN retry
-        run: |
-          set +e
-
-          echo "===== Current Podfile source ====="
-          grep -n "source" Podfile || true
-
-          echo "===== Remove old GitHub CocoaPods specs repos if they exist ====="
-          pod repo remove cocoapods || true
-          pod repo remove master || true
-          rm -rf ~/.cocoapods/repos/cocoapods
-          rm -rf ~/.cocoapods/repos/master
-
-          for attempt in 1 2 3; do
-            echo "===== pod install attempt $attempt of 3 ====="
-
-            rm -f Podfile.lock
-            rm -f Pods/Manifest.lock
-
-            pod install --verbose
-
-            POD_STATUS=$?
-
-            if [ "$POD_STATUS" -eq 0 ]; then
-              echo "pod install succeeded"
-              exit 0
-            fi
-
-            echo "pod install failed with status $POD_STATUS"
-
-            if [ "$attempt" -lt 3 ]; then
-              echo "Retrying after network issue..."
-              sleep 30
-            fi
-          done
-
-          echo "pod install failed after 3 attempts"
-          exit 1
-
-      - name: Repair project build settings and resources for CI
+      - name: Install Pods (with retry)
         run: |
           set -e
-
-          echo "===== Patch project build settings for Xcode 16 CI ====="
-
-          ruby <<'RUBY'
-          require 'xcodeproj'
-
-          def append_flag(existing, flag)
-            value = existing || '$(inherited)'
-            parts = value.to_s.split
-            parts << flag unless parts.include?(flag)
-            parts.join(' ')
-          end
-
-          def patch_project_build_settings(project_path)
-            return unless File.exist?(project_path)
-
-            project = Xcodeproj::Project.open(project_path)
-
-            project.targets.each do |target|
-              target.build_configurations.each do |config|
-                config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-                config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
-
-                config.build_settings['SWIFT_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
-                config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
-                config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
-
-                config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
-                config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
-                config.build_settings['ARCHS'] = 'arm64'
-                config.build_settings['VALID_ARCHS'] = 'arm64'
-                config.build_settings['EXCLUDED_ARCHS'] = ''
-                config.build_settings['ENABLE_USER_SCRIPT_SANDBOXING'] = 'NO'
-
-                config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
-                config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
-                config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
-                config.build_settings['CLANG_WARN_STRICT_PROTOTYPES'] = 'NO'
-
-                config.build_settings['ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS'] = 'NO'
-                config.build_settings['ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS'] = 'NO'
-
-                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-incomplete-umbrella')
-                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-non-modular-include-in-framework-module')
-                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-quoted-include-in-framework-header')
-                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-everything')
-
-                config.build_settings['OTHER_SWIFT_FLAGS'] = append_flag(config.build_settings['OTHER_SWIFT_FLAGS'], '-suppress-warnings')
-              end
-            end
-
-            project.save
-            puts "Patched project build settings: #{project_path}"
-          end
-
-          patch_project_build_settings('BuguLive.xcodeproj')
-          patch_project_build_settings('UGCKit/UGCKit.xcodeproj')
-          patch_project_build_settings('UGCKit/Source/BeautyPanel/TCBeautyPanel/TCBeautyPanel.xcodeproj')
-          RUBY
-
-          echo "===== Fix mojibake Chinese voice-room path ====="
-
-          EXPECTED_DIR="BuguLive/Class/语音房间"
-          FOUND_JSON=$(find "BuguLive/Class" -path "*/model/room_json.json" -print -quit || true)
-
-          echo "Found room_json at: $FOUND_JSON"
-
-          if [ -n "$FOUND_JSON" ]; then
-            SOURCE_DIR=$(dirname "$(dirname "$FOUND_JSON")")
-            echo "Source voice room dir: $SOURCE_DIR"
-            echo "Expected voice room dir: $EXPECTED_DIR"
-
-            if [ "$SOURCE_DIR" != "$EXPECTED_DIR" ]; then
-              mkdir -p "$EXPECTED_DIR"
-              cp -R "$SOURCE_DIR"/. "$EXPECTED_DIR"/
-              echo "Copied voice-room files to expected Chinese folder path."
+          for attempt in 1 2 3; do
+            echo "pod install attempt $attempt/3"
+            if pod install --repo-update; then
+              echo "pod install succeeded"
+              break
             fi
-          fi
 
-          echo "===== Create clean QMapKit simulator stub framework for CI ====="
+            if [ "$attempt" -eq 3 ]; then
+              echo "pod install failed after 3 attempts"
+              exit 1
+            fi
 
-          python3 - <<'PY'
-          from pathlib import Path
-          import shutil
-
-          qmap_framework = Path("BuguLive/Others/Vendors/QMap/QMapKit.framework")
-          headers_dir = qmap_framework / "Headers"
-          modules_dir = qmap_framework / "Modules"
-
-          for path in [headers_dir, modules_dir, qmap_framework / "QMapKit"]:
-              if path.exists() or path.is_symlink():
-                  if path.is_dir() and not path.is_symlink():
-                      shutil.rmtree(path)
-                  else:
-                      path.unlink()
-
-          headers_dir.mkdir(parents=True, exist_ok=True)
-          modules_dir.mkdir(parents=True, exist_ok=True)
-
-          qmap_header = r'''
-          #import <Foundation/Foundation.h>
-          #import <UIKit/UIKit.h>
-          #import <CoreGraphics/CoreGraphics.h>
-          #import <CoreLocation/CoreLocation.h>
-          #import <dispatch/dispatch.h>
-
-          #ifndef QMAPKIT_STUB_H
-          #define QMAPKIT_STUB_H
-
-          typedef NS_ENUM(NSInteger, QMapType) {
-              QMapTypeStandard = 0,
-              QMapTypeSatellite = 1
-          };
-
-          typedef NS_ENUM(NSInteger, QUserTrackingMode) {
-              QUserTrackingModeNone = 0,
-              QUserTrackingModeFollow = 1,
-              QUserTrackingModeFollowWithHeading = 2
-          };
-
-          typedef NS_ENUM(NSInteger, QAnnotationViewDragState) {
-              QAnnotationViewDragStateNone = 0,
-              QAnnotationViewDragStateStarting = 1,
-              QAnnotationViewDragStateDragging = 2,
-              QAnnotationViewDragStateCanceling = 3,
-              QAnnotationViewDragStateEnding = 4
-          };
-
-          @protocol QAnnotation <NSObject>
-          @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-          @optional
-          @property (nonatomic, readonly, copy) NSString *title;
-          @property (nonatomic, readonly, copy) NSString *subtitle;
-          @end
-
-          @class QMapView;
-          @class QAnnotationView;
-          @class QPointAnnotation;
-          @class QPinAnnotationView;
-          @class QUserLocation;
-          @class QPolyline;
-          @class QPolygon;
-          @class QCircle;
-          @class QOverlayRenderer;
-          @class QOverlayPathRenderer;
-          @class QMapServices;
-          @class QMapSearch;
-          @class QMapLocationManager;
-
-          @protocol QMapViewDelegate <NSObject>
-          @optional
-          - (void)mapView:(QMapView *)mapView didSelectAnnotationView:(QAnnotationView *)view;
-          - (void)mapView:(QMapView *)mapView didDeselectAnnotationView:(QAnnotationView *)view;
-          - (void)mapView:(QMapView *)mapView didUpdateUserLocation:(QUserLocation *)userLocation;
-          @end
-
-          @interface QMapServices : NSObject
-          + (instancetype)sharedServices;
-          @property (nonatomic, copy) NSString *APIKey;
-          @property (nonatomic, copy) NSString *apiKey;
-          @end
-
-          @interface QMapView : UIView
-          @property (nonatomic, weak) id<QMapViewDelegate> delegate;
-          @property (nonatomic) CLLocationCoordinate2D centerCoordinate;
-          @property (nonatomic) CGFloat zoomLevel;
-          @property (nonatomic) QMapType mapType;
-          @property (nonatomic) BOOL showsUserLocation;
-          @property (nonatomic) QUserTrackingMode userTrackingMode;
-          - (instancetype)initWithFrame:(CGRect)frame;
-          - (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated;
-          - (void)addAnnotation:(id<QAnnotation>)annotation;
-          - (void)addAnnotations:(NSArray *)annotations;
-          - (void)removeAnnotation:(id<QAnnotation>)annotation;
-          - (void)removeAnnotations:(NSArray *)annotations;
-          - (QAnnotationView *)viewForAnnotation:(id<QAnnotation>)annotation;
-          - (QAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier;
-          @end
-
-          @interface QUserLocation : NSObject
-          @property (nonatomic, strong) CLLocation *location;
-          @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-          @end
-
-          @interface QPointAnnotation : NSObject <QAnnotation>
-          @property (nonatomic) CLLocationCoordinate2D coordinate;
-          @property (nonatomic, copy) NSString *title;
-          @property (nonatomic, copy) NSString *subtitle;
-          @end
-
-          @interface QAnnotationView : UIView
-          @property (nonatomic, strong) id<QAnnotation> annotation;
-          @property (nonatomic, copy) NSString *reuseIdentifier;
-          @property (nonatomic, strong) UIImage *image;
-          @property (nonatomic) CGPoint centerOffset;
-          @property (nonatomic) BOOL canShowCallout;
-          @property (nonatomic) BOOL draggable;
-          - (instancetype)initWithAnnotation:(id<QAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier;
-          @end
-
-          @interface QPinAnnotationView : QAnnotationView
-          @property (nonatomic) BOOL animatesDrop;
-          @property (nonatomic, strong) UIColor *pinColor;
-          @end
-
-          @interface QMapSearch : NSObject
-          @property (nonatomic, weak) id delegate;
-          @end
-
-          @interface QMapLocationManager : NSObject
-          @property (nonatomic, weak) id delegate;
-          - (void)startUpdatingLocation;
-          - (void)stopUpdatingLocation;
-          @end
-
-          @interface QPolyline : NSObject
-          @end
-
-          @interface QPolygon : NSObject
-          @end
-
-          @interface QCircle : NSObject
-          @end
-
-          @interface QOverlayRenderer : NSObject
-          @end
-
-          @interface QOverlayPathRenderer : QOverlayRenderer
-          @end
-
-          #endif
-          '''
-
-          modulemap = r'''
-          framework module QMapKit {
-            umbrella header "QMapKit.h"
-            export *
-            module * { export * }
-          }
-          '''
-
-          stub_m = r'''
-          #import "QMapKit.h"
-
-          @implementation QMapServices
-          + (instancetype)sharedServices {
-              static QMapServices *service;
-              static dispatch_once_t onceToken;
-              dispatch_once(&onceToken, ^{
-                  service = [QMapServices new];
-              });
-              return service;
-          }
-          @end
-
-          @implementation QMapView
-          - (instancetype)initWithFrame:(CGRect)frame {
-              self = [super initWithFrame:frame];
-              return self;
-          }
-          - (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated {
-              _centerCoordinate = coordinate;
-          }
-          - (void)addAnnotation:(id<QAnnotation>)annotation {}
-          - (void)addAnnotations:(NSArray *)annotations {}
-          - (void)removeAnnotation:(id<QAnnotation>)annotation {}
-          - (void)removeAnnotations:(NSArray *)annotations {}
-          - (QAnnotationView *)viewForAnnotation:(id<QAnnotation>)annotation { return nil; }
-          - (QAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier { return nil; }
-          @end
-
-          @implementation QUserLocation
-          - (CLLocationCoordinate2D)coordinate {
-              return self.location ? self.location.coordinate : kCLLocationCoordinate2DInvalid;
-          }
-          @end
-
-          @implementation QPointAnnotation
-          @end
-
-          @implementation QAnnotationView
-          - (instancetype)initWithAnnotation:(id<QAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
-              self = [super initWithFrame:CGRectMake(0, 0, 0, 0)];
-              if (self) {
-                  _annotation = annotation;
-                  _reuseIdentifier = [reuseIdentifier copy];
-              }
-              return self;
-          }
-          @end
-
-          @implementation QPinAnnotationView
-          @end
-
-          @implementation QMapSearch
-          @end
-
-          @implementation QMapLocationManager
-          - (void)startUpdatingLocation {}
-          - (void)stopUpdatingLocation {}
-          @end
-
-          @implementation QPolyline
-          @end
-
-          @implementation QPolygon
-          @end
-
-          @implementation QCircle
-          @end
-
-          @implementation QOverlayRenderer
-          @end
-
-          @implementation QOverlayPathRenderer
-          @end
-          '''
-
-          info_plist = r'''
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-              <key>CFBundleDevelopmentRegion</key>
-              <string>en</string>
-              <key>CFBundleExecutable</key>
-              <string>QMapKit</string>
-              <key>CFBundleIdentifier</key>
-              <string>com.ci.stub.QMapKit</string>
-              <key>CFBundleInfoDictionaryVersion</key>
-              <string>6.0</string>
-              <key>CFBundleName</key>
-              <string>QMapKit</string>
-              <key>CFBundlePackageType</key>
-              <string>FMWK</string>
-              <key>CFBundleShortVersionString</key>
-              <string>1.0</string>
-              <key>CFBundleVersion</key>
-              <string>1</string>
-              <key>MinimumOSVersion</key>
-              <string>12.0</string>
-          </dict>
-          </plist>
-          '''
-
-          (headers_dir / "QMapKit.h").write_text(qmap_header.strip() + "\n", encoding="utf-8")
-          (modules_dir / "module.modulemap").write_text(modulemap.strip() + "\n", encoding="utf-8")
-          Path("/tmp/QMapKitStub.m").write_text(stub_m.strip() + "\n", encoding="utf-8")
-          (qmap_framework / "Info.plist").write_text(info_plist.strip() + "\n", encoding="utf-8")
-          PY
-
-          SDK_PATH="$(xcrun --sdk iphonesimulator --show-sdk-path)"
-
-          clang \
-            -fobjc-arc \
-            -dynamiclib \
-            -target arm64-apple-ios12.0-simulator \
-            -isysroot "$SDK_PATH" \
-            -I "BuguLive/Others/Vendors/QMap/QMapKit.framework/Headers" \
-            /tmp/QMapKitStub.m \
-            -framework Foundation \
-            -framework UIKit \
-            -framework CoreGraphics \
-            -framework CoreLocation \
-            -install_name "@rpath/QMapKit.framework/QMapKit" \
-            -o "BuguLive/Others/Vendors/QMap/QMapKit.framework/QMapKit"
-
-          echo "QMapKit framework files:"
-          find "BuguLive/Others/Vendors/QMap/QMapKit.framework" -maxdepth 3 -type f -print
-
-          echo "===== Automatically repair missing and invalid Xcode resources ====="
-
-          ruby <<'RUBY'
-          require 'xcodeproj'
-          require 'fileutils'
-          require 'pathname'
-          require 'zlib'
-          require 'base64'
-
-          repo_root = Pathname.pwd.expand_path
-          project_path = 'BuguLive.xcodeproj'
-          target_name = 'BuguLive'
-
-          project = Xcodeproj::Project.open(project_path)
-          target = project.targets.find { |t| t.name == target_name }
-
-          abort "Target not found: #{target_name}" unless target
-
-          def png_chunk(tag, data)
-            [data.bytesize].pack('N') + tag + data + [Zlib.crc32(tag + data)].pack('N')
-          end
-
-          def transparent_png
-            raw = "\x00\x00\x00\x00\x00".b
-            "\x89PNG\r\n\x1a\n".b +
-              png_chunk("IHDR".b, [1, 1, 8, 6, 0, 0, 0].pack("NNCCCCC")) +
-              png_chunk("IDAT".b, Zlib::Deflate.deflate(raw)) +
-              png_chunk("IEND".b, "".b)
-          end
-
-          def transparent_gif
-            Base64.decode64("R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==")
-          end
-
-          def valid_png?(path)
-            return false unless File.exist?(path)
-            File.open(path, "rb") { |f| f.read(8) == "\x89PNG\r\n\x1a\n".b }
-          rescue
-            false
-          end
-
-          def placeholder_xib
-            <<~XIB
-            <?xml version="1.0" encoding="UTF-8"?>
-            <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-                <device id="retina6_12" orientation="portrait" appearance="light"/>
-                <dependencies>
-                    <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
-                    <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-                </dependencies>
-                <objects>
-                    <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
-                    <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-                    <view contentMode="scaleToFill" id="iN0-l3-epB">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </objects>
-                <resources>
-                    <systemColor name="systemBackgroundColor">
-                        <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </systemColor>
-                </resources>
-            </document>
-            XIB
-          end
-
-          def placeholder_for(ext)
-            case ext.downcase
-            when '.png'
-              transparent_png
-            when '.gif'
-              transparent_gif
-            when '.json'
-              "{}\n"
-            when '.pdf'
-              "Placeholder PDF file for CI simulator build.\n"
-            when '.strings'
-              "\n"
-            when '.plist'
-              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict/></plist>\n"
-            when '.txt'
-              "\n"
-            when '.html'
-              "<html><body></body></html>\n"
-            when '.xib'
-              placeholder_xib
-            else
-              ""
-            end
-          end
-
-          supported_extensions = [
-            '.png',
-            '.gif',
-            '.json',
-            '.pdf',
-            '.strings',
-            '.plist',
-            '.txt',
-            '.html',
-            '.xib'
-          ]
-
-          created = []
-          replaced = []
-          skipped = []
-
-          resources = target.resources_build_phase.files_references.compact
-
-          resources.each do |ref|
-            begin
-              real_path = ref.real_path
-            rescue => e
-              skipped << "#{ref.display_name}: #{e.message}"
-              next
-            end
-
-            next unless real_path
-
-            full_path = Pathname.new(real_path.to_s).expand_path
-            ext = full_path.extname.downcase
-
-            next unless supported_extensions.include?(ext)
-            next unless full_path.to_s.start_with?(repo_root.to_s)
-
-            if full_path.exist?
-              if ext == '.png' && !valid_png?(full_path.to_s)
-                File.binwrite(full_path.to_s, transparent_png)
-                replaced << full_path.relative_path_from(repo_root).to_s
-              end
-              next
-            end
-
-            FileUtils.mkdir_p(full_path.dirname.to_s)
-            File.binwrite(full_path.to_s, placeholder_for(ext))
-            created << full_path.relative_path_from(repo_root).to_s
-          end
-
-          puts "Created missing resource placeholders: #{created.length}"
-          created.each { |path| puts "Created: #{path}" }
-
-          puts "Replaced invalid PNG resources: #{replaced.length}"
-          replaced.each { |path| puts "Replaced invalid PNG: #{path}" }
-
-          if skipped.any?
-            puts "Skipped unresolved resource references:"
-            skipped.each { |item| puts "Skipped: #{item}" }
-          end
-          RUBY
+            sleep 20
+          done
 
       - name: List schemes
-        run: |
-          xcodebuild -workspace BuguLive.xcworkspace -list
+        run: xcodebuild -workspace BuguLive.xcworkspace -list
 
       - name: Build for iOS Simulator
         run: |
-          touch ios-build.log
+          set -o pipefail
           rm -rf build.xcresult
-          rm -f xcresult.json
-          set +e
 
           xcodebuild \
             -workspace BuguLive.xcworkspace \
             -scheme BuguLive \
             -configuration Debug \
-            -sdk iphonesimulator \
-            -destination "generic/platform=iOS Simulator" \
-            CODE_SIGNING_ALLOWED=NO \
-            EXCLUDED_ARCHS="" \
-            ARCHS=arm64 \
-            ONLY_ACTIVE_ARCH=YES \
-            VALID_ARCHS=arm64 \
-            SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
-            COMPILER_INDEX_STORE_ENABLE=NO \
-            SWIFT_COMPILATION_MODE=singlefile \
-            SWIFT_WHOLE_MODULE_OPTIMIZATION=NO \
-            SWIFT_ENABLE_BATCH_MODE=NO \
-            GCC_TREAT_WARNINGS_AS_ERRORS=NO \
-            GCC_WARN_INHIBIT_ALL_WARNINGS=YES \
-            CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES=YES \
-            CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER=NO \
-            CLANG_WARN_DOCUMENTATION_COMMENTS=NO \
-            CLANG_WARN_STRICT_PROTOTYPES=NO \
-            OTHER_CFLAGS="\$(inherited) -Wno-incomplete-umbrella -Wno-non-modular-include-in-framework-module -Wno-quoted-include-in-framework-header -Wno-everything" \
-            OTHER_SWIFT_FLAGS="\$(inherited) -suppress-warnings" \
-            ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS=NO \
-            ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS=NO \
-            ENABLE_USER_SCRIPT_SANDBOXING=NO \
-            -jobs 1 \
+            -destination "platform=iOS Simulator,name=iPhone 15" \
             -resultBundlePath build.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
             clean build 2>&1 | tee ios-build.log
 
-          BUILD_STATUS=${PIPESTATUS[0]}
-          echo "$BUILD_STATUS" > build-status.txt
-          exit 0
-
-      - name: Print Xcode error summary
-        if: always()
+      - name: Print error summary
+        if: failure()
         run: |
           echo "================ XCODE ERROR SUMMARY ================"
+          grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|ld:|clang: error|Command .* failed" ios-build.log | tail -500 || true
+          echo "====================================================="
 
-          if [ -f ios-build.log ]; then
-            echo ""
-            echo "---- Direct log errors ----"
-            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution|Command SwiftCompile|GeneratedAssetSymbols|QMapKit|QMap|GPUImage|ScanDependencies" ios-build.log | tail -900 || true
-          else
-            echo "ios-build.log was not created."
-          fi
-
-          echo ""
-          echo "---- Surrounding context ----"
-
-          if [ -f ios-build.log ]; then
-            grep -n -i -A 15 -B 15 -E "error:|cannot find|No such module|has no member|ambiguous|use of unresolved identifier|expected declaration|consecutive statements|SwiftCompile|Command SwiftCompile|failed with a nonzero exit code|GeneratedAssetSymbols|QMapKit|QMap|GPUImage|ScanDependencies" ios-build.log | tail -1200 || true
-          else
-            echo "ios-build.log was not created."
-          fi
-
-          echo ""
-          echo "---- xcresult issues ----"
-
+      - name: Export xcresult JSON
+        if: always()
+        run: |
           if [ -d build.xcresult ]; then
             xcrun xcresulttool get --legacy --format json --path build.xcresult > xcresult.json 2>/dev/null || \
             xcrun xcresulttool get --format json --path build.xcresult > xcresult.json 2>/dev/null || true
-
-            if [ -f xcresult.json ]; then
-              python3 - <<'PY'
-          import json
-
-          def get_value(value):
-              if isinstance(value, dict) and "_value" in value:
-                  return value.get("_value")
-              return value
-
-          def walk(obj):
-              if isinstance(obj, dict):
-                  message = get_value(obj.get("message"))
-                  document = obj.get("documentLocationInCreatingWorkspace") or obj.get("documentLocation")
-
-                  if message:
-                      print("ISSUE:", message)
-
-                  if document:
-                      print("LOCATION:", document)
-
-                  for value in obj.values():
-                      walk(value)
-
-              elif isinstance(obj, list):
-                  for item in obj:
-                      walk(item)
-
-          try:
-              with open("xcresult.json", "r", encoding="utf-8") as f:
-                  data = json.load(f)
-              walk(data)
-          except Exception as e:
-              print("Could not parse xcresult:", e)
-          PY
-            else
-              echo "Could not export xcresult.json"
-            fi
-          else
-            echo "build.xcresult was not created."
           fi
 
-          echo "====================================================="
-
-      - name: Fail if build failed
-        if: always()
-        run: |
-          if [ ! -f build-status.txt ]; then
-            echo "build-status.txt was not created. A previous step failed before xcodebuild."
-            exit 1
-          fi
-
-          STATUS=$(cat build-status.txt)
-
-          if [ "$STATUS" -eq 0 ]; then
-            echo "Build succeeded."
-            exit 0
-          fi
-
-          echo "Build failed or did not run. Status: $STATUS"
-          exit "$STATUS"
-
-      - name: Upload build logs
+      - name: Upload build artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ios-build-log
+          name: ios-build-artifacts
           path: |
             ios-build.log
             xcresult.json
+            build.xcresult
           if-no-files-found: warn
