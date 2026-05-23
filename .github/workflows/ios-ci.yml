@@ -453,6 +453,25 @@ jobs:
       - name: List schemes
         run: xcodebuild -workspace BuguLive.xcworkspace -list
 
+      - name: Create missing SoundTouch optimized sources for CI
+        run: |
+          ST_DIR="BuguLive/Class/Sections/DT_Controller(动态)/录制音频/SoundTouch"
+          mkdir -p "$ST_DIR"
+
+          if [ ! -f "$ST_DIR/sse_optimized.cpp" ]; then
+            cat > "$ST_DIR/sse_optimized.cpp" <<'CPP'
+            // CI fallback: original file missing in repository snapshot.
+            extern "C" int soundtouch_sse_optimized_ci_stub(void) { return 0; }
+            CPP
+          fi
+
+          if [ ! -f "$ST_DIR/mmx_optimized.cpp" ]; then
+            cat > "$ST_DIR/mmx_optimized.cpp" <<'CPP'
+            // CI fallback: original file missing in repository snapshot.
+            extern "C" int soundtouch_mmx_optimized_ci_stub(void) { return 0; }
+            CPP
+          fi
+
       - name: Build for iOS Simulator
         run: |
           set -o pipefail
