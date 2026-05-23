@@ -437,6 +437,17 @@ jobs:
               File.binwrite(png_path, png_data)
             end
           end
+
+          project = Xcodeproj::Project.open('BuguLive.xcodeproj')
+          project.targets.each do |build_target|
+            next if build_target.name.start_with?('Pods')
+            next unless build_target.respond_to?(:build_configurations)
+
+            build_target.build_configurations.each do |configuration|
+              configuration.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+            end
+          end
+          project.save
           RUBY
 
       - name: List schemes
