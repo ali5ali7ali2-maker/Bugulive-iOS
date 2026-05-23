@@ -458,8 +458,10 @@ jobs:
           ST_DIR='BuguLive/Class/Sections/DT_Controller(动态)/录制音频/SoundTouch'
           mkdir -p "$ST_DIR"
           STUB='// CI stub\nextern "C" int ci_stub(void){return 0;}'
-          [ -f "$ST_DIR/sse_optimized.cpp" ] || printf '%b\n' "$STUB" > "$ST_DIR/sse_optimized.cpp"
-          [ -f "$ST_DIR/mmx_optimized.cpp" ] || printf '%b\n' "$STUB" > "$ST_DIR/mmx_optimized.cpp"
+          [ -f "$ST_DIR/sse_optimized.cpp" ]   || printf '%b\n' "$STUB" > "$ST_DIR/sse_optimized.cpp"
+          [ -f "$ST_DIR/mmx_optimized.cpp" ]   || printf '%b\n' "$STUB" > "$ST_DIR/mmx_optimized.cpp"
+          [ -f "$ST_DIR/cpu_detect_x86.cpp" ]  || printf '%b\n' "$STUB" > "$ST_DIR/cpu_detect_x86.cpp"
+          [ -f "$ST_DIR/WaveHeader.cpp" ]       || printf '%b\n' "$STUB" > "$ST_DIR/WaveHeader.cpp"
 
       - name: Build for iOS Simulator
         run: |
