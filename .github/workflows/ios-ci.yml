@@ -333,6 +333,7 @@ jobs:
           ruby <<'RUBY'
           require 'xcodeproj'
           require 'fileutils'
+          require 'tmpdir'
 
           project = Xcodeproj::Project.open('BuguLive.xcodeproj')
           target = project.targets.find { |t| t.name == 'BuguLive' }
@@ -371,6 +372,15 @@ jobs:
           allowed = ['.png', '.gif', '.json', '.pdf', '.strings', '.plist', '.txt', '.html', '.xib']
           project_root = File.expand_path('.', Dir.pwd)
 
+          def valid_png?(path)
+            return false unless File.exist?(path)
+            tmp_dir = Dir.mktmpdir('png-check')
+            out_path = File.join(tmp_dir, 'out.png')
+            system('sips', '-s', 'format', 'png', path, '--out', out_path, out: File::NULL, err: File::NULL)
+          ensure
+            FileUtils.remove_entry(tmp_dir) if tmp_dir && Dir.exist?(tmp_dir)
+          end
+
           target.resources_build_phase.files_references.compact.each do |ref|
             next if ref.nil?
             next if ref.isa == 'PBXReferenceProxy'
@@ -408,14 +418,9 @@ jobs:
               next
             end
 
-            if ext == '.png'
+            if ext == '.png' && !valid_png?(path)
               begin
-                File.open(path, 'rb') do |f|
-                  sig = f.read(8)
-                  if sig != png_sig
-                    File.binwrite(path, png_data)
-                  end
-                end
+                File.binwrite(path, png_data)
               rescue
                 File.binwrite(path, png_data)
               end
