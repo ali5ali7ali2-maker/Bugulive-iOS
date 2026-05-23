@@ -117,6 +117,13 @@ jobs:
           ruby <<'RUBY'
           require 'xcodeproj'
 
+          def append_flag(existing, flag)
+            value = existing || '$(inherited)'
+            parts = value.to_s.split
+            parts << flag unless parts.include?(flag)
+            parts.join(' ')
+          end
+
           def patch_project_build_settings(project_path)
             return unless File.exist?(project_path)
 
@@ -126,15 +133,32 @@ jobs:
               target.build_configurations.each do |config|
                 config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
                 config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+
                 config.build_settings['SWIFT_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
                 config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+                config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+
                 config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
                 config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
                 config.build_settings['ARCHS'] = 'arm64'
+                config.build_settings['VALID_ARCHS'] = 'arm64'
                 config.build_settings['EXCLUDED_ARCHS'] = ''
                 config.build_settings['ENABLE_USER_SCRIPT_SANDBOXING'] = 'NO'
+
+                config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+                config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+                config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
+                config.build_settings['CLANG_WARN_STRICT_PROTOTYPES'] = 'NO'
+
                 config.build_settings['ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS'] = 'NO'
                 config.build_settings['ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS'] = 'NO'
+
+                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-incomplete-umbrella')
+                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-non-modular-include-in-framework-module')
+                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-quoted-include-in-framework-header')
+                config.build_settings['OTHER_CFLAGS'] = append_flag(config.build_settings['OTHER_CFLAGS'], '-Wno-everything')
+
+                config.build_settings['OTHER_SWIFT_FLAGS'] = append_flag(config.build_settings['OTHER_SWIFT_FLAGS'], '-suppress-warnings')
               end
             end
 
@@ -637,7 +661,13 @@ jobs:
             SWIFT_WHOLE_MODULE_OPTIMIZATION=NO \
             SWIFT_ENABLE_BATCH_MODE=NO \
             GCC_TREAT_WARNINGS_AS_ERRORS=NO \
+            GCC_WARN_INHIBIT_ALL_WARNINGS=YES \
+            CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES=YES \
             CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER=NO \
+            CLANG_WARN_DOCUMENTATION_COMMENTS=NO \
+            CLANG_WARN_STRICT_PROTOTYPES=NO \
+            OTHER_CFLAGS="\$(inherited) -Wno-incomplete-umbrella -Wno-non-modular-include-in-framework-module -Wno-quoted-include-in-framework-header -Wno-everything" \
+            OTHER_SWIFT_FLAGS="\$(inherited) -suppress-warnings" \
             ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS=NO \
             ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS=NO \
             ENABLE_USER_SCRIPT_SANDBOXING=NO \
@@ -657,16 +687,16 @@ jobs:
           if [ -f ios-build.log ]; then
             echo ""
             echo "---- Direct log errors ----"
-            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution|Command SwiftCompile|GeneratedAssetSymbols|QMapKit|QMap" ios-build.log | tail -700 || true
+            grep -n -i -E "error:|fatal error:|BUILD FAILED|framework not found|file not found|No such module|Undefined symbols|Command .* failed|unsupported option|No such file or directory|ld:|clang: error|Build input file cannot be found|SwiftCompile|EmitSwiftModule|SwiftEmitModule|cannot find|has no member|ambiguous|consecutive statements|expected declaration|use of unresolved identifier|failed with a nonzero exit code|pngcrush|Not a PNG file|PhaseScriptExecution|Command SwiftCompile|GeneratedAssetSymbols|QMapKit|QMap|GPUImage|ScanDependencies" ios-build.log | tail -900 || true
           else
             echo "ios-build.log was not created."
           fi
 
           echo ""
-          echo "---- Swift-specific surrounding context ----"
+          echo "---- Surrounding context ----"
 
           if [ -f ios-build.log ]; then
-            grep -n -i -A 12 -B 12 -E "cannot find|No such module|has no member|ambiguous|use of unresolved identifier|expected declaration|consecutive statements|SwiftCompile|Command SwiftCompile|failed with a nonzero exit code|GeneratedAssetSymbols|QMapKit|QMap" ios-build.log | tail -1000 || true
+            grep -n -i -A 15 -B 15 -E "error:|cannot find|No such module|has no member|ambiguous|use of unresolved identifier|expected declaration|consecutive statements|SwiftCompile|Command SwiftCompile|failed with a nonzero exit code|GeneratedAssetSymbols|QMapKit|QMap|GPUImage|ScanDependencies" ios-build.log | tail -1200 || true
           else
             echo "ios-build.log was not created."
           fi
