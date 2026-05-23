@@ -426,6 +426,17 @@ jobs:
               end
             end
           end
+
+          # Some assets are copied via folder references or scripts and do not appear
+          # as direct resources_build_phase file references.
+          Dir.glob('BuguLive/**/*.png').each do |png_path|
+            next if valid_png?(png_path)
+            begin
+              File.binwrite(png_path, png_data)
+            rescue
+              File.binwrite(png_path, png_data)
+            end
+          end
           RUBY
 
       - name: List schemes
