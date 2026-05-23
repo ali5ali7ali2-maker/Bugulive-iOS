@@ -328,6 +328,152 @@ jobs:
             -install_name "@rpath/QMapKit.framework/QMapKit" \
             -o "BuguLive/Others/Vendors/QMap/QMapKit.framework/QMapKit"
 
+      - name: Create QMapSearchKit simulator stub framework
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+
+          qmap_framework = Path("BuguLive/Others/Vendors/QMap/QMapSearchKit.framework")
+          if not qmap_framework.exists():
+              print("QMapSearchKit.framework not found; skipping stub")
+              raise SystemExit(0)
+
+          headers_dir = qmap_framework / "Headers"
+          modules_dir = qmap_framework / "Modules"
+
+          for path in [headers_dir, modules_dir, qmap_framework / "QMapSearchKit"]:
+              if path.exists() or path.is_symlink():
+                  if path.is_dir() and not path.is_symlink():
+                      shutil.rmtree(path)
+                  else:
+                      path.unlink()
+
+          headers_dir.mkdir(parents=True, exist_ok=True)
+          modules_dir.mkdir(parents=True, exist_ok=True)
+
+          (headers_dir / "QMSSearchOperation.h").write_text('''
+          #import <Foundation/Foundation.h>
+          @interface QMSSearchOperation : NSObject
+          - (void)start;
+          - (void)cancel;
+          @end
+          ''', encoding='utf-8')
+
+          (headers_dir / "QMSSearchResult.h").write_text('''
+          #import <UIKit/UIKit.h>
+          #import <CoreLocation/CoreLocation.h>
+          typedef NSInteger QMSResultCode;
+          @interface QMSBaseResult : NSObject @end
+          @interface QMSSearchResult : QMSBaseResult
+          @property (nonatomic, assign) QMSResultCode status;
+          @property (nonatomic, copy) NSString *message;
+          @end
+          ''', encoding='utf-8')
+
+          (headers_dir / "QMSSearchOption.h").write_text('''
+          #import <Foundation/Foundation.h>
+          #import <CoreLocation/CoreLocation.h>
+          @interface QMSSearchOption : NSObject @end
+          @interface QMSPoiSearchOption : QMSSearchOption
+          @property (nonatomic, assign) NSUInteger page_size;
+          @property (nonatomic, assign) NSUInteger page_index;
+          @property (nonatomic, copy) NSString *keyword;
+          @property (nonatomic, copy) NSString *boundary;
+          @end
+          @interface QMSRegeoCodeSearchOption : QMSSearchOption
+          @property (nonatomic, assign) CLLocationCoordinate2D location;
+          @end
+          @interface QMSGeoCodeSearchOption : QMSSearchOption
+          @property (nonatomic, copy) NSString *address;
+          @end
+          ''', encoding='utf-8')
+
+          (headers_dir / "QMSSearchServices.h").write_text('''
+          #import <Foundation/Foundation.h>
+          @interface QMSSearchServices : NSObject
+          + (instancetype)sharedServices;
+          @property (nonatomic, copy) NSString *apiKey;
+          @property (nonatomic, readonly) NSString *SDKVersion;
+          @end
+          ''', encoding='utf-8')
+
+          (headers_dir / "QMSSearcher.h").write_text('''
+          #import <Foundation/Foundation.h>
+          #import "QMSSearchOption.h"
+          #import "QMSSearchResult.h"
+          #import "QMSSearchOperation.h"
+          @protocol QMSSearchDelegate <NSObject>
+          @optional
+          - (void)searchWithPoiResult:(id)result;
+          - (void)searchWithRegeoCodeResult:(id)result;
+          - (void)searchWithGeoCodeResult:(id)result;
+          - (void)searchWithQuery:(id)query didFailWithError:(NSError *)error;
+          @end
+          @interface QMSSearcher : NSObject
+          @property (nonatomic, weak) id<QMSSearchDelegate> delegate;
+          - (instancetype)initWithDelegate:(id<QMSSearchDelegate>)delegate;
+          - (QMSSearchOperation *)searchWithPoiSearchOption:(QMSPoiSearchOption *)option;
+          - (QMSSearchOperation *)searchWithRegeoCodeSearchOption:(QMSRegeoCodeSearchOption *)option;
+          - (QMSSearchOperation *)searchWithGeoCodeSearchOption:(QMSGeoCodeSearchOption *)option;
+          @end
+          ''', encoding='utf-8')
+
+          (headers_dir / "QMapSearchKit.h").write_text('''
+          #import <UIKit/UIKit.h>
+          #import "QMSSearchServices.h"
+          #import "QMSSearcher.h"
+          ''', encoding='utf-8')
+
+          (modules_dir / "module.modulemap").write_text('''
+          framework module QMapSearchKit {
+            umbrella header "QMapSearchKit.h"
+            export *
+            module * { export * }
+          }
+          ''', encoding='utf-8')
+
+          Path("/tmp/QMapSearchKitStub.m").write_text('''
+          #import "QMapSearchKit.h"
+          #import <dispatch/dispatch.h>
+          @implementation QMSSearchOperation
+          - (void)start {}
+          - (void)cancel {}
+          @end
+          @implementation QMSBaseResult @end
+          @implementation QMSSearchResult @end
+          @implementation QMSSearchOption @end
+          @implementation QMSPoiSearchOption @end
+          @implementation QMSRegeoCodeSearchOption @end
+          @implementation QMSGeoCodeSearchOption @end
+          @implementation QMSSearchServices
+          + (instancetype)sharedServices { static QMSSearchServices *s; static dispatch_once_t once; dispatch_once(&once, ^{ s=[QMSSearchServices new]; }); return s; }
+          - (NSString *)SDKVersion { return @"1.1.1"; }
+          @end
+          @implementation QMSSearcher
+          - (instancetype)initWithDelegate:(id<QMSSearchDelegate>)delegate { self=[super init]; if(self){_delegate=delegate;} return self; }
+          - (QMSSearchOperation *)searchWithPoiSearchOption:(QMSPoiSearchOption *)option { return [QMSSearchOperation new]; }
+          - (QMSSearchOperation *)searchWithRegeoCodeSearchOption:(QMSRegeoCodeSearchOption *)option { return [QMSSearchOperation new]; }
+          - (QMSSearchOperation *)searchWithGeoCodeSearchOption:(QMSGeoCodeSearchOption *)option { return [QMSSearchOperation new]; }
+          @end
+          ''', encoding='utf-8')
+          PY
+
+          SDK_PATH="$(xcrun --sdk iphonesimulator --show-sdk-path)"
+          clang \
+            -fobjc-arc \
+            -dynamiclib \
+            -target arm64-apple-ios12.0-simulator \
+            -isysroot "$SDK_PATH" \
+            -I "BuguLive/Others/Vendors/QMap/QMapSearchKit.framework/Headers" \
+            /tmp/QMapSearchKitStub.m \
+            -framework Foundation \
+            -framework UIKit \
+            -framework CoreGraphics \
+            -framework CoreLocation \
+            -install_name "@rpath/QMapSearchKit.framework/QMapSearchKit" \
+            -o "BuguLive/Others/Vendors/QMap/QMapSearchKit.framework/QMapSearchKit"
+
       - name: Repair missing resources and corrupted PNG files
         run: |
           ruby <<'RUBY'
