@@ -366,6 +366,11 @@ jobs:
           @property (nonatomic, assign) QMSResultCode status;
           @property (nonatomic, copy) NSString *message;
           @end
+          @interface QMSReverseGeoCodeSearchResult : QMSSearchResult
+          @property (nonatomic, copy) NSString *address;
+          @end
+          @interface QMSPoiSearchResult : QMSSearchResult @end
+          @interface QMSGeoCodeSearchResult : QMSSearchResult @end
           ''', encoding='utf-8')
 
           (headers_dir / "QMSSearchOption.h").write_text('''
@@ -610,21 +615,28 @@ jobs:
 
       - name: Stage headers from non-ASCII paths
         run: |
+          # Fix leading-space group path mismatch in project.pbxproj
+          ln -sfn "$(pwd)/BuguLive/Class/Sections/Music/SuperMusicPlayerCenterManager/UI/SuperPlayerSoundEffectVC" \
+                  "BuguLive/Class/Sections/Music/SuperMusicPlayerCenterManager/UI/ SuperPlayerSoundEffectVC"
+
           python3 - <<'PY'
           import os, shutil
           from pathlib import Path
           staging = Path('/tmp/ci_headers')
           staging.mkdir(exist_ok=True)
           for root, dirs, files in os.walk('BuguLive'):
-              for f in files:
-                  if f.endswith('.h'):
-                      src = Path(root) / f
-                      dst = staging / f
-                      if not dst.exists():
-                          try:
-                              shutil.copy2(str(src), str(dst))
-                          except Exception as e:
-                              print(f"skip {src}: {e}")
+              try:
+                  root.encode('ascii')
+              except UnicodeEncodeError:
+                  for f in files:
+                      if f.endswith('.h'):
+                          src = Path(root) / f
+                          dst = staging / f
+                          if not dst.exists():
+                              try:
+                                  shutil.copy2(str(src), str(dst))
+                              except Exception as e:
+                                  print(f"skip {src}: {e}")
           print(f"Staged {len(list(staging.iterdir()))} headers")
           PY
 
