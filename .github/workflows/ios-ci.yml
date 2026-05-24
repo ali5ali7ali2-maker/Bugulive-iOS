@@ -608,6 +608,29 @@ jobs:
           done
           [ -f "$ST_DIR/SoundTouchOperation.mm" ] || printf '%b\n' "$STUB" > "$ST_DIR/SoundTouchOperation.mm"
 
+      - name: Stage headers from non-ASCII paths
+        run: |
+          python3 - <<'PY'
+          import os, shutil
+          from pathlib import Path
+          staging = Path('/tmp/ci_headers')
+          staging.mkdir(exist_ok=True)
+          for root, dirs, files in os.walk('BuguLive'):
+              try:
+                  root.encode('ascii')
+              except UnicodeEncodeError:
+                  for f in files:
+                      if f.endswith('.h'):
+                          src = Path(root) / f
+                          dst = staging / f
+                          if not dst.exists():
+                              try:
+                                  shutil.copy2(str(src), str(dst))
+                              except Exception as e:
+                                  print(f"skip {src}: {e}")
+          print(f"Staged {len(list(staging.iterdir()))} headers")
+          PY
+
       - name: Build for iOS Simulator
         run: |
           set -o pipefail
@@ -632,6 +655,7 @@ jobs:
             CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER=NO \
             ENABLE_USER_SCRIPT_SANDBOXING=NO \
             SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
+            'HEADER_SEARCH_PATHS=$(inherited) /tmp/ci_headers' \
             clean build 2>&1 | tee ios-build.log
 
       - name: Print error summary
