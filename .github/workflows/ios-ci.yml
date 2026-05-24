@@ -603,9 +603,10 @@ jobs:
           STUB='// CI stub\nextern "C" int ci_stub(void){return 0;}'
           for f in sse_optimized.cpp mmx_optimized.cpp cpu_detect_x86.cpp WaveHeader.cpp \
                    TDStretch.cpp RateTransposer.cpp BPMDetect.cpp FIRFilter.cpp \
-                   FIFOSampleBuffer.cpp SoundTouch.cpp; do
+                   FIFOSampleBuffer.cpp SoundTouch.cpp PeakFinder.cpp; do
             [ -f "$ST_DIR/$f" ] || printf '%b\n' "$STUB" > "$ST_DIR/$f"
           done
+          [ -f "$ST_DIR/SoundTouchOperation.mm" ] || printf '%b\n' "$STUB" > "$ST_DIR/SoundTouchOperation.mm"
 
       - name: Build for iOS Simulator
         run: |
