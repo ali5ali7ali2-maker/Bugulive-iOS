@@ -615,19 +615,29 @@ jobs:
 
       - name: Stage headers from non-ASCII paths
         run: |
-          # Fix leading-space group path mismatch in project.pbxproj
-          ln -sfn "$(pwd)/BuguLive/Class/Sections/Music/SuperMusicPlayerCenterManager/UI/SuperPlayerSoundEffectVC" \
-                  "BuguLive/Class/Sections/Music/SuperMusicPlayerCenterManager/UI/ SuperPlayerSoundEffectVC"
-
           python3 - <<'PY'
           import os, shutil
           from pathlib import Path
           staging = Path('/tmp/ci_headers')
           staging.mkdir(exist_ok=True)
+
+          # Directories where pbxproj group path has a leading space, causing headermap mismatch
+          mismatch_dirs = [
+              'BuguLive/Class/Sections/Music/SuperMusicPlayerCenterManager/UI/SuperPlayerSoundEffectVC',
+          ]
+
           for root, dirs, files in os.walk('BuguLive'):
+              should_copy = False
               try:
                   root.encode('ascii')
               except UnicodeEncodeError:
+                  should_copy = True
+              if not should_copy:
+                  for d in mismatch_dirs:
+                      if root == d or root.startswith(d + os.sep):
+                          should_copy = True
+                          break
+              if should_copy:
                   for f in files:
                       if f.endswith('.h'):
                           src = Path(root) / f
