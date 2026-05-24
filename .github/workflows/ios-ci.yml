@@ -135,6 +135,15 @@ jobs:
           #import <CoreGraphics/CoreGraphics.h>
           #import <CoreLocation/CoreLocation.h>
 
+          typedef struct {
+            double x;
+            double y;
+          } QMapPoint;
+
+          static inline QMapPoint QMapPointMake(double x, double y) {
+            QMapPoint p; p.x = x; p.y = y; return p;
+          }
+
           typedef NS_ENUM(NSInteger, QMapType) {
             QMapTypeStandard = 0,
             QMapTypeSatellite = 1
