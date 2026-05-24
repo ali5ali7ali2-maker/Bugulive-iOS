@@ -616,18 +616,15 @@ jobs:
           staging = Path('/tmp/ci_headers')
           staging.mkdir(exist_ok=True)
           for root, dirs, files in os.walk('BuguLive'):
-              try:
-                  root.encode('ascii')
-              except UnicodeEncodeError:
-                  for f in files:
-                      if f.endswith('.h'):
-                          src = Path(root) / f
-                          dst = staging / f
-                          if not dst.exists():
-                              try:
-                                  shutil.copy2(str(src), str(dst))
-                              except Exception as e:
-                                  print(f"skip {src}: {e}")
+              for f in files:
+                  if f.endswith('.h'):
+                      src = Path(root) / f
+                      dst = staging / f
+                      if not dst.exists():
+                          try:
+                              shutil.copy2(str(src), str(dst))
+                          except Exception as e:
+                              print(f"skip {src}: {e}")
           print(f"Staged {len(list(staging.iterdir()))} headers")
           PY
 
