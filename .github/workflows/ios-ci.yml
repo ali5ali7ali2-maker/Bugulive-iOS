@@ -92,7 +92,7 @@ jobs:
 
       - name: Repair expected voice-room path for CI
         run: |
-          EXPECTED_DIR="BuguLive/Class/è¯­éŸ³æˆ¿é—´"
+          EXPECTED_DIR="BuguLive/Class/语音房间"
           FOUND_JSON=$(find "BuguLive/Class" -path "*/model/room_json.json" -print -quit || true)
 
           echo "Found room_json at: $FOUND_JSON"
@@ -146,8 +146,7 @@ jobs:
               '  module * { export * }\n'
               '}\n', encoding='utf-8')
 
-          # Write self-contained stub .m (no dependency on real QMapKit headers)
-          Path('/tmp/QMapKitStub.m').write_text(
+          stub = (
               '#import <Foundation/Foundation.h>\n'
               '#import <UIKit/UIKit.h>\n'
               '#import <CoreGraphics/CoreGraphics.h>\n'
@@ -272,8 +271,9 @@ jobs:
               '+ (instancetype)circleWithCenterCoordinate:(CLLocationCoordinate2D)coord radius:(CLLocationDistance)radius { return [QCircle new]; }\n'
               '- (CLLocationCoordinate2D)coordinate { return kCLLocationCoordinate2DInvalid; }\n'
               '- (CLLocationDistance)radius { return 0; }\n'
-              '@end\n',
-              encoding='utf-8')
+              '@end\n'
+          )
+          Path('/tmp/QMapKitStub.m').write_text(stub, encoding='utf-8')
 
           print("QMapKit: real headers preserved; device binary removed; module.modulemap and stub .m written")
           PY
@@ -570,7 +570,7 @@ jobs:
 
       - name: Create missing SoundTouch optimized sources for CI
         run: |
-          ST_DIR='BuguLive/Class/Sections/DT_Controller(åŠ¨æ€)/å½•åˆ¶éŸ³é¢‘/SoundTouch'
+          ST_DIR='BuguLive/Class/Sections/DT_Controller(动态)/录制音频/SoundTouch'
           mkdir -p "$ST_DIR"
           STUB='// CI stub\nextern "C" int ci_stub(void){return 0;}'
           for f in sse_optimized.cpp mmx_optimized.cpp cpu_detect_x86.cpp WaveHeader.cpp \
