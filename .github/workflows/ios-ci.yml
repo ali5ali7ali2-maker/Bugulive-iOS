@@ -116,15 +116,18 @@ jobs:
               print("QMapKit.framework not found; skipping stub")
               raise SystemExit(0)
 
-          # Keep real Headers/ symlink intact - QGeometry.h there defines QMapPoint.
-          # Only remove the ARM64-device binary (top-level symlink + versioned file).
-          qmap_binary = qmap_framework / "QMapKit"
-          if qmap_binary.exists() or qmap_binary.is_symlink():
-              if qmap_binary.is_dir() and not qmap_binary.is_symlink():
-                  shutil.rmtree(qmap_binary)
-              else:
-                  qmap_binary.unlink()
+          headers_dir = qmap_framework / "Headers"
+          modules_dir = qmap_framework / "Modules"
 
+          # Remove existing Headers (symlink or dir), Modules (symlink or dir), binary symlink
+          for path in [headers_dir, modules_dir, qmap_framework / "QMapKit"]:
+              if path.exists() or path.is_symlink():
+                  if path.is_dir() and not path.is_symlink():
+                      shutil.rmtree(path)
+                  else:
+                      path.unlink()
+
+          # Also remove versioned binary
           versions_dir = qmap_framework / "Versions"
           if versions_dir.is_dir():
               for v in versions_dir.iterdir():
@@ -132,21 +135,113 @@ jobs:
                       vb = v / "QMapKit"
                       if vb.exists() and not vb.is_symlink():
                           vb.unlink()
-                          print(f"Removed versioned binary: {vb}")
 
-          # Create Modules/module.modulemap pointing to the real QMapKit.h umbrella
-          modules_dir = qmap_framework / "Modules"
-          if modules_dir.is_symlink():
-              modules_dir.unlink()
+          # Create real Headers/ directory with stub QMapKit.h
+          headers_dir.mkdir(parents=True, exist_ok=True)
+          (headers_dir / "QMapKit.h").write_text(
+              '#import <Foundation/Foundation.h>\n'
+              '#import <UIKit/UIKit.h>\n'
+              '#import <CoreGraphics/CoreGraphics.h>\n'
+              '#import <CoreLocation/CoreLocation.h>\n'
+              'typedef struct { double x; double y; } QMapPoint;\n'
+              'static inline QMapPoint QMapPointMake(double x, double y) { QMapPoint p; p.x=x; p.y=y; return p; }\n'
+              'static inline QMapPoint QMapPointForCoordinate(CLLocationCoordinate2D c) { return QMapPointMake(c.longitude, c.latitude); }\n'
+              'typedef NS_ENUM(NSInteger, QMapType) { QMapTypeStandard=0, QMapTypeSatellite=1 };\n'
+              'typedef NS_ENUM(NSInteger, QUserTrackingMode) { QUserTrackingModeNone=0, QUserTrackingModeFollow=1, QUserTrackingModeFollowWithHeading=2 };\n'
+              '@protocol QAnnotation <NSObject>\n'
+              '@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;\n'
+              '@optional\n'
+              '@property (nonatomic, readonly, copy) NSString *title;\n'
+              '@property (nonatomic, readonly, copy) NSString *subtitle;\n'
+              '@end\n'
+              '@class QAnnotationView;\n'
+              '@class QUserLocation;\n'
+              '@class QPinAnnotationView;\n'
+              '@class QMapSearch;\n'
+              '@class QMapLocationManager;\n'
+              '@class QOverlayRenderer;\n'
+              '@class QOverlayPathRenderer;\n'
+              '@class QPolyline;\n'
+              '@class QPolygon;\n'
+              '@class QCircle;\n'
+              '@protocol QMapViewDelegate <NSObject>\n'
+              '@optional\n'
+              '@end\n'
+              '@interface QMapServices : NSObject\n'
+              '+ (instancetype)sharedServices;\n'
+              '@property (nonatomic, copy) NSString *APIKey;\n'
+              '@property (nonatomic, copy) NSString *apiKey;\n'
+              '@end\n'
+              '@interface QMapView : UIView\n'
+              '@property (nonatomic, weak) id<QMapViewDelegate> delegate;\n'
+              '@property (nonatomic) CLLocationCoordinate2D centerCoordinate;\n'
+              '@property (nonatomic) CGFloat zoomLevel;\n'
+              '@property (nonatomic) QMapType mapType;\n'
+              '@property (nonatomic) BOOL showsUserLocation;\n'
+              '@property (nonatomic) QUserTrackingMode userTrackingMode;\n'
+              '- (instancetype)initWithFrame:(CGRect)frame;\n'
+              '- (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated;\n'
+              '- (void)addAnnotation:(id<QAnnotation>)annotation;\n'
+              '- (void)addAnnotations:(NSArray *)annotations;\n'
+              '- (void)removeAnnotation:(id<QAnnotation>)annotation;\n'
+              '- (void)removeAnnotations:(NSArray *)annotations;\n'
+              '- (QAnnotationView *)viewForAnnotation:(id<QAnnotation>)annotation;\n'
+              '- (QAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier;\n'
+              '@end\n'
+              '@interface QUserLocation : NSObject\n'
+              '@property (nonatomic, strong) CLLocation *location;\n'
+              '@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;\n'
+              '@end\n'
+              '@interface QPointAnnotation : NSObject <QAnnotation>\n'
+              '@property (nonatomic) CLLocationCoordinate2D coordinate;\n'
+              '@property (nonatomic, copy) NSString *title;\n'
+              '@property (nonatomic, copy) NSString *subtitle;\n'
+              '@end\n'
+              '@interface QAnnotationView : UIView\n'
+              '@property (nonatomic, strong) id<QAnnotation> annotation;\n'
+              '@property (nonatomic, copy) NSString *reuseIdentifier;\n'
+              '@property (nonatomic, strong) UIImage *image;\n'
+              '@property (nonatomic) CGPoint centerOffset;\n'
+              '@property (nonatomic) BOOL canShowCallout;\n'
+              '@property (nonatomic) BOOL draggable;\n'
+              '- (instancetype)initWithAnnotation:(id<QAnnotation>)annotation reuseIdentifier:(NSString *)identifier;\n'
+              '@end\n'
+              '@interface QPinAnnotationView : QAnnotationView\n'
+              '@property (nonatomic) BOOL animatesDrop;\n'
+              '@property (nonatomic, strong) UIColor *pinColor;\n'
+              '@end\n'
+              '@interface QMapSearch : NSObject @end\n'
+              '@interface QMapLocationManager : NSObject\n'
+              '- (void)startUpdatingLocation;\n'
+              '- (void)stopUpdatingLocation;\n'
+              '@end\n'
+              '@interface QOverlayRenderer : NSObject @end\n'
+              '@interface QOverlayPathRenderer : QOverlayRenderer @end\n'
+              '@interface QPolyline : NSObject\n'
+              '@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;\n'
+              '+ (instancetype)polylineWithCoordinates:(CLLocationCoordinate2D *)coords count:(NSUInteger)count;\n'
+              '@end\n'
+              '@interface QPolygon : NSObject\n'
+              '@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;\n'
+              '+ (instancetype)polygonWithCoordinates:(CLLocationCoordinate2D *)coords count:(NSUInteger)count;\n'
+              '@end\n'
+              '@interface QCircle : NSObject\n'
+              '@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;\n'
+              '@property (nonatomic, readonly) CLLocationDistance radius;\n'
+              '+ (instancetype)circleWithCenterCoordinate:(CLLocationCoordinate2D)coord radius:(CLLocationDistance)radius;\n'
+              '@end\n',
+              encoding='utf-8')
+
+          # Create Modules/module.modulemap (simple - no submodule export)
           modules_dir.mkdir(parents=True, exist_ok=True)
           (modules_dir / "module.modulemap").write_text(
               'framework module QMapKit {\n'
               '  umbrella header "QMapKit.h"\n'
               '  export *\n'
-              '  module * { export * }\n'
               '}\n', encoding='utf-8')
 
-          stub = (
+          # Write self-contained stub .m for simulator binary
+          stub_m = (
               '#import <Foundation/Foundation.h>\n'
               '#import <UIKit/UIKit.h>\n'
               '#import <CoreGraphics/CoreGraphics.h>\n'
@@ -154,6 +249,7 @@ jobs:
               '#import <dispatch/dispatch.h>\n'
               'typedef struct { double x; double y; } QMapPoint;\n'
               'static inline QMapPoint QMapPointMake(double x, double y) { QMapPoint p; p.x=x; p.y=y; return p; }\n'
+              'static inline QMapPoint QMapPointForCoordinate(CLLocationCoordinate2D c) { return QMapPointMake(c.longitude, c.latitude); }\n'
               'typedef NS_ENUM(NSInteger, QMapType) { QMapTypeStandard=0, QMapTypeSatellite=1 };\n'
               'typedef NS_ENUM(NSInteger, QUserTrackingMode) { QUserTrackingModeNone=0, QUserTrackingModeFollow=1, QUserTrackingModeFollowWithHeading=2 };\n'
               '@protocol QAnnotation <NSObject>\n'
@@ -273,9 +369,9 @@ jobs:
               '- (CLLocationDistance)radius { return 0; }\n'
               '@end\n'
           )
-          Path('/tmp/QMapKitStub.m').write_text(stub, encoding='utf-8')
+          Path('/tmp/QMapKitStub.m').write_text(stub_m, encoding='utf-8')
 
-          print("QMapKit: real headers preserved; device binary removed; module.modulemap and stub .m written")
+          print("QMapKit stub: Headers/ created, module.modulemap written, stub .m written")
           PY
 
           SDK_PATH="$(xcrun --sdk iphonesimulator --show-sdk-path)"
