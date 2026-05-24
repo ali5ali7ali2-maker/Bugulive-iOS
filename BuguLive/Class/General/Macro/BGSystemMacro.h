@@ -97,6 +97,9 @@ static __inline__ CGFloat MainScreenHeight()
 }
 
 // 状态栏、导航栏、标签栏高度
+#ifdef StatusBarHeight
+#undef StatusBarHeight
+#endif
 static __inline__ CGFloat StatusBarHeight()
 {
     if (@available(iOS 13.0, *)) {
