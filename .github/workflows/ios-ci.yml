@@ -639,7 +639,7 @@ jobs:
                           break
               if should_copy:
                   for f in files:
-                      if f.endswith('.h'):
+                      if f.endswith('.h') or f.endswith('.pch'):
                           src = Path(root) / f
                           dst = staging / f
                           if not dst.exists():
