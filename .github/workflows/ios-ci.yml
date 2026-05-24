@@ -745,6 +745,54 @@ jobs:
               '@interface BRPickerView : UIView\n'
               '@end\n', encoding='utf-8')
           print("Created BRPickerView stubs")
+
+          # Stub FMDB headers (pod not present in repo)
+          fmdb_stub = (
+              '#import <Foundation/Foundation.h>\n'
+              '@class FMDatabase;\n'
+              '@class FMResultSet;\n'
+              '@interface FMResultSet : NSObject\n'
+              '- (BOOL)next;\n'
+              '- (void)close;\n'
+              '- (NSString *)stringForColumn:(NSString *)columnName;\n'
+              '- (int)intForColumn:(NSString *)columnName;\n'
+              '- (long)longForColumn:(NSString *)columnName;\n'
+              '- (long long)longLongIntForColumn:(NSString *)columnName;\n'
+              '- (BOOL)boolForColumn:(NSString *)columnName;\n'
+              '- (double)doubleForColumn:(NSString *)columnName;\n'
+              '- (NSData *)dataForColumn:(NSString *)columnName;\n'
+              '- (id)objectForColumn:(NSString *)columnName;\n'
+              '- (NSDictionary *)resultDictionary;\n'
+              '@end\n'
+              '@interface FMDatabase : NSObject\n'
+              '+ (instancetype)databaseWithPath:(NSString *)aPath;\n'
+              '- (instancetype)initWithPath:(NSString *)aPath;\n'
+              '- (BOOL)open;\n'
+              '- (BOOL)close;\n'
+              '- (BOOL)executeUpdate:(NSString *)sql, ...;\n'
+              '- (BOOL)executeUpdate:(NSString *)sql withArgumentsInArray:(NSArray *)arguments;\n'
+              '- (FMResultSet *)executeQuery:(NSString *)sql, ...;\n'
+              '- (FMResultSet *)executeQuery:(NSString *)sql withArgumentsInArray:(NSArray *)arguments;\n'
+              '- (BOOL)beginTransaction;\n'
+              '- (BOOL)commit;\n'
+              '- (BOOL)rollback;\n'
+              '- (NSError *)lastError;\n'
+              '- (NSString *)lastErrorMessage;\n'
+              '- (int)lastErrorCode;\n'
+              '@end\n'
+              'typedef void (^FMDatabaseBlock)(FMDatabase *db);\n'
+              'typedef void (^FMDatabaseTransactionBlock)(FMDatabase *db, BOOL *rollback);\n'
+              '@interface FMDatabaseQueue : NSObject\n'
+              '+ (instancetype)databaseQueueWithPath:(NSString *)aPath;\n'
+              '- (instancetype)initWithPath:(NSString *)aPath;\n'
+              '- (void)inDatabase:(FMDatabaseBlock)block;\n'
+              '- (void)inTransaction:(FMDatabaseTransactionBlock)block;\n'
+              '- (void)inDeferredTransaction:(FMDatabaseTransactionBlock)block;\n'
+              '- (void)close;\n'
+              '@end\n'
+          )
+          (staging / 'FMDB.h').write_text(fmdb_stub, encoding='utf-8')
+          print("Created FMDB.h stub")
           PY
 
       - name: Build for iOS Simulator
