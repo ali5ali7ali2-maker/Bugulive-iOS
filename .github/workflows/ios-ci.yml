@@ -795,6 +795,52 @@ jobs:
           print("Created FMDB.h stub")
           PY
 
+      - name: Fix non-ASCII folder name mismatches
+        run: |
+          python3 - <<'PY'
+          import os
+
+          # The git repo stores these paths with garbled UTF-8 bytes (Windows encoding issue)
+          # but project.pbxproj references them with proper Chinese characters.
+          # We create symlinks: correct_name -> garbled_name so Xcode can find the files.
+
+          base = 'BuguLive/Class/Sections'
+
+          # DT_Controller(动态): garbled inner bytes = 73 C3A8 C2BF C2B5 C387 C3BC
+          garbled_dt = b'DT_Controller(\x73\xc3\xa8\xc2\xbf\xc2\xb5\xc3\x87\xc3\xbc)'.decode('utf-8')
+          correct_dt = 'DT_Controller(\u52a8\u6001)'  # 动态
+
+          garbled_dt_path = os.path.join(base, garbled_dt)
+          correct_dt_path = os.path.join(base, correct_dt)
+
+          if os.path.isdir(garbled_dt_path):
+              if not os.path.lexists(correct_dt_path):
+                  os.symlink(os.path.abspath(garbled_dt_path), correct_dt_path)
+                  print(f"Created symlink: {correct_dt_path}")
+              else:
+                  print(f"Already exists: {correct_dt_path}")
+
+              # BogoTimeLine(新版动态): garbled inner bytes = C2B5 C3BB C2A6 74 C3AB C3AA 73 C3A8 C2BF C2B5 C387 C3BC
+              garbled_bogo = b'BogoTimeLine(\xc2\xb5\xc3\xbb\xc2\xa6\x74\xc3\xab\xc3\xaa\x73\xc3\xa8\xc2\xbf\xc2\xb5\xc3\x87\xc3\xbc)'.decode('utf-8')
+              correct_bogo = 'BogoTimeLine(\u65b0\u7248\u52a8\u6001)'  # 新版动态
+
+              garbled_bogo_path = os.path.join(garbled_dt_path, garbled_bogo)
+              correct_bogo_path = os.path.join(garbled_dt_path, correct_bogo)
+
+              if os.path.isdir(garbled_bogo_path):
+                  if not os.path.lexists(correct_bogo_path):
+                      os.symlink(os.path.abspath(garbled_bogo_path), correct_bogo_path)
+                      print(f"Created symlink: {correct_bogo_path}")
+                  else:
+                      print(f"Already exists: {correct_bogo_path}")
+              else:
+                  print(f"WARNING: BogoTimeLine garbled path not found: {garbled_bogo_path}")
+                  print(f"Contents of {garbled_dt_path}: {os.listdir(garbled_dt_path)}")
+          else:
+              print(f"WARNING: DT_Controller garbled path not found: {garbled_dt_path}")
+              print(f"Contents of {base}: {os.listdir(base)}")
+          PY
+
       - name: Build for iOS Simulator
         run: |
           set -o pipefail
