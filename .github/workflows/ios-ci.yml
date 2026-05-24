@@ -648,6 +648,40 @@ jobs:
                               except Exception as e:
                                   print(f"skip {src}: {e}")
           print(f"Staged {len(list(staging.iterdir()))} headers")
+
+          # Stub BRPickerView headers (pod may not install or header structure changed)
+          br_dir = staging / 'BRPickerView'
+          br_dir.mkdir(exist_ok=True)
+          (br_dir / 'BRAddressModel.h').write_text(
+              '#import <Foundation/Foundation.h>\n'
+              'NS_ASSUME_NONNULL_BEGIN\n'
+              '@interface BRProvinceModel : NSObject\n'
+              '@property (nonatomic, copy) NSString *name;\n'
+              '@property (nonatomic, strong) NSArray *cities;\n'
+              '@end\n'
+              '@interface BRCityModel : NSObject\n'
+              '@property (nonatomic, copy) NSString *name;\n'
+              '@property (nonatomic, strong) NSArray *areas;\n'
+              '@end\n'
+              '@interface BRAreaModel : NSObject\n'
+              '@property (nonatomic, copy) NSString *name;\n'
+              '@end\n'
+              'NS_ASSUME_NONNULL_END\n', encoding='utf-8')
+          (br_dir / 'BRResultModel.h').write_text(
+              '#import <Foundation/Foundation.h>\n'
+              'NS_ASSUME_NONNULL_BEGIN\n'
+              '@interface BRResultModel : NSObject\n'
+              '@property (nonatomic, copy) NSString *key;\n'
+              '@property (nonatomic, copy) NSString *value;\n'
+              '@end\n'
+              'NS_ASSUME_NONNULL_END\n', encoding='utf-8')
+          (br_dir / 'BRPickerView.h').write_text(
+              '#import <UIKit/UIKit.h>\n'
+              '#import "BRAddressModel.h"\n'
+              '#import "BRResultModel.h"\n'
+              '@interface BRPickerView : UIView\n'
+              '@end\n', encoding='utf-8')
+          print("Created BRPickerView stubs")
           PY
 
       - name: Build for iOS Simulator
