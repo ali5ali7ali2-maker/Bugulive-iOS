@@ -798,9 +798,71 @@ jobs:
       - name: Fix non-ASCII folder name mismatches
         continue-on-error: true
         run: |
-          python3 .github/scripts/fix_symlinks.py > symlink-debug.log 2>&1 || true
-          echo "--- symlink-debug.log ---"
-          cat symlink-debug.log || true
+          set +e
+          exec > symlink-debug.log 2>&1
+
+          echo "=== Fix non-ASCII symlinks ==="
+          echo "CWD: $(pwd)"
+          echo "date: $(date)"
+          echo ""
+
+          make_link() {
+            local parent="$1" correct="$2" prefix="$3"
+            local target="$parent/$correct"
+            if [ -e "$target" ] || [ -L "$target" ]; then
+              echo "SKIP (exists): $target"
+              return
+            fi
+            local found=""
+            while IFS= read -r d; do
+              name="${d##*/}"
+              [ "$name" = "$correct" ] && continue
+              case "$name" in "$prefix"*) found="$d"; break ;; esac
+            done < <(find "$parent" -maxdepth 1 -mindepth 1 -type d 2>/dev/null)
+            if [ -n "$found" ]; then
+              ln -s "$(realpath "$found")" "$target" \
+                && echo "OK: $target -> $found" \
+                || echo "FAIL: $target -> $found"
+            else
+              echo "NOMATCH: prefix='$prefix' in '$parent'"
+              echo "  contents:"
+              find "$parent" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sed 's/^/    /'
+            fi
+          }
+
+          SECTIONS="BuguLive/Class/Sections"
+          CLASS="BuguLive/Class"
+          HOME_V3="BuguLive/Class/Sections/Home/V3NewUIController"
+          LOGIN="BuguLive/Class/Sections/Login"
+          LIVE_VIEW="BuguLive/Class/Live/LiveUI/View"
+          LIVE_OTHER="BuguLive/Class/Live/LiveUI/View/OtherView"
+
+          echo "--- Sections contents ---"
+          find "$SECTIONS" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sort
+
+          echo ""
+          echo "--- Creating symlinks ---"
+          make_link "$SECTIONS"   "DT_Controller(动态)"             "DT_Controller("
+          make_link "$SECTIONS"   "YounthMode(青少年模式)"           "YounthMode("
+          make_link "$HOME_V3"    "BogoNewNoble(贵族)"              "BogoNewNoble("
+          make_link "$HOME_V3"    "BogoSquare(广场)"                "BogoSquare("
+          make_link "$LOGIN"      "Register(注册)"                  "Register("
+          make_link "$LIVE_OTHER" "Shop(购物车"                     "Shop("
+          make_link "$LIVE_OTHER" "VIP(贵族列表)"                   "VIP("
+          make_link "$LIVE_OTHER" "Wish(心愿单)"                    "Wish("
+
+          # BogoTimeLine inside DT_Controller (needs DT symlink first)
+          DT_PATH="$SECTIONS/DT_Controller(动态)"
+          if [ -d "$DT_PATH" ]; then
+            echo "--- DT_Controller contents ---"
+            find "$DT_PATH" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sort
+            make_link "$DT_PATH" "BogoTimeLine(新版动态)" "BogoTimeLine("
+          else
+            echo "DT_PATH not accessible: $DT_PATH"
+          fi
+
+          echo ""
+          echo "=== Done ==="
 
       - name: Build for iOS Simulator
         run: |
