@@ -797,152 +797,129 @@ jobs:
 
       - name: Fix non-ASCII folder name mismatches
         run: |
-          python3 - <<'PY'
-          import os, re, sys
+          python3 - <<'PY' 2>&1 | tee /tmp/symlink-debug.log
+          import os, sys
 
-          # Parse pbxproj to reconstruct ALL expected group paths with non-ASCII components.
-          # The git repo stores directory names with garbled UTF-8 bytes (Windows commit issue)
-          # but project.pbxproj references them with correct Chinese characters.
-          # We parse the pbxproj hierarchy, find every expected path that does not exist on
-          # disk, locate the garbled counterpart by (a) ASCII-prefix matching or (b) child-
-          # filename matching, and create a symlink so Xcode can find all source files.
+          def log(msg):
+              print(msg, flush=True)
 
-          with open('BuguLive.xcodeproj/project.pbxproj', encoding='utf-8', errors='replace') as f:
-              pbx = f.read()
+          log(f'=== Symlink Debug ===')
+          log(f'CWD: {os.getcwd()}')
 
-          # ── parse entries ──────────────────────────────────────────────────────
-          entries = {}
-          for m in re.finditer(
-              r'([A-F0-9]{24})\s*/\*[^*]*\*/\s*=\s*\{(.*?)\};',
-              pbx, re.DOTALL
-          ):
-              entries[m.group(1)] = m.group(2)
+          # ── diagnostic: show raw directory names ──────────────────────────────
+          def show_dir(path):
+              if not os.path.isdir(path):
+                  log(f'  DIR NOT FOUND: {path!r}')
+                  return []
+              entries = os.listdir(path)
+              log(f'  Contents of {path!r} ({len(entries)} entries):')
+              for e in sorted(entries):
+                  full = os.path.join(path, e)
+                  non_ascii = any(ord(c) > 127 for c in e)
+                  log(f'    {e!r}  non_ascii={non_ascii}  hex={e.encode("utf-8").hex()}  isdir={os.path.isdir(full)}')
+              return entries
 
-          groups = {}     # uuid -> {path, sourceTree, children}
-          file_refs = {}  # uuid -> path
-          for uuid, body in entries.items():
-              isa_m = re.search(r'\bisa\s*=\s*(\w+)', body)
-              if not isa_m:
-                  continue
-              isa = isa_m.group(1)
-              pm = re.search(r'\bpath\s*=\s*"([^"]*)"', body) or \
-                   re.search(r'\bpath\s*=\s*([^;"{\s\n][^;"\n]*?)\s*;', body)
-              path = pm.group(1).strip() if pm else ''
-              st_m = re.search(r'\bsourceTree\s*=\s*"?([^;"{\s\n]+)"?', body)
-              st = st_m.group(1) if st_m else '<group>'
-              if isa in ('PBXGroup', 'PBXVariantGroup'):
-                  ch_m = re.search(r'\bchildren\s*=\s*\((.*?)\)', body, re.DOTALL)
-                  ch = re.findall(r'([A-F0-9]{24})', ch_m.group(1)) if ch_m else []
-                  groups[uuid] = {'path': path, 'sourceTree': st, 'children': ch}
-              elif isa == 'PBXFileReference':
-                  file_refs[uuid] = path
-
-          parent_map = {}
-          for g_uuid, g in groups.items():
-              for child in g['children']:
-                  parent_map[child] = g_uuid
-
-          sys.setrecursionlimit(5000)
-          path_memo = {}
-          def get_full_path(uuid):
-              if uuid in path_memo:
-                  return path_memo[uuid]
-              g = groups.get(uuid)
-              if not g:
-                  path_memo[uuid] = ''
-                  return ''
-              path = g['path']
-              st = g['sourceTree']
-              if st == 'SOURCE_ROOT':
-                  result = path
-              elif uuid not in parent_map:
-                  result = path or ''
-              else:
-                  pp = get_full_path(parent_map[uuid])
-                  result = os.path.join(pp, path) if (pp and path) else (pp or path)
-              path_memo[uuid] = result
-              return result
-
-          # ── collect expected non-ASCII paths + their direct child filenames ────
-          non_ascii = []
-          for uuid, g in groups.items():
-              fp = get_full_path(uuid)
-              if not fp:
-                  continue
-              parts = fp.replace('\\', '/').split('/')
-              if not any(any(ord(c) > 127 for c in p) for p in parts):
-                  continue
-              child_files = {file_refs[c] for c in g['children'] if c in file_refs and file_refs[c]}
-              non_ascii.append((fp, child_files))
-
-          # shallowest first so parent symlinks are created before children
-          non_ascii.sort(key=lambda x: x[0].count('/'))
-          print(f"Expected non-ASCII group paths: {len(non_ascii)}")
-
-          def ascii_prefix(s):
-              """Return s up to (not including) the first non-ASCII character."""
-              for i, c in enumerate(s):
-                  if ord(c) > 127:
-                      return s[:i]
-              return s
-
-          created = 0
-          for expected_path, child_files in non_ascii:
-              if os.path.lexists(expected_path):
-                  continue
-              parent = os.path.dirname(expected_path)
-              expected_name = os.path.basename(expected_path)
+          # ── generic link helper ───────────────────────────────────────────────
+          def link_garbled(parent, correct_name, ascii_pfx):
+              """Find a garbled sibling matching ascii_pfx, symlink it to correct_name."""
+              expected = os.path.join(parent, correct_name)
+              if os.path.lexists(expected):
+                  log(f'  ALREADY EXISTS: {expected!r}')
+                  return True
               if not os.path.isdir(parent):
-                  print(f'  SKIP(no parent): {expected_path!r}')
-                  continue
-              try:
-                  siblings = os.listdir(parent)
-              except Exception as e:
-                  print(f'  SKIP(listdir): {parent!r}: {e}')
-                  continue
-
-              exp_ascii = ascii_prefix(expected_name)
-              candidates = []
-              for s in siblings:
-                  if not any(ord(c) > 127 for c in s):
-                      continue  # pure-ASCII siblings can't be the garbled dir
-                  s_ascii = ascii_prefix(s)
-                  if exp_ascii and s_ascii and (
-                      s_ascii.startswith(exp_ascii) or exp_ascii.startswith(s_ascii)
-                  ):
-                      candidates.append(s)
-
-              # fallback: match by child file contents when no ASCII prefix matches
-              if not candidates and child_files:
-                  for s in siblings:
-                      if not any(ord(c) > 127 for c in s):
-                          continue
-                      sp = os.path.join(parent, s)
-                      if not os.path.isdir(sp):
-                          continue
-                      try:
-                          sib_files = set(os.listdir(sp))
-                      except Exception:
-                          continue
-                      if child_files.issubset(sib_files):
-                          candidates.append(s)
-
-              if len(candidates) == 1:
-                  actual = candidates[0]
-                  real = os.path.realpath(os.path.join(parent, actual))
+                  log(f'  NO PARENT: {parent!r}')
+                  return False
+              matches = []
+              for d in os.listdir(parent):
+                  full = os.path.join(parent, d)
+                  if d == correct_name:
+                      continue
+                  if os.path.isdir(full) and d.startswith(ascii_pfx):
+                      matches.append(d)
+              log(f'  Searching {parent!r} for prefix {ascii_pfx!r}: found {matches!r}')
+              if len(matches) == 1:
+                  target = os.path.realpath(os.path.join(parent, matches[0]))
                   try:
-                      os.symlink(real, expected_path)
-                      print(f'  OK: {expected_name!r} -> {actual!r}')
-                      created += 1
+                      os.symlink(target, expected)
+                      log(f'  OK: {expected!r} -> {target!r}')
+                      return True
                   except Exception as e:
-                      print(f'  FAIL: {expected_path!r}: {e}')
-              elif len(candidates) > 1:
-                  print(f'  AMBIGUOUS: {expected_name!r}: {candidates}')
+                      log(f'  FAIL symlink: {e}')
+                      return False
+              elif len(matches) > 1:
+                  log(f'  AMBIGUOUS: {matches!r}')
               else:
-                  print(f'  NOMATCH: {expected_path!r}')
+                  log(f'  NOMATCH for {correct_name!r}')
+              return False
 
-          print(f'Symlinks created: {created}')
+          SECTIONS = 'BuguLive/Class/Sections'
+          show_dir(SECTIONS)
+
+          # ── 1. DT_Controller(动态) ────────────────────────────────────────────
+          DT_CORRECT = 'DT_Controller(\u52a8\u6001)'
+          ok_dt = link_garbled(SECTIONS, DT_CORRECT, 'DT_Controller(')
+          dt_path = os.path.join(SECTIONS, DT_CORRECT)
+          log(f'DT path exists: {os.path.isdir(dt_path)}')
+          if os.path.isdir(dt_path):
+              show_dir(dt_path)
+
+          # ── 2. BogoTimeLine(新版动态) inside DT_Controller ────────────────────
+          if os.path.isdir(dt_path):
+              link_garbled(dt_path, 'BogoTimeLine(\u65b0\u7248\u52a8\u6001)', 'BogoTimeLine(')
+
+          # ── 3. Other known garbled sections ───────────────────────────────────
+          HOME_CTRL = 'BuguLive/Class/Sections/Home/Controller'
+          HOME_V3   = 'BuguLive/Class/Sections/Home/V3NewUIController'
+          LOGIN     = 'BuguLive/Class/Sections/Login'
+          ME        = 'BuguLive/Class/Sections/Me'
+          OTHER     = 'BuguLive/Class/Sections/Other'
+          LIVE_VIEW = 'BuguLive/Class/Live/LiveUI/View'
+          LIVE_OTHER= 'BuguLive/Class/Live/LiveUI/View/OtherView'
+          CLASS     = 'BuguLive/Class'
+
+          link_garbled(HOME_V3,   'BogoNewNoble(\u8d35\u65cf)',       'BogoNewNoble(')
+          link_garbled(HOME_V3,   'BogoSquare(\u5e7f\u573a)',         'BogoSquare(')
+          link_garbled(LOGIN,     'Register(\u6ce8\u518c)',           'Register(')
+          link_garbled(LIVE_VIEW, '\u8bed\u97f3\u8fde\u9ea6',        '')  # 语音连麦 - pure Chinese
+          link_garbled(LIVE_VIEW, '\u8868\u60c5',                     '')  # 表情      - pure Chinese
+          link_garbled(LIVE_OTHER,'Shop(\u8d2d\u7269\u8f66',          'Shop(')
+          link_garbled(LIVE_OTHER,'VIP(\u8d35\u65cf\u5217\u8868)',    'VIP(')
+          link_garbled(LIVE_OTHER,'Wish(\u5fc3\u613f\u5355)',         'Wish(')
+          link_garbled(CLASS,     '\u8bed\u97f3\u623f\u95f4',         '')  # 语音房间  - pure Chinese
+          link_garbled(SECTIONS,  'YounthMode(\u9752\u5c11\u5e74\u6a21\u5f0f', 'YounthMode(')
+
+          # For purely Chinese names (empty prefix), use child-file fallback
+          def link_by_children(parent, correct_name, known_child_file):
+              """Match garbled dir by checking if known_child_file exists inside it."""
+              expected = os.path.join(parent, correct_name)
+              if os.path.lexists(expected):
+                  log(f'  ALREADY EXISTS: {expected!r}')
+                  return
+              if not os.path.isdir(parent):
+                  return
+              for d in os.listdir(parent):
+                  if not any(ord(c) > 127 for c in d):
+                      continue
+                  full = os.path.join(parent, d)
+                  if not os.path.isdir(full):
+                      continue
+                  if known_child_file in os.listdir(full):
+                      target = os.path.realpath(full)
+                      try:
+                          os.symlink(target, expected)
+                          log(f'  OK (child-match): {expected!r} -> {d!r}')
+                      except Exception as e:
+                          log(f'  FAIL (child-match): {e}')
+                      return
+              log(f'  NOMATCH (child-match): {correct_name!r} in {parent!r}')
+
+          link_by_children(LIVE_VIEW, '\u8bed\u97f3\u8fde\u9ea6', 'BogoConnMicViewController.h')
+          link_by_children(LIVE_VIEW, '\u8868\u60c5',              'BogoLiveEmojiView.h')
+          link_by_children(CLASS,     '\u8bed\u97f3\u623f\u95f4',  'BogoAudioRoomViewController.h')
+
+          log('=== Done ===')
           PY
+          cp /tmp/symlink-debug.log symlink-debug.log 2>/dev/null || true
 
       - name: Build for iOS Simulator
         run: |
@@ -995,4 +972,5 @@ jobs:
             ios-build.log
             xcresult.json
             build.xcresult
+            symlink-debug.log
           if-no-files-found: warn
