@@ -689,6 +689,12 @@ jobs:
               'BuguLive/Class/Sections/Music/SuperMusicPlayerCenterManager/UI/SuperPlayerSoundEffectVC',
           ]
 
+          # Some headers are now available from normal project paths; staging them again
+          # under /tmp/ci_headers makes the compiler see duplicate interfaces.
+          skip_headers = {
+              'MGDynamicTopicModel.h',
+          }
+
           for root, dirs, files in os.walk('BuguLive'):
               should_copy = False
               try:
@@ -703,6 +709,8 @@ jobs:
               if should_copy:
                   for f in files:
                       if f.endswith('.h') or f.endswith('.pch'):
+                          if f in skip_headers:
+                              continue
                           src = Path(root) / f
                           dst = staging / f
                           if not dst.exists():
