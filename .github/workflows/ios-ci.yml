@@ -798,47 +798,146 @@ jobs:
       - name: Fix non-ASCII folder name mismatches
         run: |
           python3 - <<'PY'
-          import os
+          import os, re, sys
 
-          # The git repo stores these paths with garbled UTF-8 bytes (Windows encoding issue)
-          # but project.pbxproj references them with proper Chinese characters.
-          # We create symlinks: correct_name -> garbled_name so Xcode can find the files.
+          # Parse pbxproj to reconstruct ALL expected group paths with non-ASCII components.
+          # The git repo stores directory names with garbled UTF-8 bytes (Windows commit issue)
+          # but project.pbxproj references them with correct Chinese characters.
+          # We parse the pbxproj hierarchy, find every expected path that does not exist on
+          # disk, locate the garbled counterpart by (a) ASCII-prefix matching or (b) child-
+          # filename matching, and create a symlink so Xcode can find all source files.
 
-          base = 'BuguLive/Class/Sections'
+          with open('BuguLive.xcodeproj/project.pbxproj', encoding='utf-8', errors='replace') as f:
+              pbx = f.read()
 
-          # DT_Controller(动态): garbled inner bytes = 73 C3A8 C2BF C2B5 C387 C3BC
-          garbled_dt = b'DT_Controller(\x73\xc3\xa8\xc2\xbf\xc2\xb5\xc3\x87\xc3\xbc)'.decode('utf-8')
-          correct_dt = 'DT_Controller(\u52a8\u6001)'  # 动态
+          # ── parse entries ──────────────────────────────────────────────────────
+          entries = {}
+          for m in re.finditer(
+              r'([A-F0-9]{24})\s*/\*[^*]*\*/\s*=\s*\{(.*?)\};',
+              pbx, re.DOTALL
+          ):
+              entries[m.group(1)] = m.group(2)
 
-          garbled_dt_path = os.path.join(base, garbled_dt)
-          correct_dt_path = os.path.join(base, correct_dt)
+          groups = {}     # uuid -> {path, sourceTree, children}
+          file_refs = {}  # uuid -> path
+          for uuid, body in entries.items():
+              isa_m = re.search(r'\bisa\s*=\s*(\w+)', body)
+              if not isa_m:
+                  continue
+              isa = isa_m.group(1)
+              pm = re.search(r'\bpath\s*=\s*"([^"]*)"', body) or \
+                   re.search(r'\bpath\s*=\s*([^;"{\s\n][^;"\n]*?)\s*;', body)
+              path = pm.group(1).strip() if pm else ''
+              st_m = re.search(r'\bsourceTree\s*=\s*"?([^;"{\s\n]+)"?', body)
+              st = st_m.group(1) if st_m else '<group>'
+              if isa in ('PBXGroup', 'PBXVariantGroup'):
+                  ch_m = re.search(r'\bchildren\s*=\s*\((.*?)\)', body, re.DOTALL)
+                  ch = re.findall(r'([A-F0-9]{24})', ch_m.group(1)) if ch_m else []
+                  groups[uuid] = {'path': path, 'sourceTree': st, 'children': ch}
+              elif isa == 'PBXFileReference':
+                  file_refs[uuid] = path
 
-          if os.path.isdir(garbled_dt_path):
-              if not os.path.lexists(correct_dt_path):
-                  os.symlink(os.path.abspath(garbled_dt_path), correct_dt_path)
-                  print(f"Created symlink: {correct_dt_path}")
+          parent_map = {}
+          for g_uuid, g in groups.items():
+              for child in g['children']:
+                  parent_map[child] = g_uuid
+
+          sys.setrecursionlimit(5000)
+          path_memo = {}
+          def get_full_path(uuid):
+              if uuid in path_memo:
+                  return path_memo[uuid]
+              g = groups.get(uuid)
+              if not g:
+                  path_memo[uuid] = ''
+                  return ''
+              path = g['path']
+              st = g['sourceTree']
+              if st == 'SOURCE_ROOT':
+                  result = path
+              elif uuid not in parent_map:
+                  result = path or ''
               else:
-                  print(f"Already exists: {correct_dt_path}")
+                  pp = get_full_path(parent_map[uuid])
+                  result = os.path.join(pp, path) if (pp and path) else (pp or path)
+              path_memo[uuid] = result
+              return result
 
-              # BogoTimeLine(新版动态): garbled inner bytes = C2B5 C3BB C2A6 74 C3AB C3AA 73 C3A8 C2BF C2B5 C387 C3BC
-              garbled_bogo = b'BogoTimeLine(\xc2\xb5\xc3\xbb\xc2\xa6\x74\xc3\xab\xc3\xaa\x73\xc3\xa8\xc2\xbf\xc2\xb5\xc3\x87\xc3\xbc)'.decode('utf-8')
-              correct_bogo = 'BogoTimeLine(\u65b0\u7248\u52a8\u6001)'  # 新版动态
+          # ── collect expected non-ASCII paths + their direct child filenames ────
+          non_ascii = []
+          for uuid, g in groups.items():
+              fp = get_full_path(uuid)
+              if not fp:
+                  continue
+              parts = fp.replace('\\', '/').split('/')
+              if not any(any(ord(c) > 127 for c in p) for p in parts):
+                  continue
+              child_files = {file_refs[c] for c in g['children'] if c in file_refs and file_refs[c]}
+              non_ascii.append((fp, child_files))
 
-              garbled_bogo_path = os.path.join(garbled_dt_path, garbled_bogo)
-              correct_bogo_path = os.path.join(garbled_dt_path, correct_bogo)
+          # shallowest first so parent symlinks are created before children
+          non_ascii.sort(key=lambda x: x[0].count('/'))
+          print(f"Expected non-ASCII group paths: {len(non_ascii)}")
 
-              if os.path.isdir(garbled_bogo_path):
-                  if not os.path.lexists(correct_bogo_path):
-                      os.symlink(os.path.abspath(garbled_bogo_path), correct_bogo_path)
-                      print(f"Created symlink: {correct_bogo_path}")
-                  else:
-                      print(f"Already exists: {correct_bogo_path}")
+          def ascii_only(s):
+              return ''.join(c for c in s if c.isascii())
+
+          created = 0
+          for expected_path, child_files in non_ascii:
+              if os.path.lexists(expected_path):
+                  continue
+              parent = os.path.dirname(expected_path)
+              expected_name = os.path.basename(expected_path)
+              if not os.path.isdir(parent):
+                  print(f'  SKIP(no parent): {expected_path!r}')
+                  continue
+              try:
+                  siblings = os.listdir(parent)
+              except Exception as e:
+                  print(f'  SKIP(listdir): {parent!r}: {e}')
+                  continue
+
+              exp_ascii = ascii_only(expected_name)
+              candidates = []
+              for s in siblings:
+                  if not any(ord(c) > 127 for c in s):
+                      continue  # pure-ASCII siblings can't be the garbled dir
+                  s_ascii = ascii_only(s)
+                  if exp_ascii and s_ascii and (
+                      s_ascii.startswith(exp_ascii) or exp_ascii.startswith(s_ascii)
+                  ):
+                      candidates.append(s)
+
+              # fallback: match by child file contents when no ASCII prefix matches
+              if not candidates and child_files:
+                  for s in siblings:
+                      if not any(ord(c) > 127 for c in s):
+                          continue
+                      sp = os.path.join(parent, s)
+                      if not os.path.isdir(sp):
+                          continue
+                      try:
+                          sib_files = set(os.listdir(sp))
+                      except Exception:
+                          continue
+                      if child_files.issubset(sib_files):
+                          candidates.append(s)
+
+              if len(candidates) == 1:
+                  actual = candidates[0]
+                  real = os.path.realpath(os.path.join(parent, actual))
+                  try:
+                      os.symlink(real, expected_path)
+                      print(f'  OK: {expected_name!r} -> {actual!r}')
+                      created += 1
+                  except Exception as e:
+                      print(f'  FAIL: {expected_path!r}: {e}')
+              elif len(candidates) > 1:
+                  print(f'  AMBIGUOUS: {expected_name!r}: {candidates}')
               else:
-                  print(f"WARNING: BogoTimeLine garbled path not found: {garbled_bogo_path}")
-                  print(f"Contents of {garbled_dt_path}: {os.listdir(garbled_dt_path)}")
-          else:
-              print(f"WARNING: DT_Controller garbled path not found: {garbled_dt_path}")
-              print(f"Contents of {base}: {os.listdir(base)}")
+                  print(f'  NOMATCH: {expected_path!r}')
+
+          print(f'Symlinks created: {created}')
           PY
 
       - name: Build for iOS Simulator
