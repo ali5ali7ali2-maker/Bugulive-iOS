@@ -14842,7 +14842,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C1C7EC7324C183460020AAF4 /* Shop(购物车 */ = {
+		C1C7EC7324C183460020AAF4 /* Shop(购物车) */ = {
 			isa = PBXGroup;
 			children = (
 				C1C7EC7424C185520020AAF4 /* MGShopView.h */,
@@ -14853,7 +14853,7 @@
 				C1C7EC7A24C18AB20020AAF4 /* MGShopListModel.h */,
 				C1C7EC7B24C18AB20020AAF4 /* MGShopListModel.m */,
 			);
-			path = "Shop(购物车";
+			path = "Shop(购物车)";
 			sourceTree = "<group>";
 		};
 		C1CA077526218A820021B2F0 /* BogoSquare(广场) */ = {
