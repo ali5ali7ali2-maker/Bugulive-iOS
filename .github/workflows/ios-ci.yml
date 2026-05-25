@@ -879,8 +879,12 @@ jobs:
           non_ascii.sort(key=lambda x: x[0].count('/'))
           print(f"Expected non-ASCII group paths: {len(non_ascii)}")
 
-          def ascii_only(s):
-              return ''.join(c for c in s if c.isascii())
+          def ascii_prefix(s):
+              """Return s up to (not including) the first non-ASCII character."""
+              for i, c in enumerate(s):
+                  if ord(c) > 127:
+                      return s[:i]
+              return s
 
           created = 0
           for expected_path, child_files in non_ascii:
@@ -897,12 +901,12 @@ jobs:
                   print(f'  SKIP(listdir): {parent!r}: {e}')
                   continue
 
-              exp_ascii = ascii_only(expected_name)
+              exp_ascii = ascii_prefix(expected_name)
               candidates = []
               for s in siblings:
                   if not any(ord(c) > 127 for c in s):
                       continue  # pure-ASCII siblings can't be the garbled dir
-                  s_ascii = ascii_only(s)
+                  s_ascii = ascii_prefix(s)
                   if exp_ascii and s_ascii and (
                       s_ascii.startswith(exp_ascii) or exp_ascii.startswith(s_ascii)
                   ):
