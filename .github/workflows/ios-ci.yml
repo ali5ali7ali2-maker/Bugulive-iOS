@@ -796,73 +796,90 @@ jobs:
           PY
 
       - name: Fix non-ASCII folder name mismatches
+        if: always()
         continue-on-error: true
         run: |
           set +e
-          exec > symlink-debug.log 2>&1
+          LOG=/tmp/fix-nonascii.log
+          echo "=== Fix non-ASCII directory names ===" > "$LOG"
+          echo "date: $(date)" >> "$LOG"
+          echo "CWD: $(pwd)" >> "$LOG"
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE" >> "$LOG"
 
-          echo "=== Fix non-ASCII symlinks ==="
-          echo "CWD: $(pwd)"
-          echo "date: $(date)"
-          echo ""
+          python3 - >> "$LOG" 2>&1 << 'PYEOF'
+import os, unicodedata, sys
 
-          make_link() {
-            local parent="$1" correct="$2" prefix="$3"
-            local target="$parent/$correct"
-            if [ -e "$target" ] || [ -L "$target" ]; then
-              echo "SKIP (exists): $target"
-              return
-            fi
-            local found=""
-            while IFS= read -r d; do
-              name="${d##*/}"
-              [ "$name" = "$correct" ] && continue
-              case "$name" in "$prefix"*) found="$d"; break ;; esac
-            done < <(find "$parent" -maxdepth 1 -mindepth 1 -type d 2>/dev/null)
-            if [ -n "$found" ]; then
-              ln -s "$(realpath "$found")" "$target" \
-                && echo "OK: $target -> $found" \
-                || echo "FAIL: $target -> $found"
-            else
-              echo "NOMATCH: prefix='$prefix' in '$parent'"
-              echo "  contents:"
-              find "$parent" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sed 's/^/    /'
-            fi
-          }
+def nfc(s):
+    return unicodedata.normalize('NFC', s)
 
-          SECTIONS="BuguLive/Class/Sections"
-          CLASS="BuguLive/Class"
-          HOME_V3="BuguLive/Class/Sections/Home/V3NewUIController"
-          LOGIN="BuguLive/Class/Sections/Login"
-          LIVE_VIEW="BuguLive/Class/Live/LiveUI/View"
-          LIVE_OTHER="BuguLive/Class/Live/LiveUI/View/OtherView"
+print('Python:', sys.version)
+print('CWD:', os.getcwd())
 
-          echo "--- Sections contents ---"
-          find "$SECTIONS" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sort
+# (parent_dir, garbled_prefix, correct_name)
+FIXES = [
+    ('BuguLive/Class/Sections',                          'DT_Controller(',   'DT_Controller(\u52a8\u6001)'),
+    ('BuguLive/Class/Sections',                          'YounthMode(',      'YounthMode(\u9752\u5c11\u5e74\u6a21\u5f0f)'),
+    ('BuguLive/Class/Sections/Home/V3NewUIController',   'BogoNewNoble(',    'BogoNewNoble(\u8d35\u65cf)'),
+    ('BuguLive/Class/Sections/Home/V3NewUIController',   'BogoSquare(',      'BogoSquare(\u5e7f\u573a)'),
+    ('BuguLive/Class/Sections/Login',                    'Register(',        'Register(\u6ce8\u518c)'),
+    ('BuguLive/Class/Live/LiveUI/View/OtherView',        'Shop(',            'Shop(\u8d2d\u7269\u8f66)'),
+    ('BuguLive/Class/Live/LiveUI/View/OtherView',        'VIP(',             'VIP(\u8d35\u65cf\u5217\u8868)'),
+    ('BuguLive/Class/Live/LiveUI/View/OtherView',        'Wish(',            'Wish(\u5fc3\u613f\u5355)'),
+]
 
-          echo ""
-          echo "--- Creating symlinks ---"
-          make_link "$SECTIONS"   "DT_Controller(动态)"             "DT_Controller("
-          make_link "$SECTIONS"   "YounthMode(青少年模式)"           "YounthMode("
-          make_link "$HOME_V3"    "BogoNewNoble(贵族)"              "BogoNewNoble("
-          make_link "$HOME_V3"    "BogoSquare(广场)"                "BogoSquare("
-          make_link "$LOGIN"      "Register(注册)"                  "Register("
-          make_link "$LIVE_OTHER" "Shop(购物车"                     "Shop("
-          make_link "$LIVE_OTHER" "VIP(贵族列表)"                   "VIP("
-          make_link "$LIVE_OTHER" "Wish(心愿单)"                    "Wish("
+for parent, prefix, correct in FIXES:
+    if not os.path.isdir(parent):
+        print(f'SKIP (no parent): {parent}')
+        continue
+    entries = os.listdir(parent)
+    print(f'Listing {parent}: {len(entries)} entries')
+    for name in entries:
+        nname = nfc(name)
+        if not nname.startswith(prefix):
+            continue
+        if nname == correct:
+            print(f'ALREADY OK: {os.path.join(parent, name)}')
+            break
+        src = os.path.join(parent, name)
+        dst = os.path.join(parent, correct)
+        print(f'RENAMING: {src!r}')
+        print(f'      TO: {dst!r}')
+        try:
+            os.rename(src, dst)
+            print(f'SUCCESS')
+        except Exception as e:
+            print(f'FAILED: {e}')
+        break
 
-          # BogoTimeLine inside DT_Controller (needs DT symlink first)
-          DT_PATH="$SECTIONS/DT_Controller(动态)"
-          if [ -d "$DT_PATH" ]; then
-            echo "--- DT_Controller contents ---"
-            find "$DT_PATH" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sort
-            make_link "$DT_PATH" "BogoTimeLine(新版动态)" "BogoTimeLine("
-          else
-            echo "DT_PATH not accessible: $DT_PATH"
-          fi
+# Fix BogoTimeLine inside DT_Controller(动态)
+dt = 'BuguLive/Class/Sections/DT_Controller(\u52a8\u6001)'
+bt_correct = 'BogoTimeLine(\u65b0\u7248\u52a8\u6001)'
+if os.path.isdir(dt):
+    print(f'DT dir exists: {dt}')
+    for name in os.listdir(dt):
+        nname = nfc(name)
+        if not nname.startswith('BogoTimeLine('):
+            continue
+        if nname == bt_correct:
+            print(f'BogoTimeLine ALREADY OK: {name}')
+            break
+        src = os.path.join(dt, name)
+        dst = os.path.join(dt, bt_correct)
+        print(f'RENAMING BogoTimeLine: {src!r} -> {dst!r}')
+        try:
+            os.rename(src, dst)
+            print(f'SUCCESS')
+        except Exception as e:
+            print(f'FAILED: {e}')
+        break
+else:
+    print(f'DT dir NOT found: {dt}')
 
-          echo ""
-          echo "=== Done ==="
+print('=== DONE ===')
+PYEOF
+
+          cp "$LOG" "$GITHUB_WORKSPACE/symlink-debug.log" 2>/dev/null || true
+          cat "$LOG" || true
 
       - name: Build for iOS Simulator
         run: |
