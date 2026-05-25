@@ -807,76 +807,76 @@ jobs:
           echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE" >> "$LOG"
 
           python3 - >> "$LOG" 2>&1 << 'PYEOF'
-import os, unicodedata, sys
+          import os, unicodedata, sys
 
-def nfc(s):
-    return unicodedata.normalize('NFC', s)
+          def nfc(s):
+              return unicodedata.normalize('NFC', s)
 
-print('Python:', sys.version)
-print('CWD:', os.getcwd())
+          print('Python:', sys.version)
+          print('CWD:', os.getcwd())
 
-# (parent_dir, garbled_prefix, correct_name)
-FIXES = [
-    ('BuguLive/Class/Sections',                          'DT_Controller(',   'DT_Controller(\u52a8\u6001)'),
-    ('BuguLive/Class/Sections',                          'YounthMode(',      'YounthMode(\u9752\u5c11\u5e74\u6a21\u5f0f)'),
-    ('BuguLive/Class/Sections/Home/V3NewUIController',   'BogoNewNoble(',    'BogoNewNoble(\u8d35\u65cf)'),
-    ('BuguLive/Class/Sections/Home/V3NewUIController',   'BogoSquare(',      'BogoSquare(\u5e7f\u573a)'),
-    ('BuguLive/Class/Sections/Login',                    'Register(',        'Register(\u6ce8\u518c)'),
-    ('BuguLive/Class/Live/LiveUI/View/OtherView',        'Shop(',            'Shop(\u8d2d\u7269\u8f66)'),
-    ('BuguLive/Class/Live/LiveUI/View/OtherView',        'VIP(',             'VIP(\u8d35\u65cf\u5217\u8868)'),
-    ('BuguLive/Class/Live/LiveUI/View/OtherView',        'Wish(',            'Wish(\u5fc3\u613f\u5355)'),
-]
+          # (parent_dir, garbled_prefix, correct_name)
+          FIXES = [
+              ('BuguLive/Class/Sections',                          'DT_Controller(',   'DT_Controller(\u52a8\u6001)'),
+              ('BuguLive/Class/Sections',                          'YounthMode(',      'YounthMode(\u9752\u5c11\u5e74\u6a21\u5f0f)'),
+              ('BuguLive/Class/Sections/Home/V3NewUIController',   'BogoNewNoble(',    'BogoNewNoble(\u8d35\u65cf)'),
+              ('BuguLive/Class/Sections/Home/V3NewUIController',   'BogoSquare(',      'BogoSquare(\u5e7f\u573a)'),
+              ('BuguLive/Class/Sections/Login',                    'Register(',        'Register(\u6ce8\u518c)'),
+              ('BuguLive/Class/Live/LiveUI/View/OtherView',        'Shop(',            'Shop(\u8d2d\u7269\u8f66)'),
+              ('BuguLive/Class/Live/LiveUI/View/OtherView',        'VIP(',             'VIP(\u8d35\u65cf\u5217\u8868)'),
+              ('BuguLive/Class/Live/LiveUI/View/OtherView',        'Wish(',            'Wish(\u5fc3\u613f\u5355)'),
+          ]
 
-for parent, prefix, correct in FIXES:
-    if not os.path.isdir(parent):
-        print(f'SKIP (no parent): {parent}')
-        continue
-    entries = os.listdir(parent)
-    print(f'Listing {parent}: {len(entries)} entries')
-    for name in entries:
-        nname = nfc(name)
-        if not nname.startswith(prefix):
-            continue
-        if nname == correct:
-            print(f'ALREADY OK: {os.path.join(parent, name)}')
-            break
-        src = os.path.join(parent, name)
-        dst = os.path.join(parent, correct)
-        print(f'RENAMING: {src!r}')
-        print(f'      TO: {dst!r}')
-        try:
-            os.rename(src, dst)
-            print(f'SUCCESS')
-        except Exception as e:
-            print(f'FAILED: {e}')
-        break
+          for parent, prefix, correct in FIXES:
+              if not os.path.isdir(parent):
+                  print(f'SKIP (no parent): {parent}')
+                  continue
+              entries = os.listdir(parent)
+              print(f'Listing {parent}: {len(entries)} entries')
+              for name in entries:
+                  nname = nfc(name)
+                  if not nname.startswith(prefix):
+                      continue
+                  if nname == correct:
+                      print(f'ALREADY OK: {os.path.join(parent, name)}')
+                      break
+                  src = os.path.join(parent, name)
+                  dst = os.path.join(parent, correct)
+                  print(f'RENAMING: {src!r}')
+                  print(f'      TO: {dst!r}')
+                  try:
+                      os.rename(src, dst)
+                      print('SUCCESS')
+                  except Exception as e:
+                      print(f'FAILED: {e}')
+                  break
 
-# Fix BogoTimeLine inside DT_Controller(动态)
-dt = 'BuguLive/Class/Sections/DT_Controller(\u52a8\u6001)'
-bt_correct = 'BogoTimeLine(\u65b0\u7248\u52a8\u6001)'
-if os.path.isdir(dt):
-    print(f'DT dir exists: {dt}')
-    for name in os.listdir(dt):
-        nname = nfc(name)
-        if not nname.startswith('BogoTimeLine('):
-            continue
-        if nname == bt_correct:
-            print(f'BogoTimeLine ALREADY OK: {name}')
-            break
-        src = os.path.join(dt, name)
-        dst = os.path.join(dt, bt_correct)
-        print(f'RENAMING BogoTimeLine: {src!r} -> {dst!r}')
-        try:
-            os.rename(src, dst)
-            print(f'SUCCESS')
-        except Exception as e:
-            print(f'FAILED: {e}')
-        break
-else:
-    print(f'DT dir NOT found: {dt}')
+          # Fix BogoTimeLine inside DT_Controller(动态)
+          dt = 'BuguLive/Class/Sections/DT_Controller(\u52a8\u6001)'
+          bt_correct = 'BogoTimeLine(\u65b0\u7248\u52a8\u6001)'
+          if os.path.isdir(dt):
+              print(f'DT dir exists: {dt}')
+              for name in os.listdir(dt):
+                  nname = nfc(name)
+                  if not nname.startswith('BogoTimeLine('):
+                      continue
+                  if nname == bt_correct:
+                      print(f'BogoTimeLine ALREADY OK: {name}')
+                      break
+                  src = os.path.join(dt, name)
+                  dst = os.path.join(dt, bt_correct)
+                  print(f'RENAMING BogoTimeLine: {src!r} -> {dst!r}')
+                  try:
+                      os.rename(src, dst)
+                      print('SUCCESS')
+                  except Exception as e:
+                      print(f'FAILED: {e}')
+                  break
+          else:
+              print(f'DT dir NOT found: {dt}')
 
-print('=== DONE ===')
-PYEOF
+          print('=== DONE ===')
+          PYEOF
 
           cp "$LOG" "$GITHUB_WORKSPACE/symlink-debug.log" 2>/dev/null || true
           cat "$LOG" || true
