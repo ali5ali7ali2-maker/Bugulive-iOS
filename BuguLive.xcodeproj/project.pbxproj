@@ -7446,7 +7446,7 @@
 				91D7043D2ABDA49A00C136D6 /* Game */,
 				043317462711432900C6174D /* Invite */,
 				045A4AC926F4433300083CBF /* NewUserPage */,
-				C16AFDB826EC598700858276 /* YounthMode(青少年模式 */,
+				C16AFDB826EC598700858276 /* YounthMode(青少年模式) */,
 				C1519390230F75BC008E8EA6 /* DT_Controller(动态) */,
 				492F501C1F0DD67B00A3D51F /* Login */,
 				047E1C651EC1538A001B874D /* Home */,
@@ -14484,7 +14484,7 @@
 			path = NewRechargeUI;
 			sourceTree = "<group>";
 		};
-		C16AFDB826EC598700858276 /* YounthMode(青少年模式 */ = {
+		C16AFDB826EC598700858276 /* YounthMode(青少年模式) */ = {
 			isa = PBXGroup;
 			children = (
 				C1AF468526F2E8B800AC1657 /* BogoDelTextfield.h */,
@@ -14503,7 +14503,7 @@
 				C16AFDC026EC604400858276 /* BogoYouthModePassWordViewController.m */,
 				C16AFDC126EC604400858276 /* BogoYouthModePassWordViewController.xib */,
 			);
-			path = "YounthMode(青少年模式";
+			path = "YounthMode(青少年模式)";
 			sourceTree = "<group>";
 		};
 		C16D2398238D0FD700114CD3 /* NewDT_Controller */ = {
