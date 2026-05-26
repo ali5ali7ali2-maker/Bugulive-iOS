@@ -589,18 +589,17 @@
     _playerView.backgroundColor = kClearColor;
     _playerView.layer.cornerRadius = 4;
     _playerView.layer.masksToBounds = YES;
-    _playerView.maskView.playButton.hidden = YES;
-    
-//    CLPlayerViewConfigure *config = [CLPlayerViewConfigure defaultConfigure];
-//    config.mute = YES;
-    _playerView.configure.mute = YES;
-    _playerView.configure.repeatPlay = YES;
-    _playerView.isFullScreen = fullScreen;
-    _playerView.configure.mute = !fullScreen;
-    _playerView.configure.isLandscape = YES;
-    _playerView.configure.videoFillMode = VideoFillModeResizeAspectFill;
+
+    if ([_playerView.maskView respondsToSelector:NSSelectorFromString(@"playButton")]) {
+        UIButton *playButton = [_playerView.maskView valueForKey:@"playButton"];
+        playButton.hidden = YES;
+    }
     
     [_playerView updateWithConfigure:^(CLPlayerViewConfigure *configure) {
+        configure.repeatPlay = YES;
+        configure.mute = !fullScreen;
+        configure.isLandscape = YES;
+        configure.videoFillMode = VideoFillModeResizeAspectFill;
         if (fullScreen) {
             _playerView.frame = CGRectMake(0, 0, kScreenW, kScreenH);
             [self.tabBarController.view addSubview:_playerView];
