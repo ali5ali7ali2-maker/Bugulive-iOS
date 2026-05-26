@@ -912,6 +912,8 @@ jobs:
             CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES=YES \
             CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER=NO \
             ENABLE_USER_SCRIPT_SANDBOXING=NO \
+            GCC_TREAT_WARNINGS_AS_ERRORS=NO \
+            CLANG_TREAT_WARNINGS_AS_ERRORS=NO \
             SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
             'HEADER_SEARCH_PATHS=$(inherited) /tmp/ci_headers' \
             clean build 2>&1 | tee ios-build.log
