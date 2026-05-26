@@ -10,7 +10,7 @@
 #import "HJAudioBubbleConfig.h"
 
 
-typedef void(^BubbleLongPressCallBack)();
+typedef void(^BubbleLongPressCallBack)(void);
 
 @interface HJAudioBubble : UIView
 
