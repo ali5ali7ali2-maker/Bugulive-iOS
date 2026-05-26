@@ -15,6 +15,7 @@
 @property (nonatomic, strong) CLPlayerView *playerView;
 
 @property(nonatomic, assign) BOOL isDisappear;
+@property(nonatomic, assign) BOOL isPlaying;
 
 @end
 
@@ -45,23 +46,26 @@
     
     _playerView = [[CLPlayerView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
     _playerView.backgroundColor = kClearColor;
-    _playerView.maskView.playButton.alpha = 0;
+    if ([_playerView.maskView respondsToSelector:NSSelectorFromString(@"playButton")]) {
+        UIButton *playButton = [_playerView.maskView valueForKey:@"playButton"];
+        playButton.alpha = 0;
+    }
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickPlayerView:)];
     [_playerView.maskView addGestureRecognizer:tap];
 //    [_playerView.maskView.playButton addTarget:self action:@selector(clickPlayerView:) forControlEvents:UIControlEventTouchUpInside];
-    _playerView.configure.mute = YES;
-    _playerView.configure.repeatPlay = YES;
-    _playerView.isFullScreen = YES;
-    _playerView.configure.mute = NO;
-    _playerView.configure.isLandscape = YES;
+
     
     __weak __typeof(self)weakSelf = self;
     
     [_playerView updateWithConfigure:^(CLPlayerViewConfigure *configure) {
- 
+        configure.repeatPlay = YES;
+        configure.mute = NO;
+        configure.isLandscape = YES;
+
         _playerView.url = [NSURL URLWithString:self.url];
         //播放
         [_playerView playVideo];
+        self.isPlaying = YES;
     }];
     
     
@@ -79,24 +83,29 @@
     [bgView addSubview:backBtn];
 }
 
--(void)clickPlayerView:(UIButton *)sender{
+-(void)clickPlayerView:(id)sender{
     
-    if (_playerView.isUserPlay) {
+    if (self.isPlaying) {
         [_playerView pausePlay];
     }else{
         [_playerView playVideo];
     }
-    _playerView.isUserPlay = !_playerView.isUserPlay;
-    _playerView.maskView.playButton.selected = _playerView.isUserPlay;
+    self.isPlaying = !self.isPlaying;
+
+    UIButton *playButton = nil;
+    if ([_playerView.maskView respondsToSelector:NSSelectorFromString(@"playButton")]) {
+        playButton = [_playerView.maskView valueForKey:@"playButton"];
+        playButton.selected = self.isPlaying;
+    }
     
     if (_isDisappear){
         [UIView animateWithDuration:0.5 animations:^{
-            _playerView.maskView.playButton.alpha    = 0;
+            playButton.alpha = 0;
         }];
     }else{
         //重置定时消失
         [UIView animateWithDuration:0.5 animations:^{
-            _playerView.maskView.playButton.alpha    = 1;
+            playButton.alpha = 1;
         }];
     }
     _isDisappear = !_isDisappear;
