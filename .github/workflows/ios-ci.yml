@@ -693,6 +693,7 @@ jobs:
           # under /tmp/ci_headers makes the compiler see duplicate interfaces.
           skip_headers = {
               'MGDynamicTopicModel.h',
+              'HJAudioBubble.h',
           }
 
           for root, dirs, files in os.walk('BuguLive'):

@@ -595,19 +595,24 @@
         playButton.hidden = YES;
     }
     
+    __weak __typeof(self)weakSelf = self;
     [_playerView updateWithConfigure:^(CLPlayerViewConfigure *configure) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
         configure.repeatPlay = YES;
         configure.mute = !fullScreen;
         configure.isLandscape = YES;
         configure.videoFillMode = VideoFillModeResizeAspectFill;
         if (fullScreen) {
             _playerView.frame = CGRectMake(0, 0, kScreenW, kScreenH);
-            [self.tabBarController.view addSubview:_playerView];
-            UITapGestureRecognizer *tapPlayerView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapPlayerView:)];
+            [strongSelf.tabBarController.view addSubview:_playerView];
+            UITapGestureRecognizer *tapPlayerView = [[UITapGestureRecognizer alloc]initWithTarget:strongSelf action:@selector(tapPlayerView:)];
             [_playerView.maskView addGestureRecognizer:tapPlayerView];
         }else{
             [cell.ClVideoview addSubview:_playerView];
-            UITapGestureRecognizer *tapPlayerView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapBigScreen:)];
+            UITapGestureRecognizer *tapPlayerView = [[UITapGestureRecognizer alloc]initWithTarget:strongSelf action:@selector(tapBigScreen:)];
             [_playerView.maskView addGestureRecognizer:tapPlayerView];
         }
         _playerView.url =[NSURL URLWithString:cell.model.video];

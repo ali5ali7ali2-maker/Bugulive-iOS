@@ -58,20 +58,24 @@
     __weak __typeof(self)weakSelf = self;
     
     [_playerView updateWithConfigure:^(CLPlayerViewConfigure *configure) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
         configure.repeatPlay = YES;
         configure.mute = NO;
         configure.isLandscape = YES;
 
-        _playerView.url = [NSURL URLWithString:self.url];
+        _playerView.url = [NSURL URLWithString:strongSelf.url];
         //播放
         [_playerView playVideo];
-        self.isPlaying = YES;
+        strongSelf.isPlaying = YES;
     }];
     
     
     //返回按钮点击事件回调
     [_playerView backButton:^(UIButton *button) {
-        NSLog(ASLocalizedString(@"返回按钮被点击"));
+        NSLog(@"%@", ASLocalizedString(@"返回按钮被点击"));
     }];
     
     //播放完成回调

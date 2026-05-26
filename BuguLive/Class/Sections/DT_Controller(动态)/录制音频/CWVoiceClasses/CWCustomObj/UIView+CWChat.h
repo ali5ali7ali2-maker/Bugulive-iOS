@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#ifndef UIColorFromRGBA
 #define UIColorFromRGBA(R,G,B,A) [UIColor  colorWithRed: R /255.0 green: G /255.0 blue: B/255.0 alpha:A]
+#endif
 
 #define kSelectBackGroudColor UIColorFromRGBA(83, 178, 232, 1.0)
 #define kNormalBackGroudColor UIColorFromRGBA(119, 119, 119, 1.0)

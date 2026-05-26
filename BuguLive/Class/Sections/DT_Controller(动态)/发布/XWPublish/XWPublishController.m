@@ -1,14 +1,14 @@
-//
+﻿//
 //  XWPublishController.m
 //  XWPublishDemo
 //
-//  Created by 邱学伟 on 16/4/15.
-//  Copyright © 2016年 邱学伟. All rights reserved.
+//  Created by é‚±å­¦ä¼Ÿ on 16/4/15.
+//  Copyright Â© 2016å¹´ é‚±å­¦ä¼Ÿ. All rights reserved.
 //
 
 #import "XWPublishController.h"
 #import "BzoneLogic.h"
-//默认最大输入字数为  kMaxTextCount  300
+//é»˜è®¤æœ€å¤§è¾“å…¥å­—æ•°ä¸º  kMaxTextCount  300
 #define kMaxTextCount 300
 #import "CWVoiceView.h"
 #import "UIView+CWChat.h"
@@ -19,12 +19,12 @@
 #import <ZQPlayer/ZQPlayer.h>
 #import <AVFoundation/AVFoundation.h>
     
-#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height//获取设备高度
-#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width//获取设备宽度
+#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height//èŽ·å–è®¾å¤‡é«˜åº¦
+#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width//èŽ·å–è®¾å¤‡å®½åº¦
 
 @interface XWPublishController ()<UITextViewDelegate,UIScrollViewDelegate,OssUploadImageDelegate>{
     
-    //备注文本View高度
+    //å¤‡æ³¨æ–‡æœ¬Viewé«˜åº¦
     float noteTextHeight;
     float pickerViewHeight;
     float allViewHeight;
@@ -33,16 +33,16 @@
 
 
 
-/**录制音频
- *  主视图-
+/**å½•åˆ¶éŸ³é¢‘
+ *  ä¸»è§†å›¾-
  */
 @property (weak, nonatomic) IBOutlet UIScrollView *mianScrollView;
 @property(nonatomic, strong) CWVoiceView *voiceView;
 @property(nonatomic, strong) BzoneLogic *bzoneLogic;
 
-@property (nonatomic, strong) BGOssManager            *ossManager;              //oss 类
+@property (nonatomic, strong) BGOssManager            *ossManager;              //oss ç±»
 
-/** 音频气泡 */
+/** éŸ³é¢‘æ°”æ³¡ */
 @property (nonatomic, strong) HJAudioBubble *playAudio;
 @property(nonatomic,strong) AVPlayer *player;
 
@@ -60,7 +60,7 @@
         self.labelTopConstraint.constant = 20;
     }
     
-    //收起键盘
+    //æ”¶èµ·é”®ç›˜
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
@@ -78,7 +78,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRciverRecordingEnd:) name:KRecordingEnd object:nil];
-    __block typeof(self)blockself =self;
     self.navigationController.navigationBar.hidden = YES;
 }
 
@@ -88,30 +87,30 @@
 }
 
 - (void)onRciverRecordingEnd:(NSNotification *)notification{
-    [_submitBtn setTitle:ASLocalizedString(@"删除音频")forState:UIControlStateNormal];
+    [_submitBtn setTitle:ASLocalizedString(@"åˆ é™¤éŸ³é¢‘")forState:UIControlStateNormal];
     self.playAudio.hidden = NO;
     //    [CWRecordModel shareInstance].path = nil;
     [_voiceView removeFromSuperview];
 }
 
 /**
- *  取消输入
+ *  å–æ¶ˆè¾“å…¥
  */
 - (void)viewTapped{
     [self.view endEditing:YES];
 }
 
 /**
- *  初始化视图
+ *  åˆå§‹åŒ–è§†å›¾
  */
 - (void)initViews{
     _noteTextBackgroudView = [[UIView alloc]init];
     _noteTextBackgroudView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-    //文本输入框
+    //æ–‡æœ¬è¾“å…¥æ¡†
     _noteTextView = [[UITextView alloc]init];
     _noteTextView.keyboardType = UIKeyboardTypeDefault;
-    //文字样式
+    //æ–‡å­—æ ·å¼
     [_noteTextView setFont:[UIFont fontWithName:@"Heiti SC" size:15.5]];
     //    _noteTextView.textColor = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0];
     [_noteTextView setTextColor:[UIColor blackColor]];
@@ -126,28 +125,28 @@
     _textNumberLabel.text = [NSString stringWithFormat:@"0/%d    ",kMaxTextCount];
     
     _explainLabel = [[UILabel alloc]init];
-    //    _explainLabel.text = ASLocalizedString(@"添加图片不超过9张，文字备注不超过300字");
-    _explainLabel.text = [NSString stringWithFormat:ASLocalizedString(@"添加图片不超过9张，文字备注不超过%d字"),kMaxTextCount];
-    //发布按钮颜色
+    //    _explainLabel.text = ASLocalizedString(@"æ·»åŠ å›¾ç‰‡ä¸è¶…è¿‡9å¼ ï¼Œæ–‡å­—å¤‡æ³¨ä¸è¶…è¿‡300å­—");
+    _explainLabel.text = [NSString stringWithFormat:ASLocalizedString(@"æ·»åŠ å›¾ç‰‡ä¸è¶…è¿‡9å¼ ï¼Œæ–‡å­—å¤‡æ³¨ä¸è¶…è¿‡%då­—"),kMaxTextCount];
+    //å‘å¸ƒæŒ‰é’®é¢œè‰²
     _explainLabel.textColor = [UIColor colorWithRed:199.0/255.0 green:199.0/255.0 blue:199.0/255.0 alpha:1.0];
     _explainLabel.textAlignment = NSTextAlignmentCenter;
     _explainLabel.font = [UIFont boldSystemFontOfSize:12];
     
-    //发布按钮样式->可自定义!
+    //å‘å¸ƒæŒ‰é’®æ ·å¼->å¯è‡ªå®šä¹‰!
     _submitBtn = [[UIButton alloc]init];
-    [_submitBtn setTitle:ASLocalizedString(@"录制音频")forState:UIControlStateNormal];
+    [_submitBtn setTitle:ASLocalizedString(@"å½•åˆ¶éŸ³é¢‘")forState:UIControlStateNormal];
     [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_submitBtn setBackgroundColor:[UIColor colorWithHexString:@"ff4181"]];
     _submitBtn.hidden = YES;
     
-    //发布按钮样式->可自定义!
+    //å‘å¸ƒæŒ‰é’®æ ·å¼->å¯è‡ªå®šä¹‰!
     _delAudio = [[UIButton alloc]init];
-    [_delAudio setTitle:ASLocalizedString(@"删除音频")forState:UIControlStateNormal];
+    [_delAudio setTitle:ASLocalizedString(@"åˆ é™¤éŸ³é¢‘")forState:UIControlStateNormal];
     [_delAudio setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_delAudio setBackgroundColor:[UIColor colorWithHexString:@"ff4181"]];
     
-    //圆角
-    //设置圆角
+    //åœ†è§’
+    //è®¾ç½®åœ†è§’
     [_submitBtn.layer setCornerRadius:4.0f];
     [_submitBtn.layer setMasksToBounds:YES];
     [_submitBtn.layer setShouldRasterize:YES];
@@ -191,7 +190,7 @@
     [self updateViewsFrame];
 }
 /**
- *  界面布局 frame
+ *  ç•Œé¢å¸ƒå±€ frame
  */
 - (void)updateViewsFrame{
     
@@ -204,10 +203,10 @@
     
     _noteTextBackgroudView.frame = CGRectMake(0, self.labelTopConstraint.constant, SCREENWIDTH, noteTextHeight);
     
-    //文本编辑框
+    //æ–‡æœ¬ç¼–è¾‘æ¡†
     _noteTextView.frame = CGRectMake(15, self.labelTopConstraint.constant, SCREENWIDTH - 30, noteTextHeight);
     
-    //文字个数提示Label
+    //æ–‡å­—ä¸ªæ•°æç¤ºLabel
     _textNumberLabel.frame = CGRectMake(0, _noteTextView.frame.origin.y + _noteTextView.frame.size.height-15, SCREENWIDTH-10, 15);
     
     
@@ -215,11 +214,11 @@
     [self updatePickerViewFrameY:_textNumberLabel.frame.origin.y + _textNumberLabel.frame.size.height];
     
     
-    //说明文字
+    //è¯´æ˜Žæ–‡å­—
     _explainLabel.frame = CGRectMake(0, [self getPickerViewFrame].origin.y+[self getPickerViewFrame].size.height+10, SCREENWIDTH, 20);
     
     
-    //发布按钮
+    //å‘å¸ƒæŒ‰é’®
     _submitBtn.bounds = CGRectMake(10, _explainLabel.frame.origin.y+_explainLabel.frame.size.height +30, SCREENWIDTH -20, 40);
     _submitBtn.frame = CGRectMake(10, _explainLabel.frame.origin.y+_explainLabel.frame.size.height +30, SCREENWIDTH -20, 40);
     
@@ -235,13 +234,13 @@
 }
 
 /**
- *  恢复原始界面布局
+ *  æ¢å¤åŽŸå§‹ç•Œé¢å¸ƒå±€
  */
 -(void)resumeOriginalFrame{
     _noteTextBackgroudView.frame = CGRectMake(0, 0, SCREENWIDTH, noteTextHeight);
-    //文本编辑框
+    //æ–‡æœ¬ç¼–è¾‘æ¡†
     _noteTextView.frame = CGRectMake(15, 0, SCREENWIDTH - 30, noteTextHeight);
-    //文字个数提示Label
+    //æ–‡å­—ä¸ªæ•°æç¤ºLabel
     _textNumberLabel.frame = CGRectMake(0, _noteTextView.frame.origin.y + _noteTextView.frame.size.height-15, SCREENWIDTH-10, 15);
 }
 
@@ -252,8 +251,8 @@
 #pragma mark - UITextViewDelegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
-    NSLog(ASLocalizedString(@"当前输入框文字个数:%ld"),_noteTextView.text.length);
-    //当前输入字数
+    NSLog(ASLocalizedString(@"å½“å‰è¾“å…¥æ¡†æ–‡å­—ä¸ªæ•°:%ld"),_noteTextView.text.length);
+    //å½“å‰è¾“å…¥å­—æ•°
     _textNumberLabel.text = [NSString stringWithFormat:@"%lu/%d    ",(unsigned long)_noteTextView.text.length,kMaxTextCount];
     if (_noteTextView.text.length > kMaxTextCount) {
         _textNumberLabel.textColor = [UIColor redColor];
@@ -265,10 +264,10 @@
     return YES;
 }
 
-//文本框每次输入文字都会调用  -> 更改文字个数提示框
+//æ–‡æœ¬æ¡†æ¯æ¬¡è¾“å…¥æ–‡å­—éƒ½ä¼šè°ƒç”¨  -> æ›´æ”¹æ–‡å­—ä¸ªæ•°æç¤ºæ¡†
 - (void)textViewDidChangeSelection:(UITextView *)textView{
     
-    NSLog(ASLocalizedString(@"当前输入框文字个数:%ld"),_noteTextView.text.length);
+    NSLog(ASLocalizedString(@"å½“å‰è¾“å…¥æ¡†æ–‡å­—ä¸ªæ•°:%ld"),_noteTextView.text.length);
     //
     _textNumberLabel.text = [NSString stringWithFormat:@"%lu/%d    ",(unsigned long)_noteTextView.text.length,kMaxTextCount];
     if (_noteTextView.text.length > kMaxTextCount) {
@@ -281,19 +280,19 @@
 }
 
 /**
- *  文本高度自适应
+ *  æ–‡æœ¬é«˜åº¦è‡ªé€‚åº”
  */
 -(void)textChanged{
     
-    CGRect orgRect = self.noteTextView.frame;//获取原始UITextView的frame
+    CGRect orgRect = self.noteTextView.frame;//èŽ·å–åŽŸå§‹UITextViewçš„frame
     
-    //获取尺寸
+    //èŽ·å–å°ºå¯¸
     CGSize size = [self.noteTextView sizeThatFits:CGSizeMake(self.noteTextView.frame.size.width, MAXFLOAT)];
     
-    orgRect.size.height=size.height+10;//获取自适应文本内容高度
+    orgRect.size.height=size.height+10;//èŽ·å–è‡ªé€‚åº”æ–‡æœ¬å†…å®¹é«˜åº¦
     
     
-    //如果文本框没字了恢复初始尺寸
+    //å¦‚æžœæ–‡æœ¬æ¡†æ²¡å­—äº†æ¢å¤åˆå§‹å°ºå¯¸
     if (orgRect.size.height > 100) {
         noteTextHeight = orgRect.size.height;
     }else{
@@ -304,14 +303,14 @@
 }
 
 /**
- *  发布按钮点击事件
+ *  å‘å¸ƒæŒ‰é’®ç‚¹å‡»äº‹ä»¶
  */
 - (void)submitBtnClicked{
     
-    if([_submitBtn.titleLabel.text isEqualToString:ASLocalizedString(@"删除音频")])
+    if([_submitBtn.titleLabel.text isEqualToString:ASLocalizedString(@"åˆ é™¤éŸ³é¢‘")])
     {
         [CWRecordModel shareInstance].path = nil;
-        [_submitBtn setTitle:ASLocalizedString(@"录制音频")forState:UIControlStateNormal];
+        [_submitBtn setTitle:ASLocalizedString(@"å½•åˆ¶éŸ³é¢‘")forState:UIControlStateNormal];
         self.playAudio.hidden = YES;
     }
     else
@@ -321,21 +320,21 @@
     }
     
     
-    //检查输入
+    //æ£€æŸ¥è¾“å…¥
     //    if (![self checkInput]) {
     //        return;
     //    }
-    //    //输入正确将数据上传服务器->
+    //    //è¾“å…¥æ­£ç¡®å°†æ•°æ®ä¸Šä¼ æœåŠ¡å™¨->
     //    [self submitToServer];
 }
 
-#pragma maek - 检查输入
+#pragma maek - æ£€æŸ¥è¾“å…¥
 
 - (BOOL)checkInput{
-    //文本框没字
+    //æ–‡æœ¬æ¡†æ²¡å­—
     //    if (_noteTextView.text.length == 0) {
-    //        NSLog(ASLocalizedString(@"文本框没字"));
-    //        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"请输入文字")preferredStyle:UIAlertControllerStyleAlert];
+    //        NSLog(ASLocalizedString(@"æ–‡æœ¬æ¡†æ²¡å­—"));
+    //        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"è¯·è¾“å…¥æ–‡å­—")preferredStyle:UIAlertControllerStyleAlert];
     //        UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
     //        [alertController addAction:actionCacel];
     //        [self presentViewController:alertController animated:YES completion:nil];
@@ -343,10 +342,10 @@
     //        return NO;
     //    }
     
-    //文本框字数超过300
+    //æ–‡æœ¬æ¡†å­—æ•°è¶…è¿‡300
     if (_noteTextView.text.length > kMaxTextCount) {
-        NSLog(ASLocalizedString(@"文本框字数超过300"));
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"超出文字限制")preferredStyle:UIAlertControllerStyleAlert];
+        NSLog(ASLocalizedString(@"æ–‡æœ¬æ¡†å­—æ•°è¶…è¿‡300"));
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"è¶…å‡ºæ–‡å­—é™åˆ¶")preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:actionCacel];
         [self presentViewController:alertController animated:YES completion:nil];
@@ -356,11 +355,11 @@
 }
 
 - (IBAction)postData:(id)sender {
-    //检查输入
+    //æ£€æŸ¥è¾“å…¥
     if (![self checkInput]) {
         return;
     }
-    //输入正确将数据上传服务器->
+    //è¾“å…¥æ­£ç¡®å°†æ•°æ®ä¸Šä¼ æœåŠ¡å™¨->
     [self submitToServer];
 }
 
@@ -369,15 +368,13 @@
     
 }
 
-#pragma mark - 上传数据到服务器前将图片转data（上传服务器用form表单：未写）
+#pragma mark - ä¸Šä¼ æ•°æ®åˆ°æœåŠ¡å™¨å‰å°†å›¾ç‰‡è½¬dataï¼ˆä¸Šä¼ æœåŠ¡å™¨ç”¨formè¡¨å•ï¼šæœªå†™ï¼‰
 - (void)submitToServer{
     
-    [[BGHUDHelper sharedInstance]syncLoading:ASLocalizedString(@"正在上传")];
+    [[BGHUDHelper sharedInstance]syncLoading:ASLocalizedString(@"æ­£åœ¨ä¸Šä¼ ")];
 
     if (self.arrSelected >0)
-    {
-        __block typeof(self)blockself =self;
-        
+    {        
         [self PhassetgetBigImageArray:self.arrSelected isSubmit:YES callBack:^(NSArray *ary, bool isImg) {
             if (self.arrSelected.count == ary.count)
             {
@@ -397,7 +394,7 @@
 {
     
     if (imgary.count == 0 ) {
-        //如果有音频
+        //å¦‚æžœæœ‰éŸ³é¢‘
         NSString *audioPath = @"";
         if ([CWRecordModel shareInstance].path){
             audioPath = [CWRecordModel shareInstance].path;
@@ -440,24 +437,23 @@
 //
 //    id sssss = self.bigImageArray.firstObject;
     
-    //上传照片
+    //ä¸Šä¼ ç…§ç‰‡
     
-    [[BGHUDHelper sharedInstance]syncLoading:ASLocalizedString(@"正在上传数据中...")];
+    [[BGHUDHelper sharedInstance]syncLoading:ASLocalizedString(@"æ­£åœ¨ä¸Šä¼ æ•°æ®ä¸­...")];
     
-    //上传音频，没有图片时
+    //ä¸Šä¼ éŸ³é¢‘ï¼Œæ²¡æœ‰å›¾ç‰‡æ—¶
      __weak __typeof(self)weakSelf = self;
     if ([type isEqualToString:@"1"]) {
-        //上传视频
+        //ä¸Šä¼ è§†é¢‘
         
-        //视频类型的动态
+        //è§†é¢‘ç±»åž‹çš„åŠ¨æ€
         UIImage *coverimg =self.imageArray[0];
         NSData *imageData = UIImagePNGRepresentation(coverimg);
 //        dispatch_group_t group = dispatch_group_create();
         __block NSString *coverUrl;
 //        __block NSString *videoUrl;
 //        __block NSString *audioUrl = @"";
-//        __block typeof(self)blockself =self;
-        
+//        
         NSArray *coverArr  = [NSArray arrayWithObjects:imageData, nil];
         
         [_ossManager showUploadOfOssServiceOfDataMarray:coverArr andSTDynamicSelectType:STDynamicSelectPhoto andComplete:^(BOOL finished, NSMutableArray<NSString *> *urlStrMArray) {
@@ -468,7 +464,7 @@
             [[BGHUDHelper sharedInstance]syncStopLoading];
             
             NSString *audioPath = @"";
-            //如果有音频
+            //å¦‚æžœæœ‰éŸ³é¢‘
             if ([CWRecordModel shareInstance].path){
                 audioPath = [CWRecordModel shareInstance].path;
             }
@@ -485,7 +481,7 @@
                                                             
                                                             NSString *audioPath = @"";
                                                             
-                                                            //如果有音频
+                                                            //å¦‚æžœæœ‰éŸ³é¢‘
                                                             if ([CWRecordModel shareInstance].path){
                                                                 audioPath = [CWRecordModel shareInstance].path;
                                                             }
@@ -509,7 +505,7 @@
                 [[BGHUDHelper sharedInstance]syncStopLoading];
                 
                 NSString *audioPath = @"";
-                //如果有音频
+                //å¦‚æžœæœ‰éŸ³é¢‘
                 if ([CWRecordModel shareInstance].path){
                     audioPath = [CWRecordModel shareInstance].path;
                 }
@@ -529,7 +525,7 @@
 //
 //    dispatch_group_t groupOne = dispatch_group_create();
 //
-//    //循环上传图片
+//    //å¾ªçŽ¯ä¸Šä¼ å›¾ç‰‡
 //    for (int i = 0;i<self.bigImageArray.count;i++) {
 //        dispatch_group_async(groupOne, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //
@@ -545,7 +541,7 @@
 //                }];
 ////                [_ossManager asyncPutImage:timeString localFilePath:uploadPath];
 //
-//                //请求1
+//                //è¯·æ±‚1
 //                NSLog(@"Request_%d",i);
 //            }
 //
@@ -560,7 +556,7 @@
 //        if ([_ossManager isSetRightParameter])
 //        {
 //            [self saveImage:imgary.firstObject withName:@"1.png"];
-//            [[BGHUDHelper sharedInstance]tipMessage:ASLocalizedString(@"正在上传")delay:1];
+//            [[BGHUDHelper sharedInstance]tipMessage:ASLocalizedString(@"æ­£åœ¨ä¸Šä¼ ")delay:1];
 //            _timeString = [_ossManager getObjectKeyString];
 //            [_ossManager asyncPutImage:_timeString localFilePath:_uploadFilePath];
 //        }
@@ -576,7 +572,7 @@
     
 //    self.bzoneLogic addDynamicContent:_noteTextView.text WithImage:<#(nonnull NSArray *)#> andVideoPaht:(nonnull NSString *) audio_seconds:<#(nonnull NSString *)#> Success:<#^(void)block#>
     
-//    [[HUDHelper sharedInstance] syncLoading:ASLocalizedString(@"上传中")];
+//    [[HUDHelper sharedInstance] syncLoading:ASLocalizedString(@"ä¸Šä¼ ä¸­")];
 //    __weak __typeof(self)weakSelf = self;
 //    NSString *type = @"0";
 //    PHAsset *videoSet;
@@ -596,7 +592,7 @@
 //    NSMutableArray *imageMuarr = [NSMutableArray array];
 //
 //    dispatch_group_t groupOne = dispatch_group_create();
-//    //循环上传图片
+//    //å¾ªçŽ¯ä¸Šä¼ å›¾ç‰‡
 //    for (int i = 0;i<self.bigImageArray.count;i++) {
 //        dispatch_group_async(groupOne, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //
@@ -610,14 +606,14 @@
 ////                    dispatch_group_leave(groupOne);
 ////                }];
 //
-//                //请求1
+//                //è¯·æ±‚1
 //                NSLog(@"Request_%d",i);
 //            }
 //
 //        });
 //    }
 //
-//    //七牛上传视频获取连接
+//    //ä¸ƒç‰›ä¸Šä¼ è§†é¢‘èŽ·å–è¿žæŽ¥
 //    dispatch_group_notify(groupOne, dispatch_get_main_queue(), ^{
 //        if ([type isEqualToString:@"0"])
 //        {
@@ -635,10 +631,10 @@
 //
 //                    audioUrl  = [NSString  stringWithFormat:@"%@/%@",((QiNiuInfoModel *)selfPtr).domain,((QiNiuInfoModel *)selfPtr).fileKey];
 //
-//                    //图片内容的动态
+//                    //å›¾ç‰‡å†…å®¹çš„åŠ¨æ€
 //                    [_bzoneLogic addDynamicContent:_noteTextView.text WithImage:imageMuarr andVideoPaht:audioUrl audio_seconds:audio_seconds Success:^{
 //                        [CWRecordModel shareInstance].path = nil;
-//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"发布成功!")preferredStyle:UIAlertControllerStyleAlert];
+//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"å‘å¸ƒæˆåŠŸ!")preferredStyle:UIAlertControllerStyleAlert];
 //                        UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //                            [weakSelf dismissViewControllerAnimated:YES completion:nil];
 //                        }];
@@ -649,10 +645,10 @@
 //
 //                }];
 //            }else{
-//                //图片内容的动态
+//                //å›¾ç‰‡å†…å®¹çš„åŠ¨æ€
 //                [_bzoneLogic addDynamicContent:_noteTextView.text WithImage:imageMuarr andVideoPaht:[CWRecordModel shareInstance].path audio_seconds:audio_seconds Success:^{
 //                    [CWRecordModel shareInstance].path = nil;
-//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"发布成功!")preferredStyle:UIAlertControllerStyleAlert];
+//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"å‘å¸ƒæˆåŠŸ!")preferredStyle:UIAlertControllerStyleAlert];
 //                    UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
 //                    }];
@@ -667,15 +663,14 @@
 //            {
 //                return;
 //            }
-//            //视频类型的动态
+//            //è§†é¢‘ç±»åž‹çš„åŠ¨æ€
 //            UIImage *coverimg =self.imageArray[0];
 //            dispatch_group_t group = dispatch_group_create();
 //            __block NSString *coverUrl;
 //            __block NSString *videoUrl;
 //            __block NSString *audioUrl = @"";
-//            __block typeof(self)blockself =self;
-//            dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                //请求1
+////            dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                //è¯·æ±‚1
 //                dispatch_group_enter(group);
 //                [QiNiuLogic QiNiuUplaodImage:coverimg WithQiuNiuInfo:blockself->_qiniuInfo Block:^(id selfPtr) {
 //                    coverUrl = [NSString  stringWithFormat:@"%@/%@",((QiNiuInfoModel *)selfPtr).domain,((QiNiuInfoModel *)selfPtr).fileKey];
@@ -693,7 +688,7 @@
 //                    videoUrl  = [NSString  stringWithFormat:@"%@/%@",((QiNiuInfoModel *)selfPtr).domain,((QiNiuInfoModel *)selfPtr).fileKey];
 //                    dispatch_group_leave(group);
 //                }];
-//                //请求1
+//                //è¯·æ±‚1
 //                NSLog(@"Request_2");
 //            });
 //
@@ -705,7 +700,7 @@
 //                    videoUrl  = [NSString  stringWithFormat:@"%@/%@",((QiNiuInfoModel *)selfPtr).domain,((QiNiuInfoModel *)selfPtr).fileKey];
 //                    dispatch_group_leave(group);
 //                }];
-//                //请求1
+//                //è¯·æ±‚1
 //                NSLog(@"Request_2");
 //            });
 //
@@ -720,16 +715,16 @@
 //                        dispatch_group_leave(group);
 //                    }];
 //
-//                    //请求1
+//                    //è¯·æ±‚1
 //                    NSLog(@"Request_2");
 //                });
 //            }
 //
-//            //七牛上传视频获取连接
+//            //ä¸ƒç‰›ä¸Šä¼ è§†é¢‘èŽ·å–è¿žæŽ¥
 //            dispatch_group_notify(group, dispatch_get_main_queue(), ^{
 //                NSDictionary *dic =@{@"cover_url":coverUrl,@"video_url":videoUrl};
 //                [_bzoneLogic addDynamicContent:_noteTextView.text WithVideo:dic andaudio:audioUrl Success:^{
-//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"发布成功!")preferredStyle:UIAlertControllerStyleAlert];
+//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:ASLocalizedString(@"å‘å¸ƒæˆåŠŸ!")preferredStyle:UIAlertControllerStyleAlert];
 //                    UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
 //                    }];
@@ -738,7 +733,7 @@
 //                    [weakSelf presentViewController:alertController animated:YES completion:nil];
 //                }];
 //            });
-//            //回调后清空imagedata数组
+//            //å›žè°ƒåŽæ¸…ç©ºimagedataæ•°ç»„
 //        }
 //    });
 }
@@ -775,16 +770,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    NSLog(ASLocalizedString(@"内存警告..."));
+    NSLog(ASLocalizedString(@"å†…å­˜è­¦å‘Š..."));
 }
 
 - (IBAction)cancelClick:(UIButton *)sender {
-    NSLog(ASLocalizedString(@"取消"));
+    NSLog(ASLocalizedString(@"å–æ¶ˆ"));
     @autoreleasepool {
         __weak typeof(self)weakself =self;
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:ASLocalizedString(@"取消")style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *actionGiveUpPublish = [UIAlertAction actionWithTitle:ASLocalizedString(@"放弃上传")style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *actionCacel = [UIAlertAction actionWithTitle:ASLocalizedString(@"å–æ¶ˆ")style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *actionGiveUpPublish = [UIAlertAction actionWithTitle:ASLocalizedString(@"æ”¾å¼ƒä¸Šä¼ ")style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [weakself dismissViewControllerAnimated:YES completion:nil];
         }];
         [alertController addAction:actionCacel];
@@ -798,19 +793,18 @@
 
 
 
-#pragma mark- 音乐播放相关
-//播放音乐
+#pragma mark- éŸ³ä¹æ’­æ”¾ç›¸å…³
+//æ’­æ”¾éŸ³ä¹
 -(void)playWithUrl
 {
     NSURL *sourceMovieUrl = [NSURL fileURLWithPath:[CWRecordModel shareInstance].path];
-    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:sourceMovieUrl options:nil];
-
+    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:sourceMovieUrl options:nil];
     AVPlayerItem *item = [[AVPlayerItem alloc]initWithAsset:movieAsset];
 
     
-    //替换当前音乐资源
+    //æ›¿æ¢å½“å‰éŸ³ä¹èµ„æº
     [self.player replaceCurrentItemWithPlayerItem:item];
-    //开始播放
+    //å¼€å§‹æ’­æ”¾
     
     __weak __typeof(self)weakSelf = self;
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
@@ -828,7 +822,7 @@
 -(AVPlayer *)player
 {
     if (_player == nil) {
-        //初始化_player
+        //åˆå§‹åŒ–_player
         UInt32 sessionCategory = kAudioSessionCategory_MediaPlayback;
         AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(sessionCategory), &sessionCategory);
         
@@ -844,10 +838,10 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-//用户向上偏移到顶端取消输入,增强用户体验
+//ç”¨æˆ·å‘ä¸Šåç§»åˆ°é¡¶ç«¯å–æ¶ˆè¾“å…¥,å¢žå¼ºç”¨æˆ·ä½“éªŒ
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //    NSLog(ASLocalizedString(@"偏移量 scrollView.contentOffset.y:%f"),scrollView.contentOffset.y);
+    //    NSLog(ASLocalizedString(@"åç§»é‡ scrollView.contentOffset.y:%f"),scrollView.contentOffset.y);
     if (scrollView.contentOffset.y < 0) {
         [self.view endEditing:YES];
     }
@@ -872,3 +866,8 @@
 }
 
 @end
+
+
+
+
+
