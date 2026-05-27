@@ -193,14 +193,17 @@
     _playerView.backgroundColor = kClearColor;
     _playerView.layer.cornerRadius = 4;
     _playerView.layer.masksToBounds = YES;
-    _playerView.maskView.playButton.hidden = YES;
-    
-    _playerView.configure.mute = YES;
-    _playerView.configure.repeatPlay = YES;
+    if ([_playerView.maskView respondsToSelector:NSSelectorFromString(@"playButton")]) {
+        UIButton *playButton = [_playerView.maskView valueForKey:@"playButton"];
+        playButton.hidden = YES;
+    }
     _playerView.isFullScreen = NO;
-    _playerView.configure.mute = YES;
-    _playerView.configure.isLandscape = YES;
-    _playerView.configure.videoFillMode = VideoFillModeResizeAspectFill;
+    [_playerView updateWithConfigure:^(CLPlayerViewConfigure *configure) {
+        configure.mute = YES;
+        configure.repeatPlay = YES;
+        configure.isLandscape = YES;
+        configure.videoFillMode = VideoFillModeResizeAspectFill;
+    }];
     
     
     [self addSubview:_imageView];
