@@ -372,14 +372,19 @@
 - (void)submitToServer{
     
     [[BGHUDHelper sharedInstance]syncLoading:ASLocalizedString(@"æ­£åœ¨ä¸Šä¼ ")];
+    __weak __typeof(self)weakSelf = self;
 
-    if (self.arrSelected >0)
+    if (self.arrSelected.count > 0)
     {        
         [self PhassetgetBigImageArray:self.arrSelected isSubmit:YES callBack:^(NSArray *ary, bool isImg) {
-            if (self.arrSelected.count == ary.count)
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            if (!strongSelf) {
+                return;
+            }
+            if (strongSelf.arrSelected.count == ary.count)
             {
-                NSMutableArray *smallImageDataArray = [ary copy];
-                [blockself submitToserverWith:smallImageDataArray isImg:isImg];
+                NSMutableArray *smallImageDataArray = [ary mutableCopy];
+                [strongSelf submitToserverWith:smallImageDataArray isImg:isImg];
             }
         }];
     }else
