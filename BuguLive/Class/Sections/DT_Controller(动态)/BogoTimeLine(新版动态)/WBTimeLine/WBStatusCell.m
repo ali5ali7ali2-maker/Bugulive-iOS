@@ -197,7 +197,6 @@
         UIButton *playButton = [_playerView.maskView valueForKey:@"playButton"];
         playButton.hidden = YES;
     }
-    _playerView.isFullScreen = NO;
     [_playerView updateWithConfigure:^(CLPlayerViewConfigure *configure) {
         configure.mute = YES;
         configure.repeatPlay = YES;
