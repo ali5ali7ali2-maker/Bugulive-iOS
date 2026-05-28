@@ -51,6 +51,14 @@ jobs:
             exit 1
           fi
 
+          echo "Checking for leading-space pbxproj paths"
+          bad_pbx_paths=$(grep -nE 'path = " [^"]+' BuguLive.xcodeproj/project.pbxproj || true)
+          if [ -n "$bad_pbx_paths" ]; then
+            echo "$bad_pbx_paths"
+            echo "Found pbxproj path entries that begin with a space. Remove the leading space."
+            exit 1
+          fi
+
       - name: Configure Git network behavior
         run: |
           git config --global http.version HTTP/1.1

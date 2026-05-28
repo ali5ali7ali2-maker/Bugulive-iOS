@@ -12335,7 +12335,7 @@
 				49FAA5471EE1371900287A23 /* SuperPlayerSoundEffectVC.m */,
 				49FAA5481EE1371900287A23 /* SuperPlayerSoundEffectVC.xib */,
 			);
-			path = " SuperPlayerSoundEffectVC";
+			path = SuperPlayerSoundEffectVC;
 			sourceTree = "<group>";
 		};
 		49FAA5361EE1371900287A23 /* SuperPlayerSoundEffectBtnsView */ = {
