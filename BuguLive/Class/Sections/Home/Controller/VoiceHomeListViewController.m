@@ -497,7 +497,7 @@ static NSString *secondHeaderViewIdentifier = @"secondHederview";
         if (indexPath.section == 0) {
             UICollectionReusableView *header=[collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:firstHeaderViewIdentifier forIndexPath:indexPath];
             
-            UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44+StatusBarHeight)];
+            UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44 + kStatusBarHeight)];
             navView.backgroundColor = kClearColor;
             UILabel *titleLab = [[UILabel alloc] init];
             titleLab.text = @"Voice room";
@@ -507,7 +507,7 @@ static NSString *secondHeaderViewIdentifier = @"secondHederview";
             [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(navView).offset(5);
                 make.left.equalTo(@(10));
-                make.height.mas_equalTo(44+StatusBarHeight);
+                make.height.mas_equalTo(44 + kStatusBarHeight);
             }];
             
             
@@ -557,7 +557,7 @@ static NSString *secondHeaderViewIdentifier = @"secondHederview";
             [header addSubview:navView];
 
 //            [self.view addSubview:baseView];
-            self.cycleScrollView.top = 44+StatusBarHeight;
+            self.cycleScrollView.top = 44 + kStatusBarHeight;
             //头视图添加view
 //            if (!_firstL) {
 //                self.firstBtn.frame = CGRectMake(kRealValue(15), self.headView.bottom, kScreenW * 0.5, kRealValue(55));
