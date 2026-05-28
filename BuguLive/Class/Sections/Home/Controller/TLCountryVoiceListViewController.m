@@ -120,7 +120,7 @@
 //    flow.minimumLineSpacing = 3;
 //    flow.minimumInteritemSpacing = 3;
 //    flow.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 44+StatusBarHeight+200, kScreenW, kScreenHeight) collectionViewLayout:flow];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 44 + kStatusBarHeight + 200, kScreenW, kScreenHeight) collectionViewLayout:flow];
     self.currentScrollView = self.collectionView;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
