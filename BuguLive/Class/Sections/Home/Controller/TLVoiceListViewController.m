@@ -89,7 +89,7 @@
     //价格背景避免下拉是白色
     
     
-    UIImageView *navView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44+StatusBarHeight)];
+    UIImageView *navView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44 + kStatusBarHeight)];
 //    navView.backgroundColor = [UIColor colorWithHexString:@"#FBE2FF"];
     navView.userInteractionEnabled = YES;
     navView.image = [UIImage imageNamed:@"顶部渐变"];
@@ -105,7 +105,7 @@
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(navView).offset(8);
         make.left.equalTo(@(10));
-        make.height.mas_equalTo(44+StatusBarHeight);
+        make.height.mas_equalTo(44 + kStatusBarHeight);
     }];
     
     
@@ -204,7 +204,7 @@
 //    flow.minimumLineSpacing = 3;
 //    flow.minimumInteritemSpacing = 3;
 //    flow.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 44+StatusBarHeight+200, kScreenW, kScreenHeight) collectionViewLayout:flow];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 44 + kStatusBarHeight + 200, kScreenW, kScreenHeight) collectionViewLayout:flow];
     self.currentScrollView = self.collectionView;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
