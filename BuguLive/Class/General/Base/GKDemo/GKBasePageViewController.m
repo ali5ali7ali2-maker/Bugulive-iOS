@@ -165,7 +165,7 @@ static NSString *secondHeaderViewIdentifier = @"secondHederview";
     //价格背景避免下拉是白色
     
     
-    UIImageView *navView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44+StatusBarHeight)];
+    UIImageView *navView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 44 + kStatusBarHeight)];
 //    navView.backgroundColor = [UIColor colorWithHexString:@"#FBE2FF"];
     navView.userInteractionEnabled = YES;
     navView.image = [UIImage imageNamed:@"顶部渐变"];
@@ -181,7 +181,7 @@ static NSString *secondHeaderViewIdentifier = @"secondHederview";
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(navView).offset(8);
         make.left.equalTo(@(10));
-        make.height.mas_equalTo(44+StatusBarHeight);
+        make.height.mas_equalTo(44 + kStatusBarHeight);
     }];
     
     
@@ -233,7 +233,7 @@ static NSString *secondHeaderViewIdentifier = @"secondHederview";
     [self.view addSubview:self.pageScrollView];
     [self.pageScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.edges.equalTo(self.view);
-        make.top.equalTo(@(44+StatusBarHeight));
+        make.top.equalTo(@(44 + kStatusBarHeight));
         make.left.and.right.and.bottom.equalTo(self.view);
     }];
     [self initFWData];

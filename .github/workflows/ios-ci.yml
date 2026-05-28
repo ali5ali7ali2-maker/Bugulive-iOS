@@ -40,6 +40,17 @@ jobs:
           pod --version || true
           git lfs version
 
+      - name: Fast preflight for common compile blockers
+        run: |
+          set -e
+          echo "Checking for forbidden token: StatusBarHeight"
+          matches=$(grep -RInE --include='*.m' --include='*.mm' '(^|[^A-Za-z0-9_])StatusBarHeight([^A-Za-z0-9_]|$)' BuguLive || true)
+          if [ -n "$matches" ]; then
+            echo "$matches"
+            echo "Found StatusBarHeight token. Use kStatusBarHeight instead."
+            exit 1
+          fi
+
       - name: Configure Git network behavior
         run: |
           git config --global http.version HTTP/1.1

@@ -455,7 +455,7 @@
 
 -(BogoHomeTopView *)topView{
     if (!_topView) {
-        _topView = [[BogoHomeTopView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kRealValue(44) + StatusBarHeight)];
+        _topView = [[BogoHomeTopView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kRealValue(44) + kStatusBarHeight)];
         _topView.delegate = self;
     }
     return _topView;
