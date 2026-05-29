@@ -453,6 +453,16 @@ jobs:
           @end
           @interface QMSPoiSearchResult : QMSSearchResult @end
           @interface QMSGeoCodeSearchResult : QMSSearchResult @end
+          @interface QMSSuggestionPoiData : NSObject
+          @property (nonatomic, assign) CLLocationCoordinate2D location;
+          @property (nonatomic, copy) NSString *address;
+          @property (nonatomic, copy) NSString *district;
+          @property (nonatomic, copy) NSString *province;
+          @property (nonatomic, copy) NSString *city;
+          @end
+          @interface QMSSuggestionResult : QMSSearchResult
+          @property (nonatomic, strong) NSArray<QMSSuggestionPoiData *> *dataArray;
+          @end
           ''', encoding='utf-8')
 
           (headers_dir / "QMSSearchOption.h").write_text('''
@@ -470,6 +480,10 @@ jobs:
           @end
           @interface QMSGeoCodeSearchOption : QMSSearchOption
           @property (nonatomic, copy) NSString *address;
+          @end
+          @interface QMSSuggestionSearchOption : QMSSearchOption
+          @property (nonatomic, copy) NSString *keyword;
+          @property (nonatomic, copy) NSString *region;
           @end
           ''', encoding='utf-8')
 
@@ -492,6 +506,7 @@ jobs:
           - (void)searchWithPoiResult:(id)result;
           - (void)searchWithRegeoCodeResult:(id)result;
           - (void)searchWithGeoCodeResult:(id)result;
+          - (void)searchWithSuggestionSearchOption:(id)option didReceiveResult:(id)result;
           - (void)searchWithQuery:(id)query didFailWithError:(NSError *)error;
           @end
           @interface QMSSearcher : NSObject
@@ -500,6 +515,7 @@ jobs:
           - (QMSSearchOperation *)searchWithPoiSearchOption:(QMSPoiSearchOption *)option;
           - (QMSSearchOperation *)searchWithRegeoCodeSearchOption:(QMSRegeoCodeSearchOption *)option;
           - (QMSSearchOperation *)searchWithGeoCodeSearchOption:(QMSGeoCodeSearchOption *)option;
+          - (QMSSearchOperation *)searchWithSuggestionSearchOption:(QMSSuggestionSearchOption *)option;
           @end
           ''', encoding='utf-8')
 
@@ -530,6 +546,9 @@ jobs:
           @implementation QMSPoiSearchOption @end
           @implementation QMSRegeoCodeSearchOption @end
           @implementation QMSGeoCodeSearchOption @end
+          @implementation QMSSuggestionSearchOption @end
+          @implementation QMSSuggestionPoiData @end
+          @implementation QMSSuggestionResult @end
           @implementation QMSSearchServices
           + (instancetype)sharedServices { static QMSSearchServices *s; static dispatch_once_t once; dispatch_once(&once, ^{ s=[QMSSearchServices new]; }); return s; }
           - (NSString *)SDKVersion { return @"1.1.1"; }
@@ -539,6 +558,7 @@ jobs:
           - (QMSSearchOperation *)searchWithPoiSearchOption:(QMSPoiSearchOption *)option { return [QMSSearchOperation new]; }
           - (QMSSearchOperation *)searchWithRegeoCodeSearchOption:(QMSRegeoCodeSearchOption *)option { return [QMSSearchOperation new]; }
           - (QMSSearchOperation *)searchWithGeoCodeSearchOption:(QMSGeoCodeSearchOption *)option { return [QMSSearchOperation new]; }
+          - (QMSSearchOperation *)searchWithSuggestionSearchOption:(QMSSuggestionSearchOption *)option { return [QMSSearchOperation new]; }
           @end
           ''', encoding='utf-8')
           PY
