@@ -124,6 +124,31 @@ jobs:
             fi
           fi
 
+      - name: Repair known folder-path mismatches for CI
+        run: |
+          repair_dir() {
+            expected_dir="$1"
+            sentinel_file="$2"
+            found_file=$(find "BuguLive" -name "$sentinel_file" -print -quit || true)
+            if [ -z "$found_file" ]; then
+              echo "Sentinel not found: $sentinel_file"
+              return 0
+            fi
+
+            source_dir=$(dirname "$found_file")
+            if [ "$source_dir" != "$expected_dir" ]; then
+              mkdir -p "$expected_dir"
+              cp -R "$source_dir"/. "$expected_dir"/
+              echo "Repaired path for $sentinel_file -> $expected_dir"
+            else
+              echo "Path already OK for $sentinel_file"
+            fi
+          }
+
+          repair_dir "BuguLive/Class/Live/LiveUI/View/表情" "RoomFaceView.m"
+          repair_dir "BuguLive/Class/Live/LiveUI/View/语音连麦" "VoiceLianmaiView.m"
+          repair_dir "BuguLive/Class/Sections/Home/Controller/瀑布流" "XRWaterfallLayout.m"
+
       - name: Create QMapKit simulator stub framework
         run: |
           python3 - <<'PY'
