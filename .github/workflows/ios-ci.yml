@@ -469,12 +469,22 @@ jobs:
           #import <CoreLocation/CoreLocation.h>
           typedef NSInteger QMSResultCode;
           @interface QMSBaseResult : NSObject @end
+          @interface QMSReGeoCodeAdInfo : NSObject
+          @property (nonatomic, copy) NSString *province;
+          @property (nonatomic, copy) NSString *city;
+          @property (nonatomic, copy) NSString *district;
+          @end
+          @interface QMSFormattedAddresses : NSObject
+          @property (nonatomic, copy) NSString *recommend;
+          @end
           @interface QMSSearchResult : QMSBaseResult
           @property (nonatomic, assign) QMSResultCode status;
           @property (nonatomic, copy) NSString *message;
           @end
           @interface QMSReverseGeoCodeSearchResult : QMSSearchResult
           @property (nonatomic, copy) NSString *address;
+          @property (nonatomic, strong) QMSReGeoCodeAdInfo *ad_info;
+          @property (nonatomic, strong) QMSFormattedAddresses *formatted_addresses;
           @end
           @interface QMSPoiSearchResult : QMSSearchResult @end
           @interface QMSGeoCodeSearchResult : QMSSearchResult @end
@@ -503,6 +513,7 @@ jobs:
           @interface QMSRegeoCodeSearchOption : QMSSearchOption
           @property (nonatomic, assign) CLLocationCoordinate2D location;
           @end
+          @interface QMSReverseGeoCodeSearchOption : QMSRegeoCodeSearchOption @end
           @interface QMSGeoCodeSearchOption : QMSSearchOption
           @property (nonatomic, copy) NSString *address;
           @end
@@ -539,6 +550,7 @@ jobs:
           - (instancetype)initWithDelegate:(id<QMSSearchDelegate>)delegate;
           - (QMSSearchOperation *)searchWithPoiSearchOption:(QMSPoiSearchOption *)option;
           - (QMSSearchOperation *)searchWithRegeoCodeSearchOption:(QMSRegeoCodeSearchOption *)option;
+          - (QMSSearchOperation *)searchWithReverseGeoCodeSearchOption:(QMSReverseGeoCodeSearchOption *)option;
           - (QMSSearchOperation *)searchWithGeoCodeSearchOption:(QMSGeoCodeSearchOption *)option;
           - (QMSSearchOperation *)searchWithSuggestionSearchOption:(QMSSuggestionSearchOption *)option;
           @end
@@ -566,10 +578,13 @@ jobs:
           - (void)cancel {}
           @end
           @implementation QMSBaseResult @end
+          @implementation QMSReGeoCodeAdInfo @end
+          @implementation QMSFormattedAddresses @end
           @implementation QMSSearchResult @end
           @implementation QMSSearchOption @end
           @implementation QMSPoiSearchOption @end
           @implementation QMSRegeoCodeSearchOption @end
+          @implementation QMSReverseGeoCodeSearchOption @end
           @implementation QMSGeoCodeSearchOption @end
           @implementation QMSSuggestionSearchOption @end
           @implementation QMSSuggestionPoiData @end
@@ -582,6 +597,7 @@ jobs:
           - (instancetype)initWithDelegate:(id<QMSSearchDelegate>)delegate { self=[super init]; if(self){_delegate=delegate;} return self; }
           - (QMSSearchOperation *)searchWithPoiSearchOption:(QMSPoiSearchOption *)option { return [QMSSearchOperation new]; }
           - (QMSSearchOperation *)searchWithRegeoCodeSearchOption:(QMSRegeoCodeSearchOption *)option { return [QMSSearchOperation new]; }
+          - (QMSSearchOperation *)searchWithReverseGeoCodeSearchOption:(QMSReverseGeoCodeSearchOption *)option { return [QMSSearchOperation new]; }
           - (QMSSearchOperation *)searchWithGeoCodeSearchOption:(QMSGeoCodeSearchOption *)option { return [QMSSearchOperation new]; }
           - (QMSSearchOperation *)searchWithSuggestionSearchOption:(QMSSuggestionSearchOption *)option { return [QMSSearchOperation new]; }
           @end
