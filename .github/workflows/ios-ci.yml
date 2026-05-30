@@ -59,6 +59,14 @@ jobs:
             exit 1
           fi
 
+          echo "Checking for malformed Register pbxproj path"
+          bad_register_path=$(grep -n 'path = "Register(注册";' BuguLive.xcodeproj/project.pbxproj || true)
+          if [ -n "$bad_register_path" ]; then
+            echo "$bad_register_path"
+            echo "Found malformed Register path in pbxproj. Expected Register(注册)."
+            exit 1
+          fi
+
           echo "Checking for canonical Register path"
           if [ ! -f "BuguLive/Class/Sections/Login/Register(注册)/Controller/MGRegisterViewController.m" ]; then
             echo "Missing canonical Register source file at BuguLive/Class/Sections/Login/Register(注册)/Controller/MGRegisterViewController.m"

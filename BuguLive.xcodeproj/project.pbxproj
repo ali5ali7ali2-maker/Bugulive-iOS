@@ -13316,13 +13316,13 @@
 			path = "钻石充值";
 			sourceTree = "<group>";
 		};
-		C11F002724A83AC30072FCB1 /* Register(注册 */ = {
+			C11F002724A83AC30072FCB1 /* Register(注册) */ = {
 			isa = PBXGroup;
 			children = (
 				C11F002824A83AC30072FCB1 /* Controller */,
 				C11F002924A83AC30072FCB1 /* View */,
 			);
-			path = "Register(注册";
+			path = "Register(注册)";
 			sourceTree = "<group>";
 		};
 		C11F002824A83AC30072FCB1 /* Controller */ = {
