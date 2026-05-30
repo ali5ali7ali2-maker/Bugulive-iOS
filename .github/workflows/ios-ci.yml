@@ -59,6 +59,20 @@ jobs:
             exit 1
           fi
 
+          echo "Checking for canonical Register path"
+          if [ ! -f "BuguLive/Class/Sections/Login/Register(注册)/Controller/MGRegisterViewController.m" ]; then
+            echo "Missing canonical Register source file at BuguLive/Class/Sections/Login/Register(注册)/Controller/MGRegisterViewController.m"
+            echo "Likely a garbled folder name. Normalize folder to Register(注册)."
+            exit 1
+          fi
+
+          echo "Checking for canonical VIP path"
+          if [ ! -f "BuguLive/Class/Live/LiveUI/View/OtherView/VIP(贵族列表)/MGShowVipModel.m" ]; then
+            echo "Missing canonical VIP source file at BuguLive/Class/Live/LiveUI/View/OtherView/VIP(贵族列表)/MGShowVipModel.m"
+            echo "Likely a garbled folder name. Normalize folder to VIP(贵族列表)."
+            exit 1
+          fi
+
       - name: Configure Git network behavior
         run: |
           git config --global http.version HTTP/1.1
