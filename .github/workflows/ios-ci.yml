@@ -148,6 +148,7 @@ jobs:
           repair_dir "BuguLive/Class/Live/LiveUI/View/表情" "RoomFaceView.m"
           repair_dir "BuguLive/Class/Live/LiveUI/View/语音连麦" "VoiceLianmaiView.m"
           repair_dir "BuguLive/Class/Sections/Home/Controller/瀑布流" "XRWaterfallLayout.m"
+          repair_dir "BuguLive/Class/Live/LiveUI/View/OtherView/VIP(贵族列表)" "MGShowVipModel.m"
 
       - name: Create QMapKit simulator stub framework
         run: |
