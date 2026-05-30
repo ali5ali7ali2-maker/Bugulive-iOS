@@ -10849,7 +10849,7 @@
 			isa = PBXGroup;
 			children = (
 				C139C3BC26FF174B00DA184B /* BogoLogin */,
-				C11F002724A83AC30072FCB1 /* Register(注册 */,
+				C11F002724A83AC30072FCB1 /* Register(注册) */,
 				492F501D1F0DD67B00A3D51F /* Controller */,
 				492F50271F0DD67B00A3D51F /* View */,
 			);
